@@ -1,0 +1,102 @@
+
+<div class="hold-transition register-page">
+<div class="register-box">
+  <div class="card card-outline card-primary">
+    <div class="card-header text-center">
+      <img class="img-fluid" src="assets/img/logo/logo.jpg" alt="Logo">
+    </div>
+    <div class="card-body">
+      <p class="login-box-msg">Registracija korisnika</p>
+
+      <form (ngSubmit)="submit()" [formGroup]="form" >
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" formControlName="name" placeholder="Korisničko ime" [ngClass]="{'is-invalid' : submitted  && f.name.errors}" required >
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-user"></span>
+            </div>
+          </div>
+          <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+            <div *ngIf="f.name.errors.required">
+              Molim vas unesite Korisničko ime. Korisničko ime je obavezno polje
+            </div>
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <input type="email" formControlName="email" class="form-control" placeholder="Email" [ngClass]="{'is-invalid' : submitted  && f.email.errors}" required>
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-envelope"></span>
+            </div>
+          </div>
+          <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+            <div *ngIf="f.email.errors.required">
+              Molim vas unesite email. Email je obavezno polje.
+            </div>
+            <div *ngIf="f.email.errors.email">
+              Email je u neispravnom formatu
+            </div>
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <input type="text" formControlName="roleId" class="form-control" placeholder="Uloga" [ngClass]="{'is-invalid' : submitted  && f.roleId.errors}" required>
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-user-circle"></span>
+            </div>
+          </div>
+          <div *ngIf="submitted && f.roleId.errors" class="invalid-feedback">
+            <div *ngIf="f.roleId.errors.required">
+              Polje rola je obavezno.
+            </div>
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <input type="password" formControlName="password" class="form-control" placeholder="Lozinka" [ngClass]="{'is-invalid' : submitted  && f.password.errors}" required>
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-lock"></span>
+            </div>
+          </div>
+          <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+            <div *ngIf="f.password.errors.required">
+              Molim vas unesite lozinku. Lozinka je obavezno polje
+            </div>
+            <div *ngIf="f.password.errors.minlength">
+              Lozinka mora sadržati minimum 6 karaktera
+            </div>
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <input type="password" formControlName="confirmPassword" class="form-control" placeholder="Ponovite lozinku" [ngClass]="{'is-invalid' : submitted  && f.confirmPassword.errors}" required>
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-lock"></span>
+            </div>
+          </div>
+          <div *ngIf="submitted && f.confirmPassword.errors" class="invalid-feedback">
+            <div *ngIf="f.confirmPassword.errors.required">
+              Molim vas ponovite lozinku.
+            </div>
+            <div *ngIf="f.confirmPassword.errors.MustMatch">
+              Ponovljena lozinka i lozinka se ne poklapaju.
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <button type="submit" class="btn btn-primary btn-block">Registrujte korisnika</button>
+        </div>
+      </form>
+    </div>
+    <!-- /.form-box -->
+  </div><!-- /.card -->
+</div>
+<!-- /.register-box -->
+
+<!-- jQuery -->
+<script src="/../../assets/plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="/../../assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- AdminLTE App -->
+<script src="/../../assets/dist/js/adminlte.min.js"></script>
+</div>
