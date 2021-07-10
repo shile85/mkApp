@@ -1,7 +1,9 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit } from '@angular/core';
+import {DataService} from '../../services/data.service';
 
 import jwt_decode from 'jwt-decode';
 import { Router } from '@angular/router';
+
 
 
 declare var $: any;
@@ -12,52 +14,54 @@ declare var $: any;
   styleUrls: [
     './users.component.css',
     '/../../../assets/plugins/fontawesome-free/css/all.css',
-    '/../../../assets/dist/css/adminlte.css',
-    '/../../../assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css',
-    '/../../../assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css',
-    '/../../../assets/plugins/datatables-buttons/css/buttons.bootstrap4.css',
+    '/../../../assets/dist/css/adminlte.css'
 
   ]
 })
-export class UsersComponent implements OnInit, AfterViewInit {
+export class UsersComponent implements OnInit{
 
   token:any;
+  tokenData:any;
   userData:any;
   username:string;
+  roleId:string;
+  searchTerm: string;
+  page = 1;
+  pageSize = 8;
+  collectionSize: number;
+  currentRate = 8;
+  users: any;
+
 
   constructor(
-    private router:Router
+    private router:Router,
+    private dataService: DataService,
     ) { }
+  
 
   ngOnInit(): void {
 
     this.token = localStorage.getItem('token');
-    this.userData = jwt_decode(this.token);
-    this.username = this.userData.name;
+    this.tokenData = jwt_decode(this.token);
+    this.username = this.tokenData.name;
+    this.roleId = this.tokenData.roleId;
+
+    this.getUserData();
+    
   }
 
-  ngAfterViewInit(): void{
-
-    $.getScript('/../../assets/plugins/datatables/jquery.dataTables.js');
-    $.getScript('/../../assets/plugins/datatables-bs4/js/dataTables.bootstrap4.js');
-    $.getScript('/../../assets/plugins/datatables-responsive/js/dataTables.responsive.js');
-    $.getScript('/../../assets/plugins/datatables-responsive/js/responsive.bootstrap4.js');
-    $.getScript('/../../assets/plugins/datatables-buttons/js/dataTables.buttons.js');
-    $.getScript('/../../assets/plugins/datatables-buttons/js/buttons.bootstrap4.js');
-    $.getScript('/../../assets/plugins/jszip/jszip.js');
-    $.getScript('/../../assets/plugins/pdfmake/pdfmake.js');
-    $.getScript('/../../assets/plugins/pdfmake/vfs_fonts.js');
-    $.getScript('/../../assets/plugins/datatables-buttons/js/buttons.html5.js');
-    $.getScript('/../../assets/plugins/datatables-buttons/js/buttons.print.js');
-    $.getScript('/../../assets/plugins/datatables-buttons/js/buttons.colVis.js');
-
-    $(function () {
-      $("#example1").DataTable({
-        "responsive": true, "lengthChange": false, "autoWidth": false,
-        "buttons": ["copy", "csv", "excel", "pdf", "print"]
-      }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+  getUserData(){
+    this.dataService.getAllUsers().subscribe(res => {
+      this.users = res;
+      this.userData = this.users;
+      this.collectionSize = this.userData.lenght;
     });
 
+  }
+
+  search(value: string): void {
+    this.users = this.userData.filter((val) => val.name.toLowerCase().includes(value));
+    this.collectionSize = this.users.length;
   }
 
 

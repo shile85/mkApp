@@ -4,8 +4,8 @@ import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { RouterModule, Routes } from '@angular/router';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms'; 
-import {HttpClientModule} from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule} from '@angular/forms'; 
+import { HttpClientModule} from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
 
 import { AppComponent } from './app.component';
@@ -18,6 +18,9 @@ import { RoleGuard } from './auth/role.guard';
 import { SidebarComponent } from './component/sidebar/sidebar.component';
 import { NavbarComponent } from './component/navbar/navbar.component';
 import { UsersComponent } from './component/users/users.component';
+import { UserProfileComponent } from './component/user-profile/user-profile.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ListFilterPipe } from './table/listFilterPipe';
 
 export const routes:Routes =  [
   {
@@ -27,7 +30,8 @@ export const routes:Routes =  [
   {
     path: 'register', 
     component:RegisterComponent,
-    canActivate: [RoleGuard],
+    canActivate: [RoleGuard, AuthGuard
+    ],
   },
   {
     path: 'home',
@@ -37,6 +41,11 @@ export const routes:Routes =  [
   {
     path: 'users',
     component:UsersComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'userProfile',
+    component:UserProfileComponent,
     canActivate: [AuthGuard],
   },
 
@@ -51,6 +60,8 @@ export const routes:Routes =  [
     SidebarComponent,
     NavbarComponent,
     UsersComponent,
+    UserProfileComponent,
+    ListFilterPipe,
   ],
   imports: [
     BrowserModule,
@@ -60,7 +71,8 @@ export const routes:Routes =  [
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]

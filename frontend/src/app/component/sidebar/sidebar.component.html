@@ -22,9 +22,10 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-          <li class="nav-item">
-            <a href="#" class="nav-link active">
-              <i class="nav-icon fas fa-hammer"></i>
+          <!-- ADMIN ITEM -->
+          <li *ngIf="roleId == '1'" class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-user-shield"></i>
               <p>
                 Administrator
                 <i class="right fas fa-angle-left"></i>
@@ -32,7 +33,7 @@
             </a>              
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="#" class="nav-link active">
+                <a href="#" class="nav-link">
                   <i class="nav-icon fas fa-tachometer-alt"></i>
                   <p>
                     Korisnici
@@ -49,16 +50,52 @@
                   <li class="nav-item">
                     <a href="/users" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
-                      <p>Lista zaposlenih</p>
+                      <p>Lista korisnika</p>
                     </a>
                   </li>
                 </ul>   
               </li>
             </ul>
           </li>
+          <!-- ADMIN ITEM -->
+          <li *ngIf="roleId == '2'" class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-user-cog"></i>
+              <p>
+                Moderator
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>              
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="nav-icon fas fa-tachometer-alt"></i>
+                  <p>
+                    Korisnici
+                    <i class="right fas fa-angle-left"></i>
+                  </p>
+                </a>  
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="/register" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Dodaj korisnika</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="/users" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Lista korisnika</p>
+                    </a>
+                  </li>
+                </ul>   
+              </li>
+            </ul>
+          </li>
+          <!-- LOG OUT -->
           <li class="nav-item">
             <a href="#" class="nav-link" (click)='logout()'>
-              <i class="nav-icon fas fa-th"></i>
+              <i class="nav-icon fas fa-sign-out-alt"></i>
               <p>
                 Logout
               </p>

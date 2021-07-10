@@ -18,7 +18,7 @@ export class SidebarComponent implements OnInit {
   userData:any;
   email:string;
   username:string;
-  roleId:BigInteger;
+  roleId:string;
   condition:boolean;
 
   constructor(

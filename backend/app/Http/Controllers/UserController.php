@@ -28,7 +28,7 @@ class UserController extends Controller
             ]);
             $response['status'] = 1;
             $response['message'] = 'User registration successful';
-            $response['code'] = 200;
+            $response['code'] = 201;
         }
 
         
@@ -56,10 +56,9 @@ class UserController extends Controller
 
         $user = auth()->user();
         $data['token'] = auth()->claims([
-            'userId' => $user->id,
-            'email' => $user->email,
-            'name' => $user->name,
-            'roleId' => $user->roleId
+            'roleId' => $user->roleId,
+            'firstName' => $user->first_name,
+            'userId' => $user->id
         ])->attempt($credentials);
 
         $response['data'] = $data;
@@ -69,5 +68,35 @@ class UserController extends Controller
 
         return response()->json($response);
 
+    }
+
+    public function getUsers(){
+        return response()->json(User::all(),200);
+    }
+
+    public function getUserById($id){
+        $user = User::find($id);
+        if(is_null($user)){
+            return response()->json(['message' => 'Korisnik nije registrovan'], 404);
+        }
+        return response()->json($user, 200);
+    }
+
+    public function updateUser(Request $request, $id){
+        $user = User::find($id);
+        if(is_null($user)){
+            return response()->json(['message' => 'Korisnik nije registrovan'], 404);
+        }
+        $user->update($request->all());
+        return response()->json($user, 200);
+    }
+
+    public function deleteUser(Request $requesr, $id){
+        $user = User::find($id);
+        if(is_null($user)){
+            return response()->json(['message' => 'Korisnik nije registrovan'], 404);
+        }
+        $user->delete();
+        return response()->json(['message' => 'Korisnik uspešno uklonjen'], 200);
     }
 }

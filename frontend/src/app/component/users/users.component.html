@@ -45,11 +45,18 @@
               <div class="col-12">
                 <div class="card">
                   <div class="card-header">
-                    <h3 class="card-title">DataTable with default features</h3>
+                    <h3 class="card-title">Zaposleni:</h3>
                   </div>
                   <!-- /.card-header -->
                   <div class="card-body">
-                    <table id="example1" class="table table-bordered table-striped">
+                    <form>
+                      <div class="form-group form-inline">
+                        Pretraga: 
+                        <input class="form-control ml-2" type="text" name="searchTerm" [(ngModel)]="searchTerm"
+                                (input)="search($event.target.value)" />
+                      </div>
+                    </form>
+                    <table class="table table-hover table-sm">
                       <thead>
                       <tr>
                         <th>Ime</th>
@@ -57,30 +64,29 @@
                         <th>Korisničko ime</th>
                         <th>Email</th>
                         <th>Uloga</th>
+                        <th *ngIf="roleId == '1'" >Izmeni / Ukloni</th>
                       </tr>
                       </thead>
                       <tbody>
-                      <tr>
-                        <td>alert</td>
-                        <td>Internet
-                          Explorer 4.0
+                      <tr *ngFor="let user of users | listFilter: searchTerm | slice: (page-1) * pageSize : page * pageSize; index as i">
+                        
+                        <td>{{user.first_name}}</td>
+                        <td>{{user.last_name}}
                         </td>
-                        <td>Win 95+</td>
-                        <td> 4</td>
-                        <td>X</td>
+                        <td>{{user.name}}</td>
+                        <td> {{user.email}}</td>
+                        <td>{{user.roleId}}</td>
+                        <td *ngIf="roleId == '1'"><button type="button" class="btn-info"><span class="fas fa-user-edit"></span></button>&nbsp;&nbsp;<b>/</b>&nbsp;&nbsp;<button type="button" class="btn-danger"><span class="fas fa-user-slash"></span></button></td>
                       </tr>
-                      <tr>
-                        <td>Trident</td>
-                        <td>Internet
-                          Explorer 5.0
-                        </td>
-                        <td>Win 95+</td>
-                        <td>5</td>
-                        <td>C</td>
-                      </tr>
+                      
+                      </tbody>
+                      
                     </table>
+                    
                   </div>
                   <!-- /.card-body -->
+                  <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [maxSize]="5" [boundaryLinks]="true"
+                    [pageSize]="pageSize" class="d-flex justify-content-center"></ngb-pagination>
                 </div>
                 <!-- /.card -->
               </div>

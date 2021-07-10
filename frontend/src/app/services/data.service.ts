@@ -18,5 +18,9 @@ export class DataService {
   login(data){
     return this.http.post(environment.apiUrl+'/api/login', data)
   }
+
+  getAllUsers(){
+    return this.http.get(environment.apiUrl+'/api/users')
+  }
   
 }
