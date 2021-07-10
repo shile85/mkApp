@@ -4,19 +4,22 @@ import jwt_decode from 'jwt-decode';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
+  selector: 'app-sidebar',
+  templateUrl: './sidebar.component.html',
   styleUrls: [
-    './home.component.css',
+    './sidebar.component.css',
     '/../../../assets/plugins/fontawesome-free/css/all.min.css',
     '/../../../assets/dist/css/adminlte.min.css'
   ]
 })
-export class HomeComponent implements OnInit {
+export class SidebarComponent implements OnInit {
 
   token:any;
   userData:any;
+  email:string;
   username:string;
+  roleId:BigInteger;
+  condition:boolean;
 
   constructor(
     private router:Router
@@ -25,10 +28,15 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.token = localStorage.getItem('token');
     this.userData = jwt_decode(this.token);
+    this.email = this.userData.email;
     this.username = this.userData.name;
+    this.roleId = this.userData.roleId;
+    this.condition = true;
   }
 
-
-
+  logout(){
+    localStorage.removeItem('token');
+    this.router.navigate(['']);
+  }
 
 }

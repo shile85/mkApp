@@ -15,6 +15,9 @@ import { HomeComponent } from './component/home/home.component';
 
 import { AuthGuard } from './auth/auth.guard';
 import { RoleGuard } from './auth/role.guard';
+import { SidebarComponent } from './component/sidebar/sidebar.component';
+import { NavbarComponent } from './component/navbar/navbar.component';
+import { UsersComponent } from './component/users/users.component';
 
 export const routes:Routes =  [
   {
@@ -31,6 +34,11 @@ export const routes:Routes =  [
     component:HomeComponent,
     canActivate: [AuthGuard],
   },
+  {
+    path: 'users',
+    component:UsersComponent,
+    canActivate: [AuthGuard],
+  },
 
 ];
 
@@ -39,7 +47,10 @@ export const routes:Routes =  [
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    HomeComponent
+    HomeComponent,
+    SidebarComponent,
+    NavbarComponent,
+    UsersComponent,
   ],
   imports: [
     BrowserModule,
@@ -54,4 +65,4 @@ export const routes:Routes =  [
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
