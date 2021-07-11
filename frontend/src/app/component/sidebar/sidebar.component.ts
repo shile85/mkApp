@@ -17,7 +17,7 @@ export class SidebarComponent implements OnInit {
   token:any;
   userData:any;
   email:string;
-  username:string;
+  firstName:string;
   roleId:string;
   condition:boolean;
 
@@ -29,7 +29,7 @@ export class SidebarComponent implements OnInit {
     this.token = localStorage.getItem('token');
     this.userData = jwt_decode(this.token);
     this.email = this.userData.email;
-    this.username = this.userData.name;
+    this.firstName = this.userData.firstName;
     this.roleId = this.userData.roleId;
     this.condition = true;
   }

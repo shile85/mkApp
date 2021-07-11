@@ -5,7 +5,6 @@ import jwt_decode from 'jwt-decode';
 import { Router } from '@angular/router';
 
 
-
 declare var $: any;
 
 @Component({
@@ -22,15 +21,15 @@ export class UsersComponent implements OnInit{
 
   token:any;
   tokenData:any;
-  userData:any;
   username:string;
   roleId:string;
   searchTerm: string;
   page = 1;
-  pageSize = 8;
+  pageSize = 6;
   collectionSize: number;
-  currentRate = 8;
+  currentRate = 2;
   users: any;
+  userData : any;
 
 
   constructor(
@@ -46,22 +45,29 @@ export class UsersComponent implements OnInit{
     this.username = this.tokenData.name;
     this.roleId = this.tokenData.roleId;
 
-    this.getUserData();
+    this.dataService.getAllUsers().subscribe(res => {
+      this.users = res;
+      this.userData = this.users
+      console.log('users', this.users);
+      this.collectionSize = this.users.length;
+      console.log('col size', this.collectionSize);
+    });
+
+    
+
     
   }
 
-  getUserData(){
-    this.dataService.getAllUsers().subscribe(res => {
-      this.users = res;
-      this.userData = this.users;
-      this.collectionSize = this.userData.lenght;
-    });
-
-  }
 
   search(value: string): void {
     this.users = this.userData.filter((val) => val.name.toLowerCase().includes(value));
     this.collectionSize = this.users.length;
+    console.log("users lenght",this.users);
+    console.log('collection lenght',this.collectionSize);
+  }
+
+  userProfile(id){
+    this.router.navigate(['/userProfile', id]);
   }
 
 
