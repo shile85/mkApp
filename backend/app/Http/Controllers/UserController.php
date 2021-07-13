@@ -91,12 +91,24 @@ class UserController extends Controller
         return response()->json($user, 200);
     }
 
-    public function deleteUser(Request $requesr, $id){
+    public function deleteUser(Request $request, $id){
         $user = User::find($id);
         if(is_null($user)){
             return response()->json(['message' => 'Korisnik nije registrovan'], 404);
         }
         $user->delete();
-        return response()->json(['message' => 'Korisnik uspešno uklonjen'], 200);
+        return response()->json(['message' => 'Korisnik uspešno obrisan'], 200);
     }
+
+    public function softDeleteUser(Request $request, $id){
+        $user = User::find($id);
+        if(is_null($user)){
+            return response()->json(['message' => 'Korisnik nije registrovan'], 404);
+        }
+        $user->status = '0';
+        $user->save();
+
+    }
+
+    
 }

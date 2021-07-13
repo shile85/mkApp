@@ -35,3 +35,7 @@ Route::put('updateUser/{id}', 'App\Http\Controllers\UserController@updateUser');
 
 // delete User
 Route::delete('deleteUser/{id}', 'App\Http\Controllers\UserController@deleteUser');
+
+//soft delete user
+Route::put('softDeleteUser/{id}', 'App\Http\Controllers\UserController@softDeleteUser');
+

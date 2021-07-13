@@ -22,5 +22,17 @@ export class DataService {
   getAllUsers(){
     return this.http.get(environment.apiUrl+'/api/users')
   }
+
+  deleteUser(id){
+    return this.http.delete(environment.apiUrl+'/api/deleteUser/'+id)
+  }
+
+  softDeleteUser(id){
+    // return this.http.get(environment.apiUrl+'/api/softDeleteUser/'+id)
+  }
+
+  updateUserData(id){
+    
+  }
   
 }

@@ -47,10 +47,8 @@ export class UsersComponent implements OnInit{
 
     this.dataService.getAllUsers().subscribe(res => {
       this.users = res;
-      this.userData = this.users
-      console.log('users', this.users);
+      this.userData = this.users;
       this.collectionSize = this.users.length;
-      console.log('col size', this.collectionSize);
     });
 
     
@@ -69,6 +67,17 @@ export class UsersComponent implements OnInit{
   userProfile(id){
     this.router.navigate(['/userProfile', id]);
   }
+
+  deleteUser(id){
+    this.dataService.deleteUser(id).subscribe(res => {
+      this.ngOnInit();
+    })
+  }
+
+  softDeleteUser(id){
+    
+  }
+
 
 
 }

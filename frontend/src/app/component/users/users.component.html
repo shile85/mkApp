@@ -64,7 +64,8 @@
                         <th>Korisničko ime</th>
                         <th>Email</th>
                         <th>Uloga</th>
-                        <th *ngIf="roleId == '1'" >Izmeni / Ukloni</th>
+                        <th *ngIf="roleId == '1' || roleId == '2'" >Izmeni / Ukloni</th>
+                        <th *ngIf="roleId == '1'">Obriši</th>
                       </tr>
                       </thead>
                       <tbody>
@@ -76,7 +77,8 @@
                         <td>{{user.name}}</td>
                         <td> {{user.email}}</td>
                         <td>{{user.roleId}}</td>
-                        <td *ngIf="roleId == '1'"><button type="button" class="btn-info" (click)="userProfile(user.id);"><span class="fas fa-user-edit"></span></button>&nbsp;&nbsp;<b>/</b>&nbsp;&nbsp;<button type="button" class="btn-danger"><span class="fas fa-user-slash"></span></button></td>
+                        <td *ngIf="roleId == '1' || roleId == '2'"><button type="button" class="btn-info rounded" (click)="userProfile(user.id);"><span class="fas fa-user-edit"></span></button>&nbsp;&nbsp;<b>/</b>&nbsp;&nbsp;<button type="button" class="btn-danger rounded" (click)="softDeleteUser(user.id)" ><span class="fas fa-user-slash"></span></button></td>
+                        <td *ngIf="roleId == '1'"><button type="button" class="btn-danger rounded" (click)="deleteUser(user.id)"><span class="fas fa-user-slash"></span></button></td>
                       </tr>
                       
                       </tbody>
