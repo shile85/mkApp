@@ -3,6 +3,7 @@ import {DataService} from '../../services/data.service';
 
 import jwt_decode from 'jwt-decode';
 import { Router } from '@angular/router';
+import { query } from '@angular/animations';
 
 
 declare var $: any;
@@ -58,14 +59,12 @@ export class UsersComponent implements OnInit{
 
 
   search(value: string): void {
-    this.users = this.userData.filter((val) => val.name.toLowerCase().includes(value));
+    this.users = this.userData.filter((val) => val.email.toLowerCase().includes(value));
     this.collectionSize = this.users.length;
-    console.log("users lenght",this.users);
-    console.log('collection lenght',this.collectionSize);
   }
 
-  userProfile(id){
-    this.router.navigate(['/userProfile', id]);
+  userProfile(userId){
+    this.router.navigate(['/editUserProfile'], {queryParams: {id:userId}});
   }
 
   deleteUser(id){

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import jwt_decode from 'jwt-decode';
 import { ActivatedRoute, Router } from '@angular/router';
+import { DataService } from 'src/app/services/data.service';
 
 
 @Component({
@@ -23,7 +24,8 @@ export class UserProfileComponent implements OnInit {
 
   constructor(
     private router:Router,
-    private route:ActivatedRoute
+    private route:ActivatedRoute,
+    private dataService:DataService
   ) { }
 
   ngOnInit(): void {
@@ -34,10 +36,14 @@ export class UserProfileComponent implements OnInit {
     this.roleId = this.userData.roleId;
     this.firstName = this.userData.firstName;
 
-    if(this.route.snapshot.paramMap.get('id')){
-      this.userId = this.route.snapshot.paramMap.get('id');
+    if(this.route.snapshot.queryParamMap.get('id')){
+      this.userId = this.route.snapshot.queryParamMap.get('id');
     }
 
+  }
+
+  getData(){
+   
   }
 
   logout(){

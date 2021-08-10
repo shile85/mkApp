@@ -34,5 +34,9 @@ export class DataService {
   updateUserData(id){
     
   }
+
+  getUserById(id){
+    return this.http.get(environment.apiUrl+'/api/user/'+id)
+  }
   
 }

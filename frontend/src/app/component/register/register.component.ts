@@ -58,7 +58,6 @@ export class RegisterComponent implements OnInit {
 
     this.dataService.registerUser(this.form.value).subscribe(res => {
       this.data = res;
-      //console.log(res);
       if(this.data.status === 1){
         this.toastr.success('Uspešno ste registrovali korisnika', '', {
           timeOut: 2000,
