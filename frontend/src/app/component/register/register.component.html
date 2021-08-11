@@ -1,177 +1,169 @@
+<!DOCTYPE html>
+<!--
+This is a starter template page. Use this page to start your new project from
+scratch. This page gets rid of all links and provides the needed markup only.
+-->
+
 <body class="hold-transition sidebar-mini">
-  <div class="wrapper">
-  
-    <!-- Navbar -->
+<div class="wrapper">
 
-    <div class="main-header">
-        <app-navbar></app-navbar>
+  <!-- Navbar -->
+  <div class="main-header">
+    <app-navbar></app-navbar>
+  </div>
+  <!-- /.navbar -->
+
+  <!-- Main Sidebar Container -->
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <app-sidebar></app-sidebar>
+  </aside>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0">Registracija korisnika</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Registracija</li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
     </div>
-      
-    
+    <!-- /.content-header -->
 
-    <!-- /.navbar -->
-  
+    <!-- Main content -->
+    <div class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-lg-6">
+            
 
-    <!-- Main Sidebar Container -->
-    <aside class="main-sidebar sidebar-dark-primary elevation-4">
-      <app-sidebar></app-sidebar>
-    </aside>
-
-<!-- /.Main sidebar -->
-
-    
-    <!-- Content Wrapper. Contains page content -->
-<div class="content-wrapper">
-  <!-- Content Header (Page header) -->
-  <div class="content-header">
-    <div class="container-fluid">
-      <div class="row mb-2">
-        <div class="col-sm-6">
-          <h1 class="m-0">Registracija korisnika</h1>
-        </div><!-- /.col -->
-        <div class="col-sm-6">
-          <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="/home">Početna</a></li>
-            <li class="breadcrumb-item"><a href="/register">Registracija</a></li>
-          </ol>
-        </div><!-- /.col -->
-      </div><!-- /.row -->
-    </div><!-- /.container-fluid -->
-  </div>
-  <!-- /.content-header -->
-  
-  <!-- Main content -->
-  <div class="register-page">
-    <div class="register-box">
-      <div class="card card-outline card-primary">
-        <div class="card-header text-center">
-          <img class="img-fluid" src="assets/img/logo/logo.jpg" alt="Logo">
+            <div class="card card-primary card-outline">
+              <div class="card-body">
+                <form (ngSubmit)="submit()" [formGroup]="form" >
+                  <div class="input-group mb-3">
+                    <input type="text" class="form-control" formControlName="name" autocomplete="username" placeholder="Korisničko ime" [ngClass]="{'is-invalid' : submitted  && f.name.errors}" required >
+                    <div class="input-group-append">
+                      <div class="input-group-text">
+                        <span class="fas fa-user"></span>
+                      </div>
+                    </div>
+                    <div *ngIf="submitted && f.name.errors"  class="invalid-feedback">
+                      <div *ngIf="f.name.errors.required">
+                        Molim vas unesite Korisničko ime. Korisničko ime je obavezno polje
+                      </div>
+                    </div>
+                  </div>
+                  <div class="input-group mb-3">
+                    <input type="email" autocomplete="email" formControlName="email" class="form-control" placeholder="Email" [ngClass]="{'is-invalid' : submitted  && f.email.errors}" required>
+                    <div class="input-group-append">
+                      <div class="input-group-text">
+                        <span class="fas fa-envelope"></span>
+                      </div>
+                    </div>
+                    <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                      <div *ngIf="f.email.errors.required">
+                        Molim vas unesite email. Email je obavezno polje.
+                      </div>
+                      <div *ngIf="f.email.errors.email">
+                        Email je u neispravnom formatu
+                      </div>
+                    </div>
+                  </div>
+                  <div class="input-group mb-3">
+                    <input type="text" autocomplete="roleId" formControlName="roleId" class="form-control" placeholder="Uloga" [ngClass]="{'is-invalid' : submitted  && f.roleId.errors}" required>
+                    <div class="input-group-append">
+                      <div class="input-group-text">
+                        <span class="fas fa-user-circle"></span>
+                      </div>
+                    </div>
+                    <div *ngIf="submitted && f.roleId.errors" class="invalid-feedback">
+                      <div *ngIf="f.roleId.errors.required">
+                        Polje rola je obavezno.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="input-group mb-3">
+                    <input type="password" autocomplete="password" formControlName="password" class="form-control" placeholder="Lozinka" [ngClass]="{'is-invalid' : submitted  && f.password.errors}" required>
+                    <div class="input-group-append">
+                      <div class="input-group-text">
+                        <span class="fas fa-lock"></span>
+                      </div>
+                    </div>
+                    <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                      <div *ngIf="f.password.errors.required">
+                        Molim vas unesite lozinku. Lozinka je obavezno polje
+                      </div>
+                      <div *ngIf="f.password.errors.minlength">
+                        Lozinka mora sadržati minimum 6 karaktera
+                      </div>
+                    </div>
+                  </div>
+                  <div class="input-group mb-3">
+                    <input type="password" autocomplete="password" formControlName="confirmPassword" class="form-control" placeholder="Ponovite lozinku" [ngClass]="{'is-invalid' : submitted  && f.confirmPassword.errors}" required>
+                    <div class="input-group-append">
+                      <div class="input-group-text">
+                        <span class="fas fa-lock"></span>
+                      </div>
+                    </div>
+                    <div *ngIf="submitted && f.confirmPassword.errors" class="invalid-feedback">
+                      <div *ngIf="f.confirmPassword.errors.required">
+                        Molim vas ponovite lozinku.
+                      </div>
+                      <div *ngIf="f.confirmPassword.errors.MustMatch">
+                        Ponovljena lozinka i lozinka se ne poklapaju.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <button type="submit" class="btn btn-primary btn-block">Registrujte korisnika</button>
+                  </div>
+                </form>
+              </div>
+            </div><!-- /.card -->
+          </div>
+          <!-- /.col-md-6 -->
+          
+          <!-- /.col-md-6 -->
         </div>
-        <div class="card-body">
-          <p class="login-box-msg">Registracija korisnika</p>
-    
-          <form (ngSubmit)="submit()" [formGroup]="form" >
-            <div class="input-group mb-3">
-              <input type="text" class="form-control" formControlName="name" autocomplete="username" placeholder="Korisničko ime" [ngClass]="{'is-invalid' : submitted  && f.name.errors}" required >
-              <div class="input-group-append">
-                <div class="input-group-text">
-                  <span class="fas fa-user"></span>
-                </div>
-              </div>
-              <div *ngIf="submitted && f.name.errors"  class="invalid-feedback">
-                <div *ngIf="f.name.errors.required">
-                  Molim vas unesite Korisničko ime. Korisničko ime je obavezno polje
-                </div>
-              </div>
-            </div>
-            <div class="input-group mb-3">
-              <input type="email" autocomplete="email" formControlName="email" class="form-control" placeholder="Email" [ngClass]="{'is-invalid' : submitted  && f.email.errors}" required>
-              <div class="input-group-append">
-                <div class="input-group-text">
-                  <span class="fas fa-envelope"></span>
-                </div>
-              </div>
-              <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
-                <div *ngIf="f.email.errors.required">
-                  Molim vas unesite email. Email je obavezno polje.
-                </div>
-                <div *ngIf="f.email.errors.email">
-                  Email je u neispravnom formatu
-                </div>
-              </div>
-            </div>
-            <div class="input-group mb-3">
-              <input type="text" autocomplete="roleId" formControlName="roleId" class="form-control" placeholder="Uloga" [ngClass]="{'is-invalid' : submitted  && f.roleId.errors}" required>
-              <div class="input-group-append">
-                <div class="input-group-text">
-                  <span class="fas fa-user-circle"></span>
-                </div>
-              </div>
-              <div *ngIf="submitted && f.roleId.errors" class="invalid-feedback">
-                <div *ngIf="f.roleId.errors.required">
-                  Polje rola je obavezno.
-                </div>
-              </div>
-            </div>
-            <div class="input-group mb-3">
-              <input type="password" autocomplete="password" formControlName="password" class="form-control" placeholder="Lozinka" [ngClass]="{'is-invalid' : submitted  && f.password.errors}" required>
-              <div class="input-group-append">
-                <div class="input-group-text">
-                  <span class="fas fa-lock"></span>
-                </div>
-              </div>
-              <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-                <div *ngIf="f.password.errors.required">
-                  Molim vas unesite lozinku. Lozinka je obavezno polje
-                </div>
-                <div *ngIf="f.password.errors.minlength">
-                  Lozinka mora sadržati minimum 6 karaktera
-                </div>
-              </div>
-            </div>
-            <div class="input-group mb-3">
-              <input type="password" autocomplete="password" formControlName="confirmPassword" class="form-control" placeholder="Ponovite lozinku" [ngClass]="{'is-invalid' : submitted  && f.confirmPassword.errors}" required>
-              <div class="input-group-append">
-                <div class="input-group-text">
-                  <span class="fas fa-lock"></span>
-                </div>
-              </div>
-              <div *ngIf="submitted && f.confirmPassword.errors" class="invalid-feedback">
-                <div *ngIf="f.confirmPassword.errors.required">
-                  Molim vas ponovite lozinku.
-                </div>
-                <div *ngIf="f.confirmPassword.errors.MustMatch">
-                  Ponovljena lozinka i lozinka se ne poklapaju.
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <button type="submit" class="btn btn-primary btn-block">Registrujte korisnika</button>
-            </div>
-          </form>
-        </div>
-        <!-- /.form-box -->
-      </div><!-- /.card -->
+        <!-- /.row -->
+      </div><!-- /.container-fluid -->
     </div>
-    <!-- /.register-box -->
+    <!-- /.content -->
   </div>
-  
-  <!-- /.content -->
-  </div>
-    
-    <!-- /.content-wrapper -->
+  <!-- /.content-wrapper -->
 
-    <!-- Control Sidebar -->
-<aside class="control-sidebar control-sidebar-dark">
-  <!-- Control sidebar content goes here -->
-  <div class="p-3">
-    <h5>Title</h5>
-    <p>Sidebar content</p>
-  </div>
-</aside>
-<!-- /.control-sidebar -->
-  
-    
-  
-    <!-- Main Footer -->
-    <footer class="main-footer">
-      <!-- To the right -->
-      <div class="float-right d-none d-sm-inline">
-        developed by Vladimir Pešić
-      </div>
-      <!-- Default to the left -->
-      <strong>Copyright &copy; 2021 <a href="http://mikrokontrol.rs">Mikrokontrol</a>.</strong> All rights reserved.
-    </footer>
-  </div>
-  <!-- ./wrapper -->
-  
-  <!-- REQUIRED SCRIPTS -->
-  
-  <!-- jQuery -->
-  <script src="/../../assets/plugins/jquery/jquery.min.js"></script>
-  <!-- Bootstrap 4 -->
-  <script src="/../../assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <!-- AdminLTE App -->
-  <script src="/../../assets/dist/js/adminlte.min.js"></script>
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+    <div class="p-3">
+      <h5>Title</h5>
+      <p>Sidebar content</p>
+    </div>
+  </aside>
+  <!-- /.control-sidebar -->
+
+  <!-- Main Footer -->
+  <footer class="main-footer">
+    <app-footer></app-footer>
+  </footer>
+</div>
+<!-- ./wrapper -->
+
+<!-- REQUIRED SCRIPTS -->
+
+<!-- jQuery -->
+<script src="plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- AdminLTE App -->
+<script src="dist/js/adminlte.min.js"></script>
 </body>
 

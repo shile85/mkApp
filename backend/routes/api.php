@@ -27,6 +27,9 @@ Route::post('login', 'App\Http\Controllers\UserController@login');
 //get all users
 Route::get('users', 'App\Http\Controllers\UserController@getUsers');
 
+//get active users
+Route::get('activeUsers', 'App\Http\Controllers\UserController@getActiveUsers');
+
 //get specific user
 Route::get('user/{id}', 'App\Http\Controllers\UserController@getUserById');
 

@@ -29,6 +29,7 @@ export class EditUserProfileComponent implements OnInit {
   user = new Register();
   form:FormGroup;
   submitted = false;
+  data:any;
 
   constructor(
     private router:Router,
@@ -75,7 +76,6 @@ export class EditUserProfileComponent implements OnInit {
   getData(){
    this.dataService.getUserById(this.userId).subscribe(res => {
      this.userProfileData = res;
-     console.log(this.userProfileData);
      this.user = this.userProfileData;
      
    })
@@ -84,6 +84,21 @@ export class EditUserProfileComponent implements OnInit {
   logout(){
     localStorage.removeItem('token');
     this.router.navigate(['']);
+  }
+
+  updateUserData(){
+    this.submitted = true;
+    console.log(this.user);
+    this.dataService.updateUserData(this.userId, this.user).subscribe(res => {
+      this.data = res;
+      if(this.data.status === 1){
+        this.toastr.success('Uspešno ste izmenili podatke korisnika', '', {
+          timeOut: 2000,
+          progressBar: true
+        });
+      }
+      
+    })
   }
 
 }

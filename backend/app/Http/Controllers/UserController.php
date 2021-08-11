@@ -74,6 +74,11 @@ class UserController extends Controller
         return response()->json(User::all(),200);
     }
 
+    public function getActiveUsers(){
+        $users = User::where('status', '1') -> get();
+        return response()->json($users,200);
+    }
+
     public function getUserById($id){
         $user = User::find($id);
         if(is_null($user)){
@@ -85,10 +90,22 @@ class UserController extends Controller
     public function updateUser(Request $request, $id){
         $user = User::find($id);
         if(is_null($user)){
-            return response()->json(['message' => 'Korisnik nije registrovan'], 404);
+
+            $response['status'] = 2;
+            $response['code'] = 404;
+            $response['message'] = 'Korisnik nije registrovan';
+
+            return response()->json($response);
+        }else{
+            $user->update($request->all());
+
+            $response['status'] = 1;
+            $response['code'] = 200;
+            $response['message'] = 'Uspešno ste izmenili podatke';
+
+        return response()->json($response);
         }
-        $user->update($request->all());
-        return response()->json($user, 200);
+        
     }
 
     public function deleteUser(Request $request, $id){
@@ -101,12 +118,25 @@ class UserController extends Controller
     }
 
     public function softDeleteUser(Request $request, $id){
+
         $user = User::find($id);
         if(is_null($user)){
-            return response()->json(['message' => 'Korisnik nije registrovan'], 404);
+
+            $response['status'] = 2;
+            $response['code'] = 404;
+            $response['message'] = 'Korisnik nije registrovan';
+
+            return response()->json($response);
+        }else{
+            $user->status = '0';
+            $user->save();
+
+            $response['status'] = 1;
+            $response['code'] = 200;
+            $response['message'] = 'Uspešno ste uklonili korisnika';
+
+        return response()->json($response);
         }
-        $user->status = '0';
-        $user->save();
 
     }
 

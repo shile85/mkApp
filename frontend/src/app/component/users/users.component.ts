@@ -5,6 +5,8 @@ import jwt_decode from 'jwt-decode';
 import { Router } from '@angular/router';
 import { query } from '@angular/animations';
 
+import { ToastrModule, ToastrService } from 'ngx-toastr';
+
 
 declare var $: any;
 
@@ -31,11 +33,13 @@ export class UsersComponent implements OnInit{
   currentRate = 2;
   users: any;
   userData : any;
+  data:any;
 
 
   constructor(
     private router:Router,
     private dataService: DataService,
+    private toastr: ToastrService,
     ) { }
   
 
@@ -46,8 +50,9 @@ export class UsersComponent implements OnInit{
     this.username = this.tokenData.name;
     this.roleId = this.tokenData.roleId;
 
-    this.dataService.getAllUsers().subscribe(res => {
+    this.dataService.getActiveUsers().subscribe(res => {
       this.users = res;
+      console.log(this.users);
       this.userData = this.users;
       this.collectionSize = this.users.length;
     });
@@ -73,8 +78,16 @@ export class UsersComponent implements OnInit{
     })
   }
 
-  softDeleteUser(id){
-    
+  softDeleteUser(id, data){
+    this.dataService.softDeleteUser(id, data).subscribe(res =>{
+      this.data = res;
+      if(this.data.status === 1){
+        this.toastr.success('Uspešno ste uklonili korisnika', '', {
+          timeOut: 2000,
+          progressBar: true
+        });
+      }
+    })
   }
 
 

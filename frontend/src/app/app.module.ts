@@ -22,6 +22,7 @@ import { UserProfileComponent } from './component/user-profile/user-profile.comp
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ListFilterPipe } from './table/listFilterPipe';
 import { EditUserProfileComponent } from './component/edit-user-profile/edit-user-profile.component';
+import { FooterComponent } from './component/footer/footer.component';
 
 
 
@@ -71,6 +72,7 @@ export const routes:Routes =  [
     UserProfileComponent,
     ListFilterPipe,
     EditUserProfileComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,

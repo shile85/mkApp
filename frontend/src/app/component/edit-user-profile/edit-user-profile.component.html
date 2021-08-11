@@ -192,9 +192,9 @@
                   <div class="card-body">
                     <p class="login-box-msg">Izmena podataka korisnika</p>
               
-                    <form  [formGroup]="form" >
+                    <form (ngSubmit)="updateUserData()"  [formGroup]="form" >
                       <div class="input-group mb-3">
-                        <input type="text" class="form-control" formControlName="name" value="{{user.name}}">
+                        <input type="text" class="form-control" formControlName="name" [(ngModel)]="user.name">
                         <div class="input-group-append">
                           <div class="input-group-text">
                             <span class="fas fa-user"></span>
@@ -202,7 +202,7 @@
                         </div>
                       </div>
                       <div class="input-group mb-3">
-                        <input type="email" formControlName="email" class="form-control" [ngClass]="{'is-invalid' : submitted  && f.email.errors}" value="{{user.email}}">
+                        <input type="email" formControlName="email" class="form-control" [ngClass]="{'is-invalid' : submitted  && f.email.errors}" [(ngModel)]="user.email">
                         <div class="input-group-append">
                           <div class="input-group-text">
                             <span class="fas fa-envelope"></span>
@@ -215,7 +215,7 @@
                         </div>
                       </div>
                       <div class="input-group mb-3">
-                        <input type="text" autocomplete="roleId" formControlName="roleId" class="form-control" placeholder="Uloga" [ngClass]="{'is-invalid' : submitted  && f.roleId.errors}" value="{{user.roleId}}">
+                        <input type="text" autocomplete="roleId" formControlName="roleId" class="form-control" placeholder="Uloga" [ngClass]="{'is-invalid' : submitted  && f.roleId.errors}" [(ngModel)]="user.roleId">
                         <div class="input-group-append">
                           <div class="input-group-text">
                             <span class="fas fa-user-circle"></span>
@@ -254,12 +254,7 @@
     
       <!-- Main Footer -->
       <footer class="main-footer">
-        <!-- To the right -->
-        <div class="float-right d-none d-sm-inline">
-          Anything you want
-        </div>
-        <!-- Default to the left -->
-        <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
+        <app-footer></app-footer>
       </footer>
     </div>
     <!-- ./wrapper -->
