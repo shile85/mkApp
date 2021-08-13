@@ -62,6 +62,22 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </div>
                   </div>
                   <div class="input-group mb-3">
+                    <input type="text" class="form-control" formControlName="firstName" autocomplete="firstName" placeholder="Ime"  >
+                    <div class="input-group-append">
+                      <div class="input-group-text">
+                        <span class="fas fa-user-circle"></span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="input-group mb-3">
+                    <input type="text" class="form-control" formControlName="lastName" autocomplete="lastName" placeholder="Prezime" >
+                    <div class="input-group-append">
+                      <div class="input-group-text">
+                        <span class="fas fa-user-circle"></span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="input-group mb-3">
                     <input type="email" autocomplete="email" formControlName="email" class="form-control" placeholder="Email" [ngClass]="{'is-invalid' : submitted  && f.email.errors}" required>
                     <div class="input-group-append">
                       <div class="input-group-text">
@@ -78,15 +94,49 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </div>
                   </div>
                   <div class="input-group mb-3">
-                    <input type="text" autocomplete="roleId" formControlName="roleId" class="form-control" placeholder="Uloga" [ngClass]="{'is-invalid' : submitted  && f.roleId.errors}" required>
+                    <input type="text" autocomplete="address" formControlName="address" class="form-control" placeholder="Adresa">
                     <div class="input-group-append">
                       <div class="input-group-text">
-                        <span class="fas fa-user-circle"></span>
+                        <span class="fas fa-address-card"></span>
                       </div>
                     </div>
-                    <div *ngIf="submitted && f.roleId.errors" class="invalid-feedback">
-                      <div *ngIf="f.roleId.errors.required">
-                        Polje rola je obavezno.
+                  </div>
+                  <div class="input-group mb-3">
+                    <input type="text" autocomplete="city" formControlName="city" class="form-control" placeholder="Grad">
+                    <div class="input-group-append">
+                      <div class="input-group-text">
+                        <span class="fas fa-city"></span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="input-group mb-3">
+                    <input type="text" autocomplete="telephone" formControlName="telephone" class="form-control" placeholder="Telefon">
+                    <div class="input-group-append">
+                      <div class="input-group-text">
+                        <span class="fas fa-phone"></span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="input-group mb-3">
+                    <input type="text" autocomplete="businessPhone" formControlName="businessPhone" class="form-control" placeholder="Službeni telefon">
+                    <div class="input-group-append">
+                      <div class="input-group-text">
+                        <span class="fas fa-phone-square-alt"></span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="input-group mb-3">
+                    <input type="date" autocomplete="birthDay" formControlName="birthDay" class="form-control" placeholder="Datum rođenja">
+                  </div>
+                  <div class="input-group mb-3" >
+                    <select class="form-control" formControlName="roleId">
+                      <option value="3">Korisnik</option>
+                      <option value="2">Moderator</option>
+                      <option value="1">Administrator</option>
+                    </select>
+                    <div class="input-group-append">
+                      <div class="input-group-text">
+                        <span class="fas fa-user-tag"></span>
                       </div>
                     </div>
                   </div>
@@ -165,5 +215,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
 <script src="dist/js/adminlte.min.js"></script>
+
 </body>
 

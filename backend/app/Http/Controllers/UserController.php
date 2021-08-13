@@ -24,7 +24,16 @@ class UserController extends Controller
                 'name' => $request->name,
                 'email' => $request->email,
                 'password' => bcrypt($request->password),
-                'roleId' => $request->roleId
+                'roleId' => $request->roleId,
+                'first_name' => $request->firstName,
+                'last_name' => $request->lastName,
+                'address' => $request->address,
+                'city' => $request->city,
+                'status' => '1',
+                'telephone' => $request->telephone,
+                'businessPhone' => $request->businessPhone,
+                'birthDay' => $request->birthDay,
+
             ]);
             $response['status'] = 1;
             $response['message'] = 'User registration successful';

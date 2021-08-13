@@ -7,6 +7,7 @@ import { ToastrModule, ToastrService } from 'ngx-toastr';
 
 
 
+
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -32,8 +33,15 @@ export class RegisterComponent implements OnInit {
   createForm(){
     this.form = this.formBuilder.group({
       name: [null, Validators.required],
-      roleId: [null, Validators.required],
+      firstName: [null],
+      lastName: [null],
       email: [null, [Validators.required, Validators.email]],
+      address: [null],
+      city: [null],
+      telephone: [null],
+      businessPhone: [null],
+      birthDay: [null],
+      roleId: [null],
       password:[null, [Validators.required, Validators.minLength(6)]],
       confirmPassword:[null, [Validators.required]],
     },{
@@ -82,7 +90,14 @@ export class RegisterComponent implements OnInit {
       }
       this.submitted = false;
       this.form.get('name').reset();
+      this.form.get('firstName').reset();
+      this.form.get('lastName').reset();
       this.form.get('email').reset();
+      this.form.get('address').reset();
+      this.form.get('city').reset();
+      this.form.get('telephone').reset();
+      this.form.get('businessPhone').reset();
+      this.form.get('birthDay').reset();
       this.form.get('roleId').reset();
       this.form.get('password').reset();
       this.form.get('confirmPassword').reset();
