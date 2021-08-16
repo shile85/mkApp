@@ -28,7 +28,7 @@ export class UsersComponent implements OnInit{
   roleId:string;
   searchTerm: string;
   page = 1;
-  pageSize = 6;
+  pageSize = 7;
   collectionSize: number;
   currentRate = 2;
   users: any;

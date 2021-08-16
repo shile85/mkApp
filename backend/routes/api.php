@@ -18,6 +18,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+// USER:
+
 //register user
 Route::post('register', 'App\Http\Controllers\UserController@register');
 
@@ -42,3 +44,8 @@ Route::delete('deleteUser/{id}', 'App\Http\Controllers\UserController@deleteUser
 //soft delete user
 Route::put('softDeleteUser/{id}', 'App\Http\Controllers\UserController@softDeleteUser');
 
+
+
+// ROLE:
+
+Route::get('role/{id}', 'App\Http\Controllers\RoleController@getRoleById');

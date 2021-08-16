@@ -11,6 +11,8 @@ export class DataService {
 
   constructor(private http:HttpClient) { }
 
+  // USERS
+
   registerUser(data){
     return this.http.post(environment.apiUrl+'/api/register',data);
   }
@@ -41,6 +43,13 @@ export class DataService {
 
   getUserById(id){
     return this.http.get(environment.apiUrl+'/api/user/'+id)
+  }
+
+
+  // ROLE
+
+  getRoleById(id){
+    return this.http.get(environment.apiUrl+'/api/role/'+id)
   }
   
 }

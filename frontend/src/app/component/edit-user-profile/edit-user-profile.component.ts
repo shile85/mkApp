@@ -22,14 +22,17 @@ export class EditUserProfileComponent implements OnInit {
   token:any;
   userData:any;
   userProfileData:any;
-  id:string;
   userId:string;
+  userProfileId:string;
   roleId:string;
   firstName:string;
   user = new Register();
   form:FormGroup;
   submitted = false;
   data:any;
+  userRoleId: string;
+  userRoleData: any;
+  roleName: string;
 
   constructor(
     private router:Router,
@@ -41,13 +44,17 @@ export class EditUserProfileComponent implements OnInit {
 
   createForm(){
     this.form = this.formBuilder.group({
-      name: [null, Validators.required],
-      roleId: [null, Validators.required],
-      email: [null, [Validators.required, Validators.email]],
-      password:[null, [Validators.required, Validators.minLength(6)]],
-      confirmPassword:[null, [Validators.required]],
-    },{
-      validator: MustMatch('password', 'confirmPassword')
+      name: [null],
+      firstName: [null],
+      lastName: [null],
+      email: [null, [Validators.email]],
+      address: [null],
+      city: [null],
+      telephone: [null],
+      businessPhone: [null],
+      birthDay: [null],
+      roleId: [null],
+      
     });
   }
 
@@ -57,12 +64,12 @@ export class EditUserProfileComponent implements OnInit {
 
     this.token = localStorage.getItem('token');
     this.userData = jwt_decode(this.token);
-    this.id = this.userData.userId;
+    this.userId = this.userData.userId;
     this.roleId = this.userData.roleId;
     this.firstName = this.userData.firstName;
 
     if(this.route.snapshot.queryParamMap.get('id')){
-      this.userId = this.route.snapshot.queryParamMap.get('id');
+      this.userProfileId = this.route.snapshot.queryParamMap.get('id');
     }
 
     this.getData();
@@ -74,11 +81,10 @@ export class EditUserProfileComponent implements OnInit {
   }
 
   getData(){
-   this.dataService.getUserById(this.userId).subscribe(res => {
+   this.dataService.getUserById(this.userProfileId).subscribe(res => {
      this.userProfileData = res;
      this.user = this.userProfileData;
-     
-   })
+   });
   }
 
   logout(){
@@ -89,7 +95,7 @@ export class EditUserProfileComponent implements OnInit {
   updateUserData(){
     this.submitted = true;
     console.log(this.user);
-    this.dataService.updateUserData(this.userId, this.user).subscribe(res => {
+    this.dataService.updateUserData(this.userProfileId, this.user).subscribe(res => {
       this.data = res;
       if(this.data.status === 1){
         this.toastr.success('Uspešno ste izmenili podatke korisnika', '', {

@@ -49,6 +49,15 @@ class RoleController extends Controller
         //
     }
 
+    public function getRoleById(Role $id)
+    {
+        $role = Role::find($id);
+        if(is_null($role)){
+            return response()->json(['message' => 'Nepostojeća uloga'], 404);
+        }
+        return response()->json($role, 200);
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
