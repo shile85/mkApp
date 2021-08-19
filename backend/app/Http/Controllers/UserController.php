@@ -33,6 +33,7 @@ class UserController extends Controller
                 'telephone' => $request->telephone,
                 'businessPhone' => $request->businessPhone,
                 'birthDay' => $request->birthDay,
+                
 
             ]);
             $response['status'] = 1;
@@ -63,10 +64,14 @@ class UserController extends Controller
             return response()->json($response);
         }
 
+        $img = 
+
         $user = auth()->user();
         $data['token'] = auth()->claims([
             'roleId' => $user->roleId,
             'firstName' => $user->first_name,
+            'lastName' => $user->last_name,
+            'image' => $user->image,
             'userId' => $user->id
         ])->attempt($credentials);
 
@@ -115,6 +120,35 @@ class UserController extends Controller
         return response()->json($response);
         }
         
+    }
+
+    public function storePicture(Request $request, $id){
+
+        if($request->hasfile('image')){
+            $completeFilename = $request->file('image')->getClientOriginalName();
+            $fileNameOnly = pathinfo($completeFilename, PATHINFO_FILENAME);
+            $extension = $request->file('image')->getClientOriginalExtension();
+            $compPic = str_replace(' ', '_', $fileNameOnly).'-'.rand().'_'.time().'.'.$extension;
+            $upload = $request->file('image')->storeAs('public/profileImg', $compPic);
+            $path = 'profileImg/'. $compPic; 
+            $user = User::find($id);
+            $user->image = $path;
+            if($user->save()){
+                $response['status'] = 1;
+                $response['code'] = 200;
+                $response['message'] = 'Uspešno ste izmenili sliku';
+
+                return response()->json($response);
+            }else{
+                $response['status'] = 2;
+                $response['code'] = 400;
+                $response['message'] = 'Došlo je do greške';
+
+                return response()->json($response);
+            }
+
+        }
+
     }
 
     public function deleteUser(Request $request, $id){

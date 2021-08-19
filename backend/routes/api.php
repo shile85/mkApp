@@ -23,6 +23,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 //register user
 Route::post('register', 'App\Http\Controllers\UserController@register');
 
+Route::post('image/{id}', 'App\Http\Controllers\UserController@storePicture');
+
 //login
 Route::post('login', 'App\Http\Controllers\UserController@login');
 
@@ -46,6 +48,13 @@ Route::put('softDeleteUser/{id}', 'App\Http\Controllers\UserController@softDelet
 
 
 
+
 // ROLE:
 
 Route::get('role/{id}', 'App\Http\Controllers\RoleController@getRoleById');
+
+
+//DOCUMENT:
+
+
+

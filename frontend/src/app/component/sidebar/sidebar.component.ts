@@ -18,6 +18,8 @@ export class SidebarComponent implements OnInit {
   userData:any;
   email:string;
   firstName:string;
+  lastName:string;
+  image:string;
   roleId:string;
   condition:boolean;
 
@@ -30,8 +32,11 @@ export class SidebarComponent implements OnInit {
     this.userData = jwt_decode(this.token);
     this.email = this.userData.email;
     this.firstName = this.userData.firstName;
+    this.lastName = this.userData.lastName;
+    this.image = this.userData.image;
     this.roleId = this.userData.roleId;
     this.condition = true;
+    console.log(this.image);
   }
 
   logout(){
