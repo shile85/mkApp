@@ -36,12 +36,13 @@ export class SidebarComponent implements OnInit {
     this.image = this.userData.image;
     this.roleId = this.userData.roleId;
     this.condition = true;
-    console.log(this.image);
   }
 
   logout(){
     localStorage.removeItem('token');
     this.router.navigate(['']);
   }
+
+  
 
 }

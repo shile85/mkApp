@@ -4,6 +4,7 @@ import jwt_decode from 'jwt-decode';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DataService } from 'src/app/services/data.service';
 import { Register } from 'src/app/models/register.model';
+import { Image } from 'src/app/models/image.model';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {MustMatch} from './confirmed.validator';
@@ -28,11 +29,14 @@ export class EditUserProfileComponent implements OnInit {
   firstName:string;
   user = new Register();
   form:FormGroup;
+  imageForm:FormGroup;
+  imageData:any;
   submitted = false;
   data:any;
   userRoleId: string;
   userRoleData: any;
   roleName: string;
+  files:any;
 
   constructor(
     private router:Router,
@@ -58,9 +62,16 @@ export class EditUserProfileComponent implements OnInit {
     });
   }
 
+  createFormImage(){
+    this.imageForm = this.formBuilder.group({
+      image: [null, Validators.required]
+    })
+  }
+
   ngOnInit(): void {
 
     this.createForm();
+    this.createFormImage();
 
     this.token = localStorage.getItem('token');
     this.userData = jwt_decode(this.token);
@@ -80,6 +91,10 @@ export class EditUserProfileComponent implements OnInit {
     return this.form.controls;
   }
 
+  get fImage(){
+    return this.imageForm.controls;
+  }
+
   getData(){
    this.dataService.getUserById(this.userProfileId).subscribe(res => {
      this.userProfileData = res;
@@ -94,7 +109,6 @@ export class EditUserProfileComponent implements OnInit {
 
   updateUserData(){
     this.submitted = true;
-    console.log(this.user);
     this.dataService.updateUserData(this.userProfileId, this.user).subscribe(res => {
       this.data = res;
       if(this.data.status === 1){
@@ -105,6 +119,37 @@ export class EditUserProfileComponent implements OnInit {
       }
       
     })
+  }
+
+  uploadImage(event){
+    this.files = event.target.files[0];
+  }
+
+  submitUploadImage(){
+    this.submitted = true;
+    if(this.imageForm.invalid){
+      return;
+    }
+    const formData = new FormData();
+    formData.append("image", this.files, this.files.name);
+
+    this.dataService.uploadImage(this.userProfileId, formData).subscribe(res=>{
+      this.data = res;
+      if(this.data.status === 1){
+        this.toastr.success('Uspešno ste izmenili fotografiju korisnika', '', {
+          timeOut: 2000,
+          progressBar: true
+        });
+      }else{
+        this.toastr.success('Uspešno ste izmenili fotografiju korisnika', '', {
+          timeOut: 2000,
+          progressBar: true
+        });
+        this.submitted = false;
+        this.imageForm.get('image').reset();
+      }
+    })
+
   }
 
 }

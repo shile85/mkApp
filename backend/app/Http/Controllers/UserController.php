@@ -33,6 +33,7 @@ class UserController extends Controller
                 'telephone' => $request->telephone,
                 'businessPhone' => $request->businessPhone,
                 'birthDay' => $request->birthDay,
+                'image' => 'profileImg/default.png'
                 
 
             ]);

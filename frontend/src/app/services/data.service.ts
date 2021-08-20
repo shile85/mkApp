@@ -45,6 +45,10 @@ export class DataService {
     return this.http.get(environment.apiUrl+'/api/user/'+id)
   }
 
+  uploadImage(id, data){
+    return this.http.post(environment.apiUrl+'/api/image/'+id, data)
+  }
+
 
 
   // ROLE

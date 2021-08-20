@@ -52,7 +52,6 @@ export class UsersComponent implements OnInit{
 
     this.dataService.getActiveUsers().subscribe(res => {
       this.users = res;
-      console.log(this.users);
       this.userData = this.users;
       this.collectionSize = this.users.length;
     });
@@ -68,7 +67,7 @@ export class UsersComponent implements OnInit{
     this.collectionSize = this.users.length;
   }
 
-  userProfile(userId){
+  editUserProfile(userId){
     this.router.navigate(['/editUserProfile'], {queryParams: {id:userId}});
   }
 

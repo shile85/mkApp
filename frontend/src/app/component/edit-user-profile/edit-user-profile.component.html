@@ -146,7 +146,20 @@
                     <h5 class="m-0">Profilna slika</h5>
                   </div>
                   <div class="card-body">
-                    
+                    <form (ngSubmit)="submitUploadImage()">
+                      <div [formGroup]="imageForm">
+                        <div class="input-group">
+                          <div class="custom-file">
+                            <input type="file" class="form-control custom-file-input" id="image" name="image" formControlName="image" (change)="uploadImage($event)" [ngClass]="{ 'is-invalid' : submitted && fImage.image.errors }" >
+                            <label class="custom-file-label" for="image">Izaberite fotografiju</label>
+                              <div *ngIf="submitted && fImage.image.errors" class="invalid-feedback"></div>
+                          </div>
+                          <div class="input-group-append">
+                            <button type="submit" class="input-group-text">Upload</button>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
                   </div>
                 </div>
     

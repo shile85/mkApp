@@ -54,7 +54,6 @@ export class LoginComponent implements OnInit {
 
     this.dataService.login(this.form.value).subscribe(res => {
       this.data = res;
-      console.log(res);
       if(this.data.status === 1){
         this.token = this.data.data.token;
         localStorage.setItem('token', this.token);
