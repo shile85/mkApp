@@ -56,5 +56,10 @@ Route::get('role/{id}', 'App\Http\Controllers\RoleController@getRoleById');
 
 //DOCUMENT:
 
+Route::post('document/{id}', 'App\Http\Controllers\DocumentController@store');
+
+Route::get('getUserDocuments/{id}', 'App\Http\Controllers\DocumentController@getUserDocuments');
+
+Route::delete('deleteUserDocument/{id}', 'App\Http\Controllers\DocumentController@delete');
 
 

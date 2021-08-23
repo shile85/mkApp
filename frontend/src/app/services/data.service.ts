@@ -50,6 +50,21 @@ export class DataService {
   }
 
 
+  // DOCUMENT
+
+  uploadDocument(id, data){
+    return this.http.post(environment.apiUrl+'/api/document/'+id, data)
+  }
+
+  getUserDocuments(id){
+    return this.http.get(environment.apiUrl+'/api/getUserDocuments/'+id)
+  }
+
+  deleteUserDocument(id){
+    return this.http.delete(environment.apiUrl+'/api/deleteUserDocument/'+id)
+  }
+
+
 
   // ROLE
 

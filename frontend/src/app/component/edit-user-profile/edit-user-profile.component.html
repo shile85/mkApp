@@ -23,12 +23,14 @@
           <div class="container-fluid">
             <div class="row mb-2">
               <div class="col-sm-6">
-                <h1 class="m-0">Starter Page</h1>
+                <h1 class="m-0">Izmena podataka</h1>
               </div><!-- /.col -->
               <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                  <li class="breadcrumb-item"><a href="#">Home</a></li>
-                  <li class="breadcrumb-item active">{{user.first_name}} {{user.last_name}}</li>
+                  <li class="breadcrumb-item"><a href="/home">Početna</a></li>
+                  <li class="breadcrumb-item"><a href="/users">Korisnici</a></li>
+                  <li class="breadcrumb-item">Izmena podataka</li>
+                  <li class="breadcrumb-item active"><a href="#">{{user.first_name}} {{user.last_name}}</a></li>
                 </ol>
               </div><!-- /.col -->
             </div><!-- /.row -->
@@ -141,7 +143,7 @@
               </div>
               <!-- /.col-md-6 -->
               <div class="col-lg-6">
-                <div class="card">
+                <div class="card card-primary card-outline">
                   <div class="card-header">
                     <h5 class="m-0">Profilna slika</h5>
                   </div>
@@ -155,20 +157,80 @@
                               <div *ngIf="submitted && fImage.image.errors" class="invalid-feedback"></div>
                           </div>
                           <div class="input-group-append">
-                            <button type="submit" class="input-group-text">Upload</button>
+                            <button type="submit" class="input-group-text btn btn-primary btn-block">Izmeni</button>
                           </div>
                         </div>
                       </div>
                     </form>
                   </div>
                 </div>
-    
+                <div class="card">
+                  <div class="card-header">
+                    <h3 class="card-title">Dokumenta korisnika</h3>
+                  </div>
+                  <!-- /.card-header -->
+                  <div class="card-body p-0">
+                    <table class="table table-sm">
+                      <thead>
+                        <tr>
+                          <th>Naziv dokumenta</th>
+                          <th style="width: 40px">Obriši</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let userDocument of userProfileDocuments">
+                          <td><a href="http://127.0.0.1:8000/storage/{{userDocument.documentPath}}" target="_blank">{{userDocument.category}}</a></td>
+                          <td >
+                            <button class="badge bg-danger" (click)="deleteUserDocument(userDocument.id)">Obriši</button></td>
+                        </tr>
+                        
+                      </tbody>
+                    </table>
+                  </div>
+                  <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+              
                 <div class="card card-primary card-outline">
                   <div class="card-header">
-                    <h5 class="m-0">Dokumenta</h5>
+                    <h5 class="m-0">Dodaj dokument</h5>
                   </div>
                   <div class="card-body">
-                   
+                    <form (ngSubmit)="submitUploadDocument()">
+                      <div [formGroup]="documentForm">
+                        <div class="input-group">
+                          <div class="custom-file">
+                            <input type="file" class="form-control custom-file-input" id="document" name="document" formControlName="document" (change)="uploadDocument($event)" [ngClass]="{ 'is-invalid' : submitted && fDocument.document.errors }" >
+                            <label class="custom-file-label" for="document">Izaberite dokument</label>
+                              <div *ngIf="submitted && fDocument.document.errors" class="invalid-feedback"></div>
+                          </div>
+                        </div>
+                        <div class="input-group mb-3">
+                          <select class="form-control" formControlName="category" required>
+                            <option value="Očitana Lična karta">Očitana Lična karta</option>
+                            <option value="Skenirana Lična karta">Skenirana Lična karta</option>
+                            <option value="Poasoš">Pasoš</option>
+                            <option value="Očitana Zdravstvena knjižica">Očitana Zdravstvena knjižica</option>
+                            <option value="Skenirana Zdravstvena knjižica">Skenirana Zdravstvena knjižica</option>
+                            <option value="Očitana Vozačka dozvola">Očitana Vozačka dozvola</option>
+                            <option value="Skenirana Vozačka dozvola">Skenirana Vozačka dozvola</option>
+                          </select>
+                          <div class="input-group-append">
+                            <div class="input-group-text">
+                              <span class="fas fa-file-pdf"></span>
+                            </div>
+                          </div>
+                          <div *ngIf="submitted && fDocument.category.errors" class="invalid-feedback">
+                            <div *ngIf="fDocuments.category.errors.required">
+                              Molimo izaberite kategoriju
+                            </div>
+                          </div>
+                        </div>
+                        <div class="input-group-append">
+                          <button type="submit" class="input-group-text btn btn-primary">Sačuvaj</button>
+                        </div>
+                      </div>
+                    </form>
                   </div>
                 </div>
               </div>

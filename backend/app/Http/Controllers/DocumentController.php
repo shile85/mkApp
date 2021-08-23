@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Document;
 use Illuminate\Http\Request;
+use File;
+use Storage;
 
 class DocumentController extends Controller
 {
@@ -33,9 +35,43 @@ class DocumentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
-        $table->string('user_id')->nullable();
+        if($request->hasfile('document')){
+            $completeFilename = $request->file('document')->getClientOriginalName();
+            $fileNameOnly = pathinfo($completeFilename, PATHINFO_FILENAME);
+            $extension = $request->file('document')->getClientOriginalExtension();
+            if($extension != 'pdf'){
+                $response['status'] = 2;
+                $response['code'] = 404;
+                $response['message'] = 'Dokument mora biti u pdf formatu';
+
+                return response()->json($response);
+            }
+            $compDoc = str_replace(' ', '_', $fileNameOnly).'-'.rand().'_'.time().'.'.$extension;
+            $upload = $request->file('document')->storeAs('public/documents', $compDoc);
+            $path = 'documents/'. $compDoc; 
+            $document = new Document;
+            $document->document_path = $path;
+            $document->category = $request->category;
+            $document->user_id = $id;
+            if($document->save()){
+                $response['status'] = 1;
+                $response['code'] = 200;
+                $response['message'] = 'Uspešno ste dodali dokument';
+
+                return response()->json($response);
+            }else{
+                $response['status'] = 2;
+                $response['code'] = 400;
+                $response['message'] = 'Došlo je do greške';
+
+                return response()->json($response);
+            }
+            
+            
+        }
+
     }
 
     /**
@@ -78,8 +114,29 @@ class DocumentController extends Controller
      * @param  \App\Models\Document  $document
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Document $document)
+    public function delete($id)
     {
-        //
+        $document = Document::find($id);
+        $file = 'public/'.$document->document_path;
+        Storage::delete($file);
+        $document->delete();
+        return response()->json(['message' => 'Dokument uspešno obrisan'], 200);
     }
+
+    public function getUserDocuments($id){
+        $documents = Document::where('user_id', $id)->get();
+        $documentsArr = array();
+        foreach ($documents as $key => $document){
+            $documentsArr[] = array(
+                'id' => $document['id'],
+                'category' => $document['category'],
+                'documentPath' => $document['document_path'],
+            );
+        }
+
+        return response()->json($documentsArr);
+
+    }
+
+
 }

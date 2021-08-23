@@ -74,4 +74,9 @@ class User extends Authenticatable implements JWTSubject
     {
         return [];
     }
+
+    public function tadocumentsk()
+    {
+        return $this->hasMany('App\Document');
+    }
 }

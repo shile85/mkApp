@@ -31,12 +31,17 @@ export class EditUserProfileComponent implements OnInit {
   form:FormGroup;
   imageForm:FormGroup;
   imageData:any;
+  documentForm:FormGroup;
+  documentData:any;
   submitted = false;
   data:any;
   userRoleId: string;
   userRoleData: any;
   roleName: string;
   files:any;
+  documents:any;
+  category:string;
+  userProfileDocuments:any
 
   constructor(
     private router:Router,
@@ -68,10 +73,18 @@ export class EditUserProfileComponent implements OnInit {
     })
   }
 
+  createFormDocument(){
+    this.documentForm = this.formBuilder.group({
+      document : [null, Validators.required],
+      category : [null, Validators.required],
+    })
+  }
+
   ngOnInit(): void {
 
     this.createForm();
     this.createFormImage();
+    this.createFormDocument();
 
     this.token = localStorage.getItem('token');
     this.userData = jwt_decode(this.token);
@@ -84,6 +97,8 @@ export class EditUserProfileComponent implements OnInit {
     }
 
     this.getData();
+    this.getUserDocuments();
+    
 
   }
 
@@ -93,6 +108,10 @@ export class EditUserProfileComponent implements OnInit {
 
   get fImage(){
     return this.imageForm.controls;
+  }
+
+  get fDocument(){
+    return this.documentForm.controls;
   }
 
   getData(){
@@ -141,7 +160,7 @@ export class EditUserProfileComponent implements OnInit {
           progressBar: true
         });
       }else{
-        this.toastr.success('Uspešno ste izmenili fotografiju korisnika', '', {
+        this.toastr.error('Došlo je do greške, molimo pokušajte ponovo', '', {
           timeOut: 2000,
           progressBar: true
         });
@@ -150,6 +169,49 @@ export class EditUserProfileComponent implements OnInit {
       }
     })
 
+  }
+
+  uploadDocument(event){
+    this.documents = event.target.files[0];
+  }
+
+  submitUploadDocument(){
+    this.submitted = true;
+    if(this.documentForm.invalid){
+      return;
+    }
+    
+    const formDocumentData = new FormData();
+    formDocumentData.append("document", this.documents, this.documents.name);
+    this.dataService.uploadDocument(this.userProfileId, formDocumentData).subscribe(res=>{
+      this.data = res;
+      if(this.data.status === 1){
+        this.toastr.success('Uspešno ste dodali dokument', '', {
+          timeOut: 2000,
+          progressBar: true
+        });
+      }else{
+        this.toastr.error('Došlo je do greške, molimo pokušajte ponovo', '', {
+          timeOut: 2000,
+          progressBar: true
+        });
+        this.submitted = false;
+        this.documentForm.get('document').reset();
+      }
+    })
+  }
+
+  getUserDocuments(){
+    this.dataService.getUserDocuments(this.userProfileId).subscribe(res => {
+      this.userProfileDocuments = res;
+      console.log(this.userProfileDocuments);
+    });
+  }
+
+  deleteUserDocument(id){
+    this.dataService.deleteUserDocument(id).subscribe(res => {
+      this.ngOnInit();
+    })
   }
 
 }

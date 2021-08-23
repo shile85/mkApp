@@ -11,9 +11,14 @@ class Document extends Model
 
 
     protected $fillable = [
-        'image',
-        'category'
+        'document_path',
+        'category',
+        'user_id'
 
     ];
+
+    public function user(){
+        return $this->belongsTo('App\User');
+    }
 
 }

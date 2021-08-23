@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use Illuminate\Support\Fasades\Hash;
 use App\Models\User;
+use App\Models\Document;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTExceptions;
 
@@ -183,6 +184,8 @@ class UserController extends Controller
         }
 
     }
+
+    
 
     
 }
