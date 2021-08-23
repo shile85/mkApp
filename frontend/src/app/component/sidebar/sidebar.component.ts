@@ -22,6 +22,7 @@ export class SidebarComponent implements OnInit {
   image:string;
   roleId:string;
   condition:boolean;
+  userId:any
 
   constructor(
     private router:Router
@@ -35,12 +36,17 @@ export class SidebarComponent implements OnInit {
     this.lastName = this.userData.lastName;
     this.image = this.userData.image;
     this.roleId = this.userData.roleId;
+    this.userId = this.userData.id;
     this.condition = true;
   }
 
   logout(){
     localStorage.removeItem('token');
     this.router.navigate(['']);
+  }
+
+  userProfile(){
+    this.router.navigate(['/userProfile'], {queryParams: {id:this.userId}});
   }
 
   

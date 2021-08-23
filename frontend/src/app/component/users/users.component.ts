@@ -50,17 +50,19 @@ export class UsersComponent implements OnInit{
     this.username = this.tokenData.name;
     this.roleId = this.tokenData.roleId;
 
+    
+    this.getActiveUsers();
+    
+
+  }
+
+  getActiveUsers(){
     this.dataService.getActiveUsers().subscribe(res => {
       this.users = res;
       this.userData = this.users;
       this.collectionSize = this.users.length;
     });
-
-    
-
-    
   }
-
 
   search(value: string): void {
     this.users = this.userData.filter((val) => val.email.toLowerCase().includes(value));
