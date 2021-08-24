@@ -31,6 +31,7 @@ class User extends Authenticatable implements JWTSubject
         'businessPhone',
         'birthDay',
         'image',
+        'position',
 
     ];
 
@@ -75,8 +76,13 @@ class User extends Authenticatable implements JWTSubject
         return [];
     }
 
-    public function tadocumentsk()
+    public function documents()
     {
         return $this->hasMany('App\Document');
+    }
+
+    public function car()
+    {
+        return $this->hasOne('App\Car');
     }
 }

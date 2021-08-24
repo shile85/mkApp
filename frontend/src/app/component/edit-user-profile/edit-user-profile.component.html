@@ -30,7 +30,7 @@
                   <li class="breadcrumb-item"><a href="/home">Početna</a></li>
                   <li class="breadcrumb-item"><a href="/users">Korisnici</a></li>
                   <li class="breadcrumb-item">Izmena podataka</li>
-                  <li class="breadcrumb-item active"><a href="#">{{user.first_name}} {{user.last_name}}</a></li>
+                  <li class="breadcrumb-item active"><a routerLink='' (click)="userProfile(user.id);">{{user.first_name}} {{user.last_name}}</a></li>
                 </ol>
               </div><!-- /.col -->
             </div><!-- /.row -->
@@ -82,6 +82,14 @@
                         <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
                           <div *ngIf="f.email.errors.email">
                             Email je u neispravnom formatu
+                          </div>
+                        </div>
+                      </div>
+                      <div class="input-group mb-3">
+                        <input type="text" autocomplete="position" formControlName="position" class="form-control" [(ngModel)]="user.position">
+                        <div class="input-group-append">
+                          <div class="input-group-text">
+                            <span class="fas fa-address-card"></span>
                           </div>
                         </div>
                       </div>

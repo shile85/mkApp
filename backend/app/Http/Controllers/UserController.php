@@ -28,6 +28,7 @@ class UserController extends Controller
                 'roleId' => $request->roleId,
                 'first_name' => $request->firstName,
                 'last_name' => $request->lastName,
+                'position' => $request->position,
                 'address' => $request->address,
                 'city' => $request->city,
                 'status' => '1',
@@ -66,7 +67,7 @@ class UserController extends Controller
             return response()->json($response);
         }
 
-        $img = 
+        
 
         $user = auth()->user();
         $data['token'] = auth()->claims([

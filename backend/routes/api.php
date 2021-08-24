@@ -63,3 +63,9 @@ Route::get('getUserDocuments/{id}', 'App\Http\Controllers\DocumentController@get
 Route::delete('deleteUserDocument/{id}', 'App\Http\Controllers\DocumentController@delete');
 
 
+// CAR
+
+Route::post('addCar', 'App\Http\Controllers\CarController@store');
+
+
+

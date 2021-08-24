@@ -1,4 +1,5 @@
 export class Register {
+    id:any;
     name:any;
     first_name: any;
     last_name: any;
@@ -11,4 +12,6 @@ export class Register {
     roleId:any;
     password:any;
     confirmPassword:any;
+    image:any;
+    position:any;
 }

@@ -69,6 +69,10 @@ export class UsersComponent implements OnInit{
     this.collectionSize = this.users.length;
   }
 
+  userProfile(userId){
+    this.router.navigate(['/userProfile'], {queryParams: {id:userId}});
+  }
+
   editUserProfile(userId){
     this.router.navigate(['/editUserProfile'], {queryParams: {id:userId}});
   }

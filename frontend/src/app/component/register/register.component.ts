@@ -36,6 +36,7 @@ export class RegisterComponent implements OnInit {
       firstName: [null],
       lastName: [null],
       email: [null, [Validators.required, Validators.email]],
+      position: [null],
       address: [null],
       city: [null],
       telephone: [null],
@@ -93,6 +94,7 @@ export class RegisterComponent implements OnInit {
       this.form.get('firstName').reset();
       this.form.get('lastName').reset();
       this.form.get('email').reset();
+      this.form.get('position').reset();
       this.form.get('address').reset();
       this.form.get('city').reset();
       this.form.get('telephone').reset();

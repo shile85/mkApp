@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import jwt_decode from 'jwt-decode';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DataService } from 'src/app/services/data.service';
+import { Register } from 'src/app/models/register.model';
 
 
 @Component({
@@ -18,9 +19,12 @@ export class UserProfileComponent implements OnInit {
   token:any;
   userData:any;
   id:string;
-  userId:string;
+  userProfileId:string;
   roleId:string;
   firstName:string;
+  userProfileData:any;
+  user = new Register();
+  userProfileDocuments:any;
 
   constructor(
     private router:Router,
@@ -37,13 +41,26 @@ export class UserProfileComponent implements OnInit {
     this.firstName = this.userData.firstName;
 
     if(this.route.snapshot.queryParamMap.get('id')){
-      this.userId = this.route.snapshot.queryParamMap.get('id');
+      this.userProfileId = this.route.snapshot.queryParamMap.get('id');
+
+      this.getData();
+      this.getUserDocuments();
     }
+
+
 
   }
 
   getData(){
-   
+   this.dataService.getUserById(this.userProfileId).subscribe(res => {
+    this.userProfileData = res;
+    this.user = this.userProfileData;
+   });
+  }
+  getUserDocuments(){
+    this.dataService.getUserDocuments(this.userProfileId).subscribe(res => {
+      this.userProfileDocuments = res;
+    });
   }
 
   logout(){

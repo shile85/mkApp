@@ -69,11 +69,10 @@
                       </tr>
                       </thead>
                       <tbody>
-                      <tr *ngFor="let user of users | listFilter: searchTerm | slice: (page-1) * pageSize : page * pageSize; index as i">
+                        <tr *ngFor="let user of users | listFilter: searchTerm | slice: (page-1) * pageSize : page * pageSize; index as i" (click)="userProfile(user.id);">
                         
                         <td>{{user.first_name}}</td>
-                        <td>{{user.last_name}}
-                        </td>
+                        <td>{{user.last_name}}</td>
                         <td>{{user.name}}</td>
                         <td> {{user.email}}</td>
                         <td>{{user.roleId}}</td>

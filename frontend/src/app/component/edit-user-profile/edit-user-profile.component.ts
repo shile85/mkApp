@@ -57,6 +57,7 @@ export class EditUserProfileComponent implements OnInit {
       firstName: [null],
       lastName: [null],
       email: [null, [Validators.email]],
+      position: [null],
       address: [null],
       city: [null],
       telephone: [null],
@@ -204,7 +205,6 @@ export class EditUserProfileComponent implements OnInit {
   getUserDocuments(){
     this.dataService.getUserDocuments(this.userProfileId).subscribe(res => {
       this.userProfileDocuments = res;
-      console.log(this.userProfileDocuments);
     });
   }
 
@@ -212,6 +212,10 @@ export class EditUserProfileComponent implements OnInit {
     this.dataService.deleteUserDocument(id).subscribe(res => {
       this.ngOnInit();
     })
+  }
+
+  userProfile(userId){
+    this.router.navigate(['/userProfile'], {queryParams: {id:userId}});
   }
 
 }

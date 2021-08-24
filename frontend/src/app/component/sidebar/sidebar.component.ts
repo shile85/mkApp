@@ -36,7 +36,7 @@ export class SidebarComponent implements OnInit {
     this.lastName = this.userData.lastName;
     this.image = this.userData.image;
     this.roleId = this.userData.roleId;
-    this.userId = this.userData.id;
+    this.userId = this.userData.userId;
     this.condition = true;
   }
 
