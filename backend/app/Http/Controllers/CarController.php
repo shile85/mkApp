@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Car;
 use Illuminate\Http\Request;
 
+use Storage;
+
 class CarController extends Controller
 {
     /**
@@ -48,7 +50,7 @@ class CarController extends Controller
             }
             $compPic = str_replace(' ', '_', $imgFileNameOnly).'-'.rand().'_'.time().'.'.$imgExtension;
             $imgUpload = $request->file('image')->storeAs('public/carImg', $compPic);
-            $imgPath = 'profileImg/'. $compPic; 
+            $imgPath = 'carImg/'. $compPic; 
         }
         if($request->hasfile('document')){
             $docCompleteFilename = $request->file('document')->getClientOriginalName();
@@ -63,7 +65,7 @@ class CarController extends Controller
             }
             $compDoc = str_replace(' ', '_', $docFileNameOnly).'-'.rand().'_'.time().'.'.$docExtension;
             $docUpload = $request->file('document')->storeAs('public/carDocuments', $compDoc);
-            $docPath = 'documents/'. $compDoc; 
+            $docPath = 'carDocuments/'. $compDoc; 
         }
         $car = new Car;
         $car->model=$request->model;
@@ -116,9 +118,76 @@ class CarController extends Controller
      * @param  \App\Models\Car  $car
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Car $car)
+    public function update(Request $request, $id)
     {
-        //
+        
+
+    }
+
+    public function editCar(Request $request, $id){
+
+        $car = Car::find($id);
+        if($request->hasfile('image')){
+            
+            $img = 'public/'.$car->image_path;
+            Storage::delete($img);
+
+            $imgCompleteFilename = $request->file('image')->getClientOriginalName();
+            $imgFileNameOnly = pathinfo($imgCompleteFilename, PATHINFO_FILENAME);
+            $imgExtension = $request->file('image')->getClientOriginalExtension();
+            if($imgExtension != "jpg"){
+                $response['status'] = 2;
+                $response['code'] = 404;
+                $response['message'] = 'Dokument mora biti u jpg, bmp ili png formatu';
+
+                return response()->json($response);
+            }
+            $compPic = str_replace(' ', '_', $imgFileNameOnly).'-'.rand().'_'.time().'.'.$imgExtension;
+            $imgUpload = $request->file('image')->storeAs('public/carImg', $compPic);
+            $imgPath = 'carImg/'. $compPic; 
+            $car->image_path=$imgPath;
+            
+        }
+        if($request->hasfile('document')){
+            
+            $doc = 'public/'.$car->document_path;
+            Storage::delete($doc);
+
+            $docCompleteFilename = $request->file('document')->getClientOriginalName();
+            $docFileNameOnly = pathinfo($docCompleteFilename, PATHINFO_FILENAME);
+            $docExtension = $request->file('document')->getClientOriginalExtension();
+            if($docExtension != 'pdf'){
+                $response['status'] = 2;
+                $response['code'] = 404;
+                $response['message'] = 'Dokument mora biti u pdf formatu';
+
+                return response()->json($response);
+            }
+            $compDoc = str_replace(' ', '_', $docFileNameOnly).'-'.rand().'_'.time().'.'.$docExtension;
+            $docUpload = $request->file('document')->storeAs('public/carDocuments', $compDoc);
+            $docPath = 'carDocuments/'. $compDoc; 
+            $car->document_path=$docPath;
+        }
+
+
+        $car->model=$request->model;
+        $car->registration=$request->registration;
+        $car->user_id=$request->user_id;
+        
+        if($car->update()){
+            $response['status'] = 1;
+            $response['code'] = 200;
+            $response['message'] = 'Uspešno ste izmenili automobil';
+
+            return response()->json($response);
+        }else{
+            $response['status'] = 2;
+            $response['code'] = 400;
+            $response['message'] = 'Došlo je do greške';
+
+            return response()->json($response);
+        }
+
     }
 
     /**
@@ -127,8 +196,14 @@ class CarController extends Controller
      * @param  \App\Models\Car  $car
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Car $car)
+    public function delete($id)
     {
-        //
+        $car = Car::find($id);
+        $doc = 'public/'.$car->document_path;
+        $img = 'public/'.$car->image_path;
+        Storage::delete($img);
+        Storage::delete($doc);
+        $car->delete();
+        return response()->json(['message' => 'Automobil uspešno obrisan'], 200);
     }
 }

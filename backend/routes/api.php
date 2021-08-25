@@ -67,5 +67,16 @@ Route::delete('deleteUserDocument/{id}', 'App\Http\Controllers\DocumentControlle
 
 Route::post('addCar', 'App\Http\Controllers\CarController@store');
 
+Route::post('editCar/{id}', 'App\Http\Controllers\CarController@editCar');
+
+Route::delete('deleteCar/{id}', 'App\Http\Controllers\CarController@delete');
+
+// COMPANY
+
+Route::post('addCompany', 'App\Http\Controllers\CompanyController@store');
+
+Route::delete('deleteCompany/{id}', 'App\Http\Controllers\CompanyController@delete');
+
+Route::delete('destroyCompany/{id}', 'App\Http\Controllers\CompanyController@destroy');
 
 
