@@ -71,5 +71,11 @@ export class DataService {
   getRoleById(id){
     return this.http.get(environment.apiUrl+'/api/role/'+id)
   }
+
+  //COMPANIES
+
+  getCompanies(){
+    return this.http.get(environment.apiUrl+'/api/getCompanies')
+  }
   
 }

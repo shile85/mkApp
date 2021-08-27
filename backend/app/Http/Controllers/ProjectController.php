@@ -7,6 +7,13 @@ use Illuminate\Http\Request;
 
 class ProjectController extends Controller
 {
+
+
+    // public function __construct()
+    // {
+    //     $this->middleware('auth:api');
+    // }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +21,12 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json(Project::all(),200);
+    }
+
+    public function getProjectById($id){
+        $project = Project::find($id);
+        return response()->json($project,200);
     }
 
     /**
@@ -34,11 +46,9 @@ class ProjectController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        // dd($request->projectManagerId);  
+    {  
         $project = new Project;
         $project->projectManagerId=$request->projectManagerId;
-        // dd($project->projectManagerId); 
         $project->projectName=$request->projectName;
         $project->company_id=$request->company_id;
         $project->desc=$request->desc;
@@ -46,7 +56,6 @@ class ProjectController extends Controller
         $project->spent=$request->spent;
         $project->start=$request->start;
         $project->end=$request->end;
-        // dd($project);
         if($project->save()){
             $response['status'] = 1;
             $response['code'] = 200;
@@ -71,7 +80,7 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
-        //
+        
     }
 
     /**

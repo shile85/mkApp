@@ -23,6 +23,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ListFilterPipe } from './table/listFilterPipe';
 import { EditUserProfileComponent } from './component/edit-user-profile/edit-user-profile.component';
 import { FooterComponent } from './component/footer/footer.component';
+import { ClientsComponent } from './component/clients/clients.component';
 
 
 
@@ -57,6 +58,11 @@ export const routes:Routes =  [
     component:EditUserProfileComponent,
     canActivate: [RoleGuard, AuthGuard],
   },
+  {
+    path: 'clients',
+    component:ClientsComponent,
+    canActivate: [RoleGuard, AuthGuard],
+  },
 
 ];
 
@@ -73,6 +79,7 @@ export const routes:Routes =  [
     ListFilterPipe,
     EditUserProfileComponent,
     FooterComponent,
+    ClientsComponent,
   ],
   imports: [
     BrowserModule,

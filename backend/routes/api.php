@@ -53,19 +53,21 @@ Route::put('softDeleteUser/{id}', 'App\Http\Controllers\UserController@softDelet
 
 Route::get('role/{id}', 'App\Http\Controllers\RoleController@getRoleById');
 
+Route::get('getRoles', 'App\Http\Controllers\RoleController@index');
+
 
 //DOCUMENT:
 
 Route::post('document/{id}', 'App\Http\Controllers\DocumentController@store');
 
-Route::get('getUserDocuments/{id}', 'App\Http\Controllers\DocumentController@getUserDocuments');
+Route::get('getUserDocuments/{id}', 'App\Http\Controllers\DocumentController@index');
 
 Route::delete('deleteUserDocument/{id}', 'App\Http\Controllers\DocumentController@delete');
 
 
 // CAR
 
-Route::get('getCars', 'App\Http\Controllers\CarController@show');
+Route::get('getCars', 'App\Http\Controllers\CarController@index');
 
 Route::get('getUserCar/{id}', 'App\Http\Controllers\CarController@getUserCar');
 
@@ -79,6 +81,10 @@ Route::delete('deleteCar/{id}', 'App\Http\Controllers\CarController@delete');
 
 // COMPANY
 
+Route::get('getCompanies', 'App\Http\Controllers\CompanyController@index');
+
+Route::get('getCompanyById/{id}', 'App\Http\Controllers\CompanyController@getCompanyById');
+
 Route::post('addCompany', 'App\Http\Controllers\CompanyController@store');
 
 Route::delete('deleteCompany/{id}', 'App\Http\Controllers\CompanyController@delete');
@@ -87,6 +93,10 @@ Route::delete('destroyCompany/{id}', 'App\Http\Controllers\CompanyController@des
 
 
 //PROJECT
+
+Route::get('getProjects', 'App\Http\Controllers\ProjectController@index');
+
+Route::get('getProjectById/{id}', 'App\Http\Controllers\ProjectController@getProjectById');
 
 Route::post('addProject', 'App\Http\Controllers\ProjectController@store');
 
@@ -97,6 +107,10 @@ Route::delete('deleteProject/{id}', 'App\Http\Controllers\ProjectController@dele
 Route::delete('destroyProject/{id}', 'App\Http\Controllers\ProjectController@destroy');
 
 //TASK
+
+Route::get('getAllUserTasks/{id}', 'App\Http\Controllers\TaskController@getAllUserTasks');
+
+Route::get('getAllProjectTasks/{id}', 'App\Http\Controllers\TaskController@getAllProjectTasks');
 
 Route::post('addTask', 'App\Http\Controllers\TaskController@store');
 

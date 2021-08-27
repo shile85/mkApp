@@ -12,6 +12,12 @@ use Tymon\JWTAuth\Exceptions\JWTExceptions;
 
 class UserController extends Controller
 {
+
+    // public function __construct()
+    // {
+    //     $this->middleware('auth:api', ['except' => ['login']]);
+    // }
+
     public function register(Request $request){
 
         $user = User::where('email', $request['email'])->first();

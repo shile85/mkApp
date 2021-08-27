@@ -9,6 +9,12 @@ use Storage;
 
 class CarController extends Controller
 {
+
+    // public function __construct()
+    // {
+    //     $this->middleware('auth:api');
+    // }
+
     /**
      * Display a listing of the resource.
      *
@@ -16,7 +22,18 @@ class CarController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json(Car::all(),200);
+    }
+
+    public function getUserCar($id)
+    {
+        $car = Car::where('user_id', $id)->get();
+        return response()->json($car,200);
+    }
+
+    public function getCarById($id){
+        $car = Car::find($id);
+        return response()->json($car,200);
     }
 
     /**
@@ -97,19 +114,9 @@ class CarController extends Controller
      */
     public function show(Car $car)
     {
-        return response()->json(Car::all(),200);
+        
     }
 
-    public function getUserCar($id)
-    {
-        $car = Car::where('user_id', $id)->get();
-        return response()->json($car,200);
-    }
-
-    public function getCarById($id){
-        $car = Car::find($id);
-        return response()->json($car,200);
-    }
 
     /**
      * Show the form for editing the specified resource.

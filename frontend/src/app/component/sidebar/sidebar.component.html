@@ -34,7 +34,7 @@
             <ul class="nav nav-treeview">
               <li class="nav-item">
                 <a href="#" class="nav-link">
-                  <i class="nav-icon fas fa-tachometer-alt"></i>
+                  <i class="nav-icon fas fa-users"></i>
                   <p>
                     Korisnici
                     <i class="right fas fa-angle-left"></i>
@@ -56,8 +56,34 @@
                 </ul>   
               </li>
             </ul>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="nav-icon fas fa-folder-open"></i>
+                  <p>
+                    Klijenti
+                    <i class="right fas fa-angle-left"></i>
+                  </p>
+                </a>  
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="#" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Dodaj Klijenta</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="/clients" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Lista Klijenata</p>
+                    </a>
+                  </li>
+                </ul>   
+              </li>
+            </ul>
           </li>
           <!-- ADMIN ITEM -->
+          <!-- MODERATOR ITEM -->
           <li *ngIf="roleId == '2'" class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-user-cog"></i>
@@ -69,7 +95,7 @@
             <ul class="nav nav-treeview">
               <li class="nav-item">
                 <a href="#" class="nav-link">
-                  <i class="nav-icon fas fa-tachometer-alt"></i>
+                  <i class="nav-icon fas fa-users"></i>
                   <p>
                     Korisnici
                     <i class="right fas fa-angle-left"></i>
@@ -92,6 +118,74 @@
               </li>
             </ul>
           </li>
+          <!-- MODERATOR ITEM -->
+          <!-- PROJEKTI -->
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-project-diagram"></i>
+              <p>
+                Projekti
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>  
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Moja zaduženja</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Aktivni projekti</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Arhivirani projekti</p>
+                </a>
+              </li>
+              <li *ngIf="roleId == '1' || roleId == '2'"  class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Dodaj projekat</p>
+                </a>
+              </li>
+            </ul>   
+          </li>
+          <!-- PROJEKTI -->
+          <!-- AUTOMOBILI -->
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-car"></i>
+              <p>
+                Vozila
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>  
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Lista vozila</p>
+                </a>
+              </li>
+              <li *ngIf="roleId == '1' || roleId == '2'" class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Dodeli vozilo</p>
+                </a>
+              </li>
+              <li *ngIf="roleId == '1'" class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Dodaj Vozilo</p>
+                </a>
+            </ul>   
+          </li>
+          <!-- AUTOMOBILI -->
           <!-- LOG OUT -->
           <li class="nav-item">
             <a href="#" class="nav-link" (click)='logout()'>
@@ -101,6 +195,7 @@
               </p>
             </a>
           </li>
+          <!-- LOG OUT -->       
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

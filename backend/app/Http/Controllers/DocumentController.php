@@ -9,14 +9,31 @@ use Storage;
 
 class DocumentController extends Controller
 {
+
+
+    // public function __construct()
+    // {
+    //     $this->middleware('auth:api');
+    // }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
-        //
+        $documents = Document::where('user_id', $id)->get();
+        $documentsArr = array();
+        foreach ($documents as $key => $document){
+            $documentsArr[] = array(
+                'id' => $document['id'],
+                'category' => $document['category'],
+                'documentPath' => $document['document_path'],
+            );
+        }
+
+        return response()->json($documentsArr);
     }
 
     /**
@@ -117,26 +134,22 @@ class DocumentController extends Controller
     public function delete($id)
     {
         $document = Document::find($id);
-        $file = 'public/'.$document->document_path;
-        Storage::delete($file);
-        $document->delete();
-        return response()->json(['message' => 'Dokument uspešno obrisan'], 200);
-    }
+        if(is_null($document)){
 
-    public function getUserDocuments($id){
-        $documents = Document::where('user_id', $id)->get();
-        $documentsArr = array();
-        foreach ($documents as $key => $document){
-            $documentsArr[] = array(
-                'id' => $document['id'],
-                'category' => $document['category'],
-                'documentPath' => $document['document_path'],
-            );
+            $response['status'] = 2;
+            $response['code'] = 404;
+            $response['message'] = 'Dokument ne postoji;';
+
+            return response()->json($response);
+        }else{
+            $file = 'public/'.$document->document_path;
+            Storage::delete($file);
+            $document->delete();
+            return response()->json(['message' => 'Dokument uspešno obrisan'], 200);
         }
-
-        return response()->json($documentsArr);
-
+        
     }
+
 
 
 }

@@ -7,6 +7,13 @@ use Illuminate\Http\Request;
 
 class TaskController extends Controller
 {
+
+    // public function __construct()
+    // {
+    //     $this->middleware('auth:api');
+    // }
+
+    
     /**
      * Display a listing of the resource.
      *
@@ -27,6 +34,15 @@ class TaskController extends Controller
         //
     }
 
+    public function getAllUserTasks($id){
+        $task = Task::where('user_id', $id)->get();
+        return response()->json($task,200);
+    }
+    public function getAllProjectTasks($id){
+        $task = Task::where('project_id', $id)->get();
+        return response()->json($task,200);
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -39,7 +55,7 @@ class TaskController extends Controller
          $task->taskName=$request->taskName;
          $task->description=$request->description;
          $task->user_id=$request->user_id;
-         $task->task_id=$request->task_id;
+         $task->project_id=$request->project_id;
          if($task->save()){
              $response['status'] = 1;
              $response['code'] = 200;

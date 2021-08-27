@@ -7,6 +7,12 @@ use Illuminate\Http\Request;
 
 class CompanyController extends Controller
 {
+
+    // public function __construct()
+    // {
+    //     $this->middleware('auth:api');
+    // }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +20,16 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json(Company::all(),200);
+    }
+
+    public function getCompanyById($id)
+    {
+        $company = Company::find($id);
+        if(is_null($company)){
+            return response()->json(['message' => 'Korisnik nije registrovan'], 404);
+        }
+        return response()->json($company, 200);
     }
 
     /**
@@ -61,7 +76,7 @@ class CompanyController extends Controller
      */
     public function show(Company $company)
     {
-        //
+        
     }
 
     /**
