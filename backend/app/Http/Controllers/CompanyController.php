@@ -37,8 +37,20 @@ class CompanyController extends Controller
     {
         $company = new Company;
         $company->companyName = $request->companyName;
+        
+        if($company->save()){
+            $response['status'] = 1;
+            $response['code'] = 200;
+            $response['message'] = 'Uspešno ste dodali projekat';
 
-        $company->save();
+            return response()->json($response);
+        }else{
+            $response['status'] = 2;
+            $response['code'] = 400;
+            $response['message'] = 'Došlo je do greške';
+
+            return response()->json($response);
+        }
     }
 
     /**

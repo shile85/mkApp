@@ -43,11 +43,7 @@ class UserController extends Controller
             $response['message'] = 'User registration successful';
             $response['code'] = 201;
         }
-
-        
-
         return response()->json($response);
-
     }
 
     public function login(Request $request){
@@ -66,8 +62,6 @@ class UserController extends Controller
             $response['message'] = 'Could not create token';
             return response()->json($response);
         }
-
-        
 
         $user = auth()->user();
         $data['token'] = auth()->claims([
@@ -157,10 +151,21 @@ class UserController extends Controller
     public function deleteUser(Request $request, $id){
         $user = User::find($id);
         if(is_null($user)){
-            return response()->json(['message' => 'Korisnik nije registrovan'], 404);
+
+            $response['status'] = 2;
+            $response['code'] = 404;
+            $response['message'] = 'Korisnik nije registrovan';
+
+            return response()->json($response);
+        }else{
+            $user->delete();
+
+            $response['status'] = 1;
+            $response['code'] = 200;
+            $response['message'] = 'Uspešno ste uklonili korisnika';
+
+        return response()->json($response);
         }
-        $user->delete();
-        return response()->json(['message' => 'Korisnik uspešno obrisan'], 200);
     }
 
     public function softDeleteUser(Request $request, $id){

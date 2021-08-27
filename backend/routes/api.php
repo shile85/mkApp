@@ -65,9 +65,15 @@ Route::delete('deleteUserDocument/{id}', 'App\Http\Controllers\DocumentControlle
 
 // CAR
 
+Route::get('getCars', 'App\Http\Controllers\CarController@show');
+
+Route::get('getUserCar/{id}', 'App\Http\Controllers\CarController@getUserCar');
+
+Route::get('getCarById/{id}', 'App\Http\Controllers\CarController@getCarById');
+
 Route::post('addCar', 'App\Http\Controllers\CarController@store');
 
-Route::post('editCar/{id}', 'App\Http\Controllers\CarController@editCar');
+Route::post('editCar/{id}', 'App\Http\Controllers\CarController@update');
 
 Route::delete('deleteCar/{id}', 'App\Http\Controllers\CarController@delete');
 
@@ -79,4 +85,22 @@ Route::delete('deleteCompany/{id}', 'App\Http\Controllers\CompanyController@dele
 
 Route::delete('destroyCompany/{id}', 'App\Http\Controllers\CompanyController@destroy');
 
+
+//PROJECT
+
+Route::post('addProject', 'App\Http\Controllers\ProjectController@store');
+
+Route::put('editProject/{id}', 'App\Http\Controllers\ProjectController@update');
+
+Route::delete('deleteProject/{id}', 'App\Http\Controllers\ProjectController@delete');
+
+Route::delete('destroyProject/{id}', 'App\Http\Controllers\ProjectController@destroy');
+
+//TASK
+
+Route::post('addTask', 'App\Http\Controllers\TaskController@store');
+
+Route::put('editTask/{id}', 'App\Http\Controllers\TaskController@update');
+
+Route::delete('destroyTask/{id}', 'App\Http\Controllers\TaskController@destroy');
 

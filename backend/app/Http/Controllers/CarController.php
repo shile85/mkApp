@@ -97,7 +97,18 @@ class CarController extends Controller
      */
     public function show(Car $car)
     {
-        //
+        return response()->json(Car::all(),200);
+    }
+
+    public function getUserCar($id)
+    {
+        $car = Car::where('user_id', $id)->get();
+        return response()->json($car,200);
+    }
+
+    public function getCarById($id){
+        $car = Car::find($id);
+        return response()->json($car,200);
     }
 
     /**
@@ -120,12 +131,6 @@ class CarController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
-
-    }
-
-    public function editCar(Request $request, $id){
-
         $car = Car::find($id);
         if($request->hasfile('image')){
             
@@ -199,11 +204,25 @@ class CarController extends Controller
     public function delete($id)
     {
         $car = Car::find($id);
-        $doc = 'public/'.$car->document_path;
-        $img = 'public/'.$car->image_path;
-        Storage::delete($img);
-        Storage::delete($doc);
-        $car->delete();
-        return response()->json(['message' => 'Automobil uspešno obrisan'], 200);
+        if(is_null($car)){
+
+            $response['status'] = 2;
+            $response['code'] = 404;
+            $response['message'] = 'Automobil nije registrovan';
+
+            return response()->json($response);
+        }else{
+            $doc = 'public/'.$car->document_path;
+            $img = 'public/'.$car->image_path;
+            Storage::delete($img);
+            Storage::delete($doc);
+            $car->delete();
+
+            $response['status'] = 1;
+            $response['code'] = 200;
+            $response['message'] = 'Uspešno ste uklonili automobil';
+
+        return response()->json($response);
+        }
     }
 }
