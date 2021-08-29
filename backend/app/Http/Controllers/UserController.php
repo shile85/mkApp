@@ -91,9 +91,69 @@ class UserController extends Controller
         return response()->json(User::all(),200);
     }
 
+    public static function getUserName($id){
+        
+        $user = User::findOrFail($id);
+        $username = $user['first_name'].' '.$user['last_name'];
+        return $username;
+
+    }
+
+    public static function getUserPhoto($id){
+        $user = User::findOrFail($id);
+        $userPhoto = $user['image'];
+        return $userPhoto;
+    }
+
     public function getActiveUsers(){
         $users = User::where('status', '1') -> get();
-        return response()->json($users,200);
+        $usersMod = array();
+        
+        foreach ($users as $key => $user) {
+            $usersMod[]= array(
+                'id' => $user['id'],
+                'first_name' => $user['first_name'],
+                'last_name' => $user['last_name'],
+                'email' => $user['email'],
+                'name' => $user['name'],
+                'address' => $user['address'],
+                'birthday' => $user['birthday'],
+                'city' => $user['city'],
+                'telephone' => $user['telephone'],
+                'businessPhone' => $user['businessPhone'],
+                'image' => $user['image'],
+                'role' => RoleController::getRoleNameById($user['roleId']),
+                'userstatus' => UserController::userStatus($user['id']),
+            );
+        }
+        
+        return response()->json($usersMod,200);
+    }
+
+    
+    public function getArchivedUsers(){
+        $users = User::where('status', '0') -> get();
+        $usersMod = array();
+        
+        foreach ($users as $key => $user) {
+            $usersMod[]= array(
+                'id' => $user['id'],
+                'first_name' => $user['first_name'],
+                'last_name' => $user['last_name'],
+                'email' => $user['email'],
+                'name' => $user['name'],
+                'address' => $user['address'],
+                'birthday' => $user['birthday'],
+                'city' => $user['city'],
+                'telephone' => $user['telephone'],
+                'businessPhone' => $user['businessPhone'],
+                'image' => $user['image'],
+                'role' => RoleController::getRoleNameById($user['roleId']),
+                'userstatus' => UserController::userStatus($user['id']),
+            );
+        }
+        
+        return response()->json($usersMod,200);
     }
 
     public function getUserById($id){
@@ -191,6 +251,37 @@ class UserController extends Controller
             $response['status'] = 1;
             $response['code'] = 200;
             $response['message'] = 'Uspešno ste uklonili korisnika';
+
+        return response()->json($response);
+        }
+
+    }
+
+    public function userStatus($id){
+        $user = User::findOrFail($id);
+        if ($user['status'] == 1){
+            return "Aktivan";
+        }else return "Arhiviran";
+    }
+
+    
+    public function activateUser(Request $request, $id){
+
+        $user = User::find($id);
+        if(is_null($user)){
+
+            $response['status'] = 2;
+            $response['code'] = 404;
+            $response['message'] = 'Korisnik nije registrovan';
+
+            return response()->json($response);
+        }else{
+            $user->status = '1';
+            $user->save();
+
+            $response['status'] = 1;
+            $response['code'] = 200;
+            $response['message'] = 'Uspešno ste aktivirali korisnika';
 
         return response()->json($response);
         }

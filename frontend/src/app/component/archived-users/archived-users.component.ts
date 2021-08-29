@@ -1,4 +1,4 @@
-import {Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {DataService} from '../../services/data.service';
 
 import jwt_decode from 'jwt-decode';
@@ -7,20 +7,16 @@ import { query } from '@angular/animations';
 
 import { ToastrModule, ToastrService } from 'ngx-toastr';
 
-
-declare var $: any;
-
 @Component({
-  selector: 'app-users',
-  templateUrl: './users.component.html',
+  selector: 'app-archived-users',
+  templateUrl: './archived-users.component.html',
   styleUrls: [
-    './users.component.css',
+    './archived-users.component.css',
     '/../../../assets/plugins/fontawesome-free/css/all.css',
     '/../../../assets/dist/css/adminlte.css'
-
   ]
 })
-export class UsersComponent implements OnInit{
+export class ArchivedUsersComponent implements OnInit {
 
   token:any;
   tokenData:any;
@@ -41,7 +37,6 @@ export class UsersComponent implements OnInit{
     private dataService: DataService,
     private toastr: ToastrService,
     ) { }
-  
 
   ngOnInit(): void {
 
@@ -50,14 +45,11 @@ export class UsersComponent implements OnInit{
     this.username = this.tokenData.name;
     this.roleId = this.tokenData.roleId;
 
-    
-    this.getActiveUsers();
-    
-
+    this.getArchivedUsers();
   }
 
-  getActiveUsers(){
-    this.dataService.getActiveUsers().subscribe(res => {
+  getArchivedUsers(){
+    this.dataService.getArchivedUsers().subscribe(res => {
       this.users = res;
       this.userData = this.users;
       this.collectionSize = this.users.length;
@@ -69,26 +61,11 @@ export class UsersComponent implements OnInit{
     this.collectionSize = this.users.length;
   }
 
-  userProfile(userId){
-    this.router.navigate(['/userProfile'], {queryParams: {id:userId}});
-  }
-
-  editUserProfile(userId){
-    this.router.navigate(['/editUserProfile'], {queryParams: {id:userId}});
-  }
-
   deleteUser(id){
     this.dataService.deleteUser(id).subscribe(res => {
-      this.ngOnInit();
-    })
-  }
-
-  softDeleteUser(id, data){
-    console.log(data);
-    this.dataService.softDeleteUser(id, data).subscribe(res =>{
-      this.data = res;
-      if(this.data.status === 1){
-        this.toastr.success('Uspešno ste uklonili korisnika', '', {
+      this.userData = res;
+      if(this.userData.status === 1){
+        this.toastr.success('Uspešno ste obrisali korisnika', '', {
           timeOut: 2000,
           progressBar: true
         });
@@ -97,6 +74,18 @@ export class UsersComponent implements OnInit{
     })
   }
 
+  activateUser(id, data){
+    this.dataService.activateUser(id, data).subscribe(res => {
+      this.ngOnInit();
+    })
+  }
 
+  userProfile(userId){
+    this.router.navigate(['/userProfile'], {queryParams: {id:userId}});
+  }
+
+  editUserProfile(userId){
+    this.router.navigate(['/editUserProfile'], {queryParams: {id:userId}});
+  }
 
 }

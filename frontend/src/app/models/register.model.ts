@@ -8,7 +8,7 @@ export class Register {
     city:any;
     telephone:any;
     businessPhone:any;
-    birthDay:any;
+    birthday:any;
     roleId:any;
     password:any;
     confirmPassword:any;

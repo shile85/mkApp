@@ -64,7 +64,6 @@ export class RegisterComponent implements OnInit {
     if(this.form.invalid){
       return;
     }
-
     this.dataService.registerUser(this.form.value).subscribe(res => {
       this.data = res;
       if(this.data.status === 1){

@@ -29,12 +29,20 @@ export class DataService {
     return this.http.get(environment.apiUrl+'/api/activeUsers')
   }
 
+  getArchivedUsers(){
+    return this.http.get(environment.apiUrl+'/api/getArchivedUsers')
+  }
+
   deleteUser(id){
     return this.http.delete(environment.apiUrl+'/api/deleteUser/'+id)
   }
 
   softDeleteUser(id, data){
     return this.http.put(environment.apiUrl+'/api/softDeleteUser/'+id, data)
+  }
+  
+  activateUser(id, data){
+    return this.http.put(environment.apiUrl+'/api/activateUser/'+id, data)
   }
 
   updateUserData(id, data){
@@ -77,5 +85,66 @@ export class DataService {
   getCompanies(){
     return this.http.get(environment.apiUrl+'/api/getCompanies')
   }
+
+  getActiveCompanies(){
+    return this.http.get(environment.apiUrl+'/api/getActiveCompanies')
+  }
+
+  getArchivedCompanies(){
+    return this.http.get(environment.apiUrl+'/api/getArchivedCompanies')
+  }
+
+  deleteCompany(id, data){
+    return this.http.delete(environment.apiUrl+'/api/deleteCompany/'+id, data)
+  }
+
+  destroyCompany(id, data){
+    return this.http.delete(environment.apiUrl+'/api/destroyCompany/'+id, data)
+  }
+
+  addCompany(data){
+    return this.http.post(environment.apiUrl+'/api/addCompany/',data)
+  }
+
+  activateCompany(id, data){
+    return this.http.put(environment.apiUrl+'/api/activateCompany/'+id, data)
+  }
+
+  //PROJECTS
+
+  addProject(data){
+    return this.http.post(environment.apiUrl+'/api/addProject/',data)
+  }
+
+  getActiveProjects(){
+    return this.http.get(environment.apiUrl+'/api/getActiveProjects')
+  }
+
+  getArchivedProjects(){
+    return this.http.get(environment.apiUrl+'/api/getArchivedProjects')
+  }
+
+  deleteProject(id, data){
+    return this.http.delete(environment.apiUrl+'/api/deleteProject/'+id, data)
+  }
+
+  destroyProject(id, data){
+    return this.http.delete(environment.apiUrl+'/api/destroyProject/'+id, data)
+  }
+
+  activateProject(id, data){
+    return this.http.put(environment.apiUrl+'/api/activateProject/'+id, data)
+  }
+
+  updateProjectData(id, data){
+    return this.http.put(environment.apiUrl+'/api/editProject/'+id, data);
+  }
+
+  getProjectById(id){
+    return this.http.get(environment.apiUrl+'/api/getProjectById/'+id)
+  }
+
+
+  
   
 }

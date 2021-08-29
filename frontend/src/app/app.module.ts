@@ -24,6 +24,14 @@ import { ListFilterPipe } from './table/listFilterPipe';
 import { EditUserProfileComponent } from './component/edit-user-profile/edit-user-profile.component';
 import { FooterComponent } from './component/footer/footer.component';
 import { ClientsComponent } from './component/clients/clients.component';
+import { ArchivedUsersComponent } from './component/archived-users/archived-users.component';
+import { ArchivedClientsComponent } from './component/archived-clients/archived-clients.component';
+import { AddClientsComponent } from './component/add-clients/add-clients.component';
+import { AddProjectComponent } from './component/add-project/add-project.component';
+import { ProjectsComponent } from './component/projects/projects.component';
+import { ProjectDetailsComponent } from './component/project-details/project-details.component';
+import { EditProjectComponent } from './component/edit-project/edit-project.component';
+import { ArchivedProjectsComponent } from './component/archived-projects/archived-projects.component';
 
 
 
@@ -49,6 +57,11 @@ export const routes:Routes =  [
     canActivate: [AuthGuard],
   },
   {
+    path: 'archivedUsers',
+    component:ArchivedUsersComponent,
+    canActivate: [RoleGuard, AuthGuard],
+  },
+  {
     path: 'userProfile',
     component:UserProfileComponent,
     canActivate: [AuthGuard],
@@ -62,6 +75,43 @@ export const routes:Routes =  [
     path: 'clients',
     component:ClientsComponent,
     canActivate: [RoleGuard, AuthGuard],
+  },
+
+  {
+    path: 'archivedClients',
+    component:ArchivedClientsComponent,
+    canActivate: [RoleGuard, AuthGuard],
+  },
+  {
+    path: 'addClient',
+    component:AddClientsComponent,
+    canActivate: [RoleGuard, AuthGuard],
+  },
+  {
+    path: 'addProject',
+    component:AddProjectComponent,
+    canActivate: [RoleGuard, AuthGuard],
+  },
+
+  {
+    path: 'projects',
+    component:ProjectsComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'archivedProjects',
+    component:ArchivedProjectsComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'projectDetails',
+    component:ProjectDetailsComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'editProject',
+    component:EditProjectComponent,
+    canActivate: [AuthGuard],
   },
 
 ];
@@ -80,6 +130,14 @@ export const routes:Routes =  [
     EditUserProfileComponent,
     FooterComponent,
     ClientsComponent,
+    ArchivedUsersComponent,
+    ArchivedClientsComponent,
+    AddClientsComponent,
+    AddProjectComponent,
+    ProjectsComponent,
+    ProjectDetailsComponent,
+    EditProjectComponent,
+    ArchivedProjectsComponent,
   ],
   imports: [
     BrowserModule,

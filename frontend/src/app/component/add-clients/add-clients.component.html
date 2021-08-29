@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <!--
 This is a starter template page. Use this page to start your new project from
@@ -25,12 +26,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Klijenti</h1>
+            <h1 class="m-0">Registracija korisnika</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="/home">Početna</a></li>
-              <li class="breadcrumb-item">Klijenti</li>
+              <li class="breadcrumb-item"><a href="/clienst">Klijenti</a></li>
+              <li class="breadcrumb-item active">Dodaj klijenta</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -39,51 +41,42 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- /.content-header -->
 
     <!-- Main content -->
-    <div class="container-fluid">
+    <div class="content">
+      <div class="container-fluid">
         <div class="row">
-          <div class="col-12">
-            <div class="card">
-              <div class="card-header">
-                <h3 class="card-title">Klijenti:</h3>
-              </div>
-              <!-- /.card-header -->
+          <div class="col-lg-6">
+            
+
+            <div class="card card-primary card-outline">
               <div class="card-body">
-                <form>
-                  <div class="form-group form-inline">
-                    Pretraga: 
-                    <input class="form-control ml-2" type="text" name="searchTerm" [(ngModel)]="searchTerm"
-                            (input)="search($event.target.value)" />
+                <form (ngSubmit)="submit()" [formGroup]="form" >
+                  <div class="input-group mb-3">
+                    <input type="text" class="form-control" formControlName="name" placeholder="Naziv klijenta" [ngClass]="{'is-invalid' : submitted  && f.name.errors}" required >
+                    <div class="input-group-append">
+                      <div class="input-group-text">
+                        <span class="fas fa-user"></span>
+                      </div>
+                    </div>
+                    <div *ngIf="submitted && f.name.errors"  class="invalid-feedback">
+                      <div *ngIf="f.name.errors.required">
+                        Molim vas unesite naziv klijenta.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <button type="submit" class="btn btn-primary btn-block">Dodajte klijnta</button>
                   </div>
                 </form>
-                <table class="table table-hover table-sm">
-                  <thead>
-                  <tr>
-                    <th>Ime</th>
-                    <th>Obriši</th>
-                  </tr>
-                  </thead>
-                  <tbody>
-                    <tr *ngFor="let company of companies | listFilter: searchTerm | slice: (page-1) * pageSize : page * pageSize; index as i" >
-                    
-                    <td>{{company.name}}</td>
-                    <td><button type="button" class="btn-danger rounded" (click)="deleteCompany(company.id)"><span class="fas fa-user-slash"></span></button></td>
-                  </tr>
-                  
-                  </tbody>
-                  
-                </table>
-                
               </div>
-              <!-- /.card-body -->
-              <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [maxSize]="5" [boundaryLinks]="true"
-                [pageSize]="pageSize" class="d-flex justify-content-center"></ngb-pagination>
-            </div>
-            <!-- /.card -->
+            </div><!-- /.card -->
           </div>
-          <!-- /.col -->
+          <!-- /.col-md-6 -->
+          
+          <!-- /.col-md-6 -->
         </div>
         <!-- /.row -->
-      </div>
+      </div><!-- /.container-fluid -->
+    </div>
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
@@ -113,5 +106,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
 <script src="dist/js/adminlte.min.js"></script>
+
 </body>
 

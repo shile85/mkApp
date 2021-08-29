@@ -59,14 +59,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <thead>
                   <tr>
                     <th>Ime</th>
-                    <th>Obriši</th>
+                    <th>Aktiviraj / Obriši</th>
                   </tr>
                   </thead>
                   <tbody>
                     <tr *ngFor="let company of companies | listFilter: searchTerm | slice: (page-1) * pageSize : page * pageSize; index as i" >
                     
                     <td>{{company.name}}</td>
-                    <td><button type="button" class="btn-danger rounded" (click)="deleteCompany(company.id)"><span class="fas fa-user-slash"></span></button></td>
+                    <td><button type="button" class="btn-success rounded" (click)="activateCompany(company.id)"><span class="fas fa-user-plus"></span></button> / <button type="button" class="btn-danger rounded" (click)="destroyCompany(company.id)"><span class="fas fa-user-minus"></span></button></td>
                   </tr>
                   
                   </tbody>

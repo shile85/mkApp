@@ -53,6 +53,12 @@
                       <p>Lista korisnika</p>
                     </a>
                   </li>
+                  <li class="nav-item">
+                    <a href="/archivedUsers" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Arhivirani korisnici</p>
+                    </a>
+                  </li>
                 </ul>   
               </li>
             </ul>
@@ -67,15 +73,21 @@
                 </a>  
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="/addClient" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
-                      <p>Dodaj Klijenta</p>
+                      <p>Dodaj klijenta</p>
                     </a>
                   </li>
                   <li class="nav-item">
                     <a href="/clients" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Lista Klijenata</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="/archivedClients" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Arhivirani klijenti</p>
                     </a>
                   </li>
                 </ul>   
@@ -117,6 +129,31 @@
                 </ul>   
               </li>
             </ul>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="nav-icon fas fa-folder-open"></i>
+                  <p>
+                    Klijenti
+                    <i class="right fas fa-angle-left"></i>
+                  </p>
+                </a>  
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="/addClient" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Dodaj klijenta</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="/clients" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Lista Klijenata</p>
+                    </a>
+                  </li>
+                </ul>   
+              </li>
+            </ul>
           </li>
           <!-- MODERATOR ITEM -->
           <!-- PROJEKTI -->
@@ -136,19 +173,19 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="projects" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Aktivni projekti</p>
                 </a>
               </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
+              <li *ngIf="roleId == '1'" class="nav-item">
+                <a href="archivedProjects" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Arhivirani projekti</p>
                 </a>
               </li>
               <li *ngIf="roleId == '1' || roleId == '2'"  class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="addProject" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Dodaj projekat</p>
                 </a>

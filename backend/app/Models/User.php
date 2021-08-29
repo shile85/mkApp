@@ -85,4 +85,9 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->hasOne('App\Car');
     }
+
+    public function role()
+    {
+        return $this->hasOne('App\Role');
+    }
 }

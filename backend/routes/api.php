@@ -34,6 +34,9 @@ Route::get('users', 'App\Http\Controllers\UserController@getUsers');
 //get active users
 Route::get('activeUsers', 'App\Http\Controllers\UserController@getActiveUsers');
 
+//get archived users
+Route::get('getArchivedUsers', 'App\Http\Controllers\UserController@getArchivedUsers');
+
 //get specific user
 Route::get('user/{id}', 'App\Http\Controllers\UserController@getUserById');
 
@@ -45,6 +48,9 @@ Route::delete('deleteUser/{id}', 'App\Http\Controllers\UserController@deleteUser
 
 //soft delete user
 Route::put('softDeleteUser/{id}', 'App\Http\Controllers\UserController@softDeleteUser');
+
+//soft activate User
+Route::put('activateUser/{id}', 'App\Http\Controllers\UserController@activateUser');
 
 
 
@@ -83,6 +89,12 @@ Route::delete('deleteCar/{id}', 'App\Http\Controllers\CarController@delete');
 
 Route::get('getCompanies', 'App\Http\Controllers\CompanyController@index');
 
+Route::get('getActiveCompanies', 'App\Http\Controllers\CompanyController@getActiveCompanies');
+
+Route::get('getActiveCompanies', 'App\Http\Controllers\CompanyController@getActiveCompanies');
+
+Route::get('getArchivedCompanies', 'App\Http\Controllers\CompanyController@getArchivedCompanies');
+
 Route::get('getCompanyById/{id}', 'App\Http\Controllers\CompanyController@getCompanyById');
 
 Route::post('addCompany', 'App\Http\Controllers\CompanyController@store');
@@ -91,10 +103,16 @@ Route::delete('deleteCompany/{id}', 'App\Http\Controllers\CompanyController@dele
 
 Route::delete('destroyCompany/{id}', 'App\Http\Controllers\CompanyController@destroy');
 
+Route::put('activateCompany/{id}', 'App\Http\Controllers\CompanyController@activateCompany');
+
 
 //PROJECT
 
 Route::get('getProjects', 'App\Http\Controllers\ProjectController@index');
+
+Route::get('getActiveProjects', 'App\Http\Controllers\ProjectController@getActiveProjects');
+
+Route::get('getArchivedProjects', 'App\Http\Controllers\ProjectController@getArchivedProjects');
 
 Route::get('getProjectById/{id}', 'App\Http\Controllers\ProjectController@getProjectById');
 
@@ -105,6 +123,8 @@ Route::put('editProject/{id}', 'App\Http\Controllers\ProjectController@update');
 Route::delete('deleteProject/{id}', 'App\Http\Controllers\ProjectController@delete');
 
 Route::delete('destroyProject/{id}', 'App\Http\Controllers\ProjectController@destroy');
+
+Route::put('activateProject/{id}', 'App\Http\Controllers\ProjectController@activateProject');
 
 //TASK
 

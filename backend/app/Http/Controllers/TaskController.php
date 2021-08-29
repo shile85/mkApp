@@ -38,9 +38,20 @@ class TaskController extends Controller
         $task = Task::where('user_id', $id)->get();
         return response()->json($task,200);
     }
-    public function getAllProjectTasks($id){
-        $task = Task::where('project_id', $id)->get();
-        return response()->json($task,200);
+    public static function getAllProjectTasks($id){
+        $tasks = Task::where('project_id', $id)->get();
+        $tasksMod = array();
+        foreach ($tasks as $key => $task) {
+            $tasksMod[] = array(
+                'id' => $task['id'],
+                'taskName' => $task['taskName'],
+                'description' => $task['description'],
+                'userId' => $task['user_id'],
+                'projectId' => $task['project_id'],
+                'userPhoto' => UserController::getUserPhoto($task['user_id']),
+            );
+         }   
+        return $tasksMod;
     }
 
     /**
@@ -147,5 +158,13 @@ class TaskController extends Controller
 
         return response()->json($response);
         }
+    }
+
+    public static function deleteProjectTasks($id){
+        $tasks = Task::where('project_id', $id)->get();
+        foreach ($tasks as $key => $task) {
+            $task->delete();
+         } 
+
     }
 }

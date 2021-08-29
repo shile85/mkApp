@@ -98,4 +98,11 @@ class RoleController extends Controller
     {
         //
     }
+
+    public static function getRoleNameById($id){
+       
+        $role = Role::findOrFail($id);
+        return $role['roleName'];
+        
+    }
 }

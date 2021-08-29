@@ -4,7 +4,6 @@ import jwt_decode from 'jwt-decode';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DataService } from 'src/app/services/data.service';
 import { Register } from 'src/app/models/register.model';
-import { Image } from 'src/app/models/image.model';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {MustMatch} from './confirmed.validator';
@@ -98,8 +97,6 @@ export class EditUserProfileComponent implements OnInit {
     }
 
     this.getData();
-    this.getUserDocuments();
-    
 
   }
 
@@ -119,6 +116,7 @@ export class EditUserProfileComponent implements OnInit {
    this.dataService.getUserById(this.userProfileId).subscribe(res => {
      this.userProfileData = res;
      this.user = this.userProfileData;
+     console.log(this.user);
    });
   }
 
@@ -200,12 +198,6 @@ export class EditUserProfileComponent implements OnInit {
         this.documentForm.get('document').reset();
       }
     })
-  }
-
-  getUserDocuments(){
-    this.dataService.getUserDocuments(this.userProfileId).subscribe(res => {
-      this.userProfileDocuments = res;
-    });
   }
 
   deleteUserDocument(id){

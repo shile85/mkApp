@@ -26,7 +26,55 @@ class ProjectController extends Controller
 
     public function getProjectById($id){
         $project = Project::find($id);
+        $project['projectManagerName'] = UserController::getUserName($project['projectManagerId']);
+        $project['companyName'] = CompanyController::getCompanyName($project['company_id']);
         return response()->json($project,200);
+    }
+
+    public function getActiveProjects(){
+        $projects = Project::where('active', '1') -> get();
+        $projectMod = array();
+        
+        foreach ($projects as $key => $project) {
+            $projectsMod[]= array(
+                'id' => $project['id'],
+                'name' => $project['projectName'],
+                'projectManagerId' => $project['projectManagerId'],
+                'projectManager' => UserController::getUserName($project['projectManagerId']),
+                'projectManagerPhoto' => UserController::getUserPhoto($project['projectManagerId']),
+                'company' => CompanyController::getCompanyName($project['company_id']),
+                'budget' => $project['budget'],
+                'spent' => $project['spent'],
+                'start' => $project['start'],
+                'end' => $project['end'],
+                'tasks' => TaskController::getAllProjectTasks($project['id']),
+            );
+        }
+        
+        return response()->json($projectsMod,200);
+    }
+
+    public function getArchivedProjects(){
+        $projects = Project::where('active', '0') -> get();
+        $projectMod = array();
+        
+        foreach ($projects as $key => $project) {
+            $projectsMod[]= array(
+                'id' => $project['id'],
+                'name' => $project['projectName'],
+                'projectManagerId' => $project['projectManagerId'],
+                'projectManager' => UserController::getUserName($project['projectManagerId']),
+                'projectManagerPhoto' => UserController::getUserPhoto($project['projectManagerId']),
+                'company' => CompanyController::getCompanyName($project['company_id']),
+                'budget' => $project['budget'],
+                'spent' => $project['spent'],
+                'start' => $project['start'],
+                'end' => $project['end'],
+                'tasks' => TaskController::getAllProjectTasks($project['id']),
+            );
+        }
+        
+        return response()->json($projectsMod,200);
     }
 
     /**
@@ -48,9 +96,9 @@ class ProjectController extends Controller
     public function store(Request $request)
     {  
         $project = new Project;
-        $project->projectManagerId=$request->projectManagerId;
+        $project->projectManagerId=$request->userId;
         $project->projectName=$request->projectName;
-        $project->company_id=$request->company_id;
+        $project->company_id=$request->companyId;
         $project->desc=$request->desc;
         $project->budget=$request->budget;
         $project->spent=$request->spent;
@@ -131,11 +179,25 @@ class ProjectController extends Controller
     public function destroy($id)
     {
         $project = Project::find($id);
+        
         if(is_null($project)){
-            return response()->json(['message' => 'Prjekat nije registrovan'], 404);
+
+            $response['status'] = 2;
+            $response['code'] = 404;
+            $response['message'] = 'Projekat nije registrovan';
+
+            return response()->json($response);
+        }else{
+
+            TaskController::deleteProjectTasks($id);
+            $project->delete();
+
+            $response['status'] = 1;
+            $response['code'] = 200;
+            $response['message'] = 'Uspešno ste arhivirali projekat';
+
+        return response()->json($response);
         }
-        $project->delete();
-        return response()->json(['message' => 'Projekat uspešno obrisan'], 200);
     }
 
     public function delete($id){
@@ -156,6 +218,29 @@ class ProjectController extends Controller
             $response['status'] = 1;
             $response['code'] = 200;
             $response['message'] = 'Uspešno ste arhivirali projekat';
+
+        return response()->json($response);
+        }
+    }
+
+    public function activateProject(Request $request, $id)
+    {
+        $project = Project::findOrFail($id);
+
+        if(is_null($project)){
+
+            $response['status'] = 2;
+            $response['code'] = 404;
+            $response['message'] = 'Kompanija nije registrovan';
+
+            return response()->json($response);
+        }else{
+            $project->active = '1';
+            $project->save();
+
+            $response['status'] = 1;
+            $response['code'] = 200;
+            $response['message'] = 'Uspešno aktivirali projekat';
 
         return response()->json($response);
         }
