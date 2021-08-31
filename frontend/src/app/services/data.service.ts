@@ -144,6 +144,13 @@ export class DataService {
     return this.http.get(environment.apiUrl+'/api/getProjectById/'+id)
   }
 
+  //TASKS
+
+  getProjectTasks(id){
+    return this.http.get(environment.apiUrl+'/api/getAllProjectTasks/'+id)
+  }
+
+
 
   
   

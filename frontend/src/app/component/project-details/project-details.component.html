@@ -62,7 +62,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <div class="info-box bg-light">
                     <div class="info-box-content">
                       <span class="info-box-text text-center text-muted">Budžet</span>
-                      <span class="info-box-number text-center text-muted mb-0">2300</span>
+                      <span class="info-box-number text-center text-muted mb-0">{{project.budget}}</span>
                     </div>
                   </div>
                 </div>
@@ -78,7 +78,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <div class="info-box bg-light">
                     <div class="info-box-content">
                       <span class="info-box-text text-center text-muted">Završetak projekta</span>
-                      <span class="info-box-number text-center text-muted mb-0">20</span>
+                      <span class="info-box-number text-center text-muted mb-0">{{project.end}}</span>
                     </div>
                   </div>
                 </div>
@@ -87,21 +87,76 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <div class="col-12">
                   <h4>Zaduženja</h4>
                   <div class="text-center mt-5 mb-3">
+                    <table class="table table-striped projects">
+                      <thead>
+                          <tr>
+                            <th style="width: 20%">
+                              Zaposleni
+                            </th>
+                              <th style="width: 30%">
+                                  Zaduženje
+                              </th>
+                              <th style="width: 10%">
+                                Status
+                            </th>
+                              <th style="width: 20%">
+                              </th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr *ngFor="let task of tasks">
+                              <td>
+                                  <p>{{task.userName}}</p>
+                              </td>
+
+                              <td>
+                                  <p>{{task.taskName}}</p>
+                              </td>
+
+                              <td>
+                                <p class="{{task.statusClass}}">{{task.status}}</p>
+                            </td>
+
+                              <td class="project-actions text-right">
+                                  <a class="btn btn-primary btn-sm" (click)="taskDetails(task.id)">
+                                      <i class="fas fa-folder">
+                                      </i>
+                                      Detalji
+                                  </a>
+                                  <a class="btn btn-info btn-sm" (click)="editTask(task.id)">
+                                      <i class="fas fa-pencil-alt">
+                                      </i>
+                                      Izmeni
+                                  </a>
+                                  <a class="btn btn-danger btn-sm" (click)="deleteTask(task.id)">
+                                      <i class="fas fa-folder-open">
+                                      </i>
+                                      Arhiviraj
+                                  </a>
+                              </td>
+                          </tr>
+                          
+                      </tbody>
+                  </table>
+                  </div>
+                </div>
+                <div class="col-12">
+                  <div class="text-center mt-5 mb-3">
                     <a href="#" class="btn btn-sm btn-primary">Dodaj zaduženje</a>
                   </div>
                 </div>
               </div>
             </div>
             <div class="col-12 col-md-12 col-lg-4 order-1 order-md-2">
-              <h3 class="text-primary"><i class="fas fa-paint-brush"></i> AdminLTE v3</h3>
-              <p class="text-muted">Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua butcher retro keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terr.</p>
+              <h3 class="text-primary"> {{project.projectName}}</h3>
+              <p class="text-muted">{{project.desc}}</p>
               <br>
               <div class="text-muted">
                 <p class="text-sm">Klijent
-                  <b class="d-block">Deveint Inc</b>
+                  <b class="d-block">{{project.companyName}}</b>
                 </p>
                 <p class="text-sm">Menadžer projekta
-                  <b class="d-block">Tony Chicken</b>
+                  <b class="d-block" ><a (click)="userProfile(project.userId);">{{project.projectManagerName}}</a></b>
                 </p>
               </div>
             </div>
