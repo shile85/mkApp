@@ -245,4 +245,10 @@ class ProjectController extends Controller
         return response()->json($response);
         }
     }
+
+    public static function getProjectName($id){
+        $project = Project::findOrFail($id);
+        $projectName = $project['projectName'];
+        return $projectName;
+    }
 }

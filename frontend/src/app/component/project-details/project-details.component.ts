@@ -33,6 +33,7 @@ export class ProjectDetailsComponent implements OnInit {
     private router:Router,
     private route:ActivatedRoute,
     private dataService: DataService, 
+    private toastr: ToastrService,
   ) { }
 
   ngOnInit(): void {
@@ -53,7 +54,6 @@ export class ProjectDetailsComponent implements OnInit {
     this.dataService.getProjectById($id).subscribe(res => {
       this.projectData = res;
       this.project= this.projectData;
-      console.log(this.project);
     });
   }
 
@@ -66,20 +66,35 @@ export class ProjectDetailsComponent implements OnInit {
   }
 
   editTask(id){
-
+    this.router.navigate(['/editTask'], {queryParams: {id:id}});
   }
 
   deleteTask(){
 
   }
 
+  addTask(projectId){
+    this.router.navigate(['/addTask'], {queryParams: {id:projectId}});
+  }
+
   getProjectTasks($id){
     this.dataService.getProjectTasks($id).subscribe(res => {
       this.taskData = res;
       this.tasks= this.taskData;
-      
-      console.log(this.tasks);
     });
+  }
+
+  destroyTask(id, data){
+    this.dataService.destroyTask(id, data).subscribe(res =>{
+      this.projectData = res;
+      if(this.projectData.status === 1){
+        this.toastr.success('Uspešno ste obrisali projekat', '', {
+          timeOut: 2000,
+          progressBar: true
+        });
+      }
+      this.ngOnInit();
+    })
   }
 
   

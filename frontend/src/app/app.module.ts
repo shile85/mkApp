@@ -32,6 +32,8 @@ import { ProjectsComponent } from './component/projects/projects.component';
 import { ProjectDetailsComponent } from './component/project-details/project-details.component';
 import { EditProjectComponent } from './component/edit-project/edit-project.component';
 import { ArchivedProjectsComponent } from './component/archived-projects/archived-projects.component';
+import { AddTaskComponent } from './component/add-task/add-task.component';
+import { EditTaskComponent } from './component/edit-task/edit-task.component';
 
 
 
@@ -113,6 +115,16 @@ export const routes:Routes =  [
     component:EditProjectComponent,
     canActivate: [AuthGuard],
   },
+  {
+    path: 'addTask',
+    component:AddTaskComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'editTask',
+    component:EditTaskComponent,
+    canActivate: [AuthGuard],
+  },
 
 ];
 
@@ -138,6 +150,8 @@ export const routes:Routes =  [
     ProjectDetailsComponent,
     EditProjectComponent,
     ArchivedProjectsComponent,
+    AddTaskComponent,
+    EditTaskComponent,
   ],
   imports: [
     BrowserModule,

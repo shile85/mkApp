@@ -87,8 +87,8 @@ class TaskController extends Controller
          $task = new Task;
          $task->taskName=$request->taskName;
          $task->description=$request->description;
-         $task->user_id=$request->user_id;
-         $task->project_id=$request->project_id;
+         $task->user_id=$request->userId;
+         $task->project_id=$request->projectId;
          if($task->save()){
              $response['status'] = 1;
              $response['code'] = 200;
@@ -234,5 +234,13 @@ class TaskController extends Controller
 
         return response()->json($response);
         }
+    }
+
+    public function getTaskById($id){
+        $task = Task::find($id);
+        $task['projectName'] = ProjectController::getProjectName($task['project_id']);
+        $task['userName'] = UserController::getUserName($task['user_id']);
+        
+        return response()->json($task,200);
     }
 }

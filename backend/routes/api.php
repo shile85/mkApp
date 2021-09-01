@@ -140,5 +140,5 @@ Route::delete('destroyTask/{id}', 'App\Http\Controllers\TaskController@destroy')
 
 Route::delete('deleteTask/{id}', 'App\Http\Controllers\TaskController@delete');
 
-Route::put('activateTask/{id}', 'App\Http\Controllers\TaskController@activateTask');
+Route::get('getTaskById/{id}', 'App\Http\Controllers\TaskController@getTaskById');
 

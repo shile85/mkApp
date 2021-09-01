@@ -9,5 +9,6 @@ export class Task {
     active:any;
     status:any;
     statusClass:any;
+    projectName:any
 
 }

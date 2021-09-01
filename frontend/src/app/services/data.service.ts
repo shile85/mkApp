@@ -150,6 +150,22 @@ export class DataService {
     return this.http.get(environment.apiUrl+'/api/getAllProjectTasks/'+id)
   }
 
+  addTask(data){
+    return this.http.post(environment.apiUrl+'/api/addTask/',data)
+  }
+
+  destroyTask(id, data){
+    return this.http.delete(environment.apiUrl+'/api/destroyTask/'+id, data)
+  }
+
+  updateTaskData(id, data){
+    return this.http.put(environment.apiUrl+'/api/editTask/'+id, data);
+  }
+
+  getTaskById(id){
+    return this.http.get(environment.apiUrl+'/api/getTaskById/'+id)
+  }
+
 
 
   

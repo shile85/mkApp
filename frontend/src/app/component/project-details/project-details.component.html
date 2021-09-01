@@ -31,7 +31,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item">Početna</li>
               <li class="breadcrumb-item"><a href="/projects">Projekti</a></li>
-              <li class="breadcrumb-item active">Izmena podataka projekta</li>
+              <li class="breadcrumb-item active">Detalji projekta</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -128,10 +128,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                       </i>
                                       Izmeni
                                   </a>
-                                  <a class="btn btn-danger btn-sm" (click)="deleteTask(task.id)">
+                                  <a class="btn btn-danger btn-sm" (click)="destroyTask(task.id)">
                                       <i class="fas fa-folder-open">
                                       </i>
-                                      Arhiviraj
+                                      Ukloni
                                   </a>
                               </td>
                           </tr>
@@ -142,7 +142,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </div>
                 <div class="col-12">
                   <div class="text-center mt-5 mb-3">
-                    <a href="#" class="btn btn-sm btn-primary">Dodaj zaduženje</a>
+                    <a (click)="addTask(projectId)" class="btn btn-sm btn-primary">Dodaj zaduženje</a>
                   </div>
                 </div>
               </div>

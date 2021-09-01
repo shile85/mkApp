@@ -5,19 +5,18 @@ import {DataService} from '../../services/data.service';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
 import jwt_decode from 'jwt-decode';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Project } from 'src/app/models/project.model';
 
 @Component({
-  selector: 'app-edit-project',
-  templateUrl: './edit-project.component.html',
+  selector: 'app-add-task',
+  templateUrl: './add-task.component.html',
   styleUrls: [
-    './edit-project.component.css',
+    './add-task.component.css',
     '/../../../assets/plugins/icheck-bootstrap/icheck-bootstrap.css',
     '/../../../assets/plugins/fontawesome-free/css/all.min.css',
     '/../../../assets/dist/css/adminlte.min.css',
   ]
 })
-export class EditProjectComponent implements OnInit {
+export class AddTaskComponent implements OnInit {
 
   token:any;
   tokenData:any;
@@ -28,67 +27,61 @@ export class EditProjectComponent implements OnInit {
   data:any;
   users:any;
   userData:any;
-  companies:any;
-  companyData:any;
-  project = new Project();
-  projectId: any;
+  tasks:any;
+  projectId:any;
   projectData: any;
+  project: any;
 
   constructor(
-    private router:Router,
-    private route:ActivatedRoute,
     private formBuilder: FormBuilder,
     private dataService: DataService, 
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private router:Router,
+    private route:ActivatedRoute,
   ) { }
 
   createForm(){
     this.form = this.formBuilder.group({
-      projectName: [null, Validators.required],
-      companyId: [null,],
-      userId: [null, ],
-      desc: [null],
-      budget: [null],
-      start: [null],
-      end: [null]
+      taskName: [null, Validators.required],
+      description: [null],
+      userId: [null, Validators.required],
+      projectId: this.projectId,
     });
   }
 
   ngOnInit(): void {
-
+    if(this.route.snapshot.queryParamMap.get('id')){
+      this.projectId = this.route.snapshot.queryParamMap.get('id');
+    }
     this.token = localStorage.getItem('token');
     this.tokenData = jwt_decode(this.token);
     this.username = this.tokenData.name;
     this.roleId = this.tokenData.roleId;
     this.createForm();
 
-    if(this.route.snapshot.queryParamMap.get('id')){
-      this.projectId = this.route.snapshot.queryParamMap.get('id');
-    }
-
-    this.getClients();
-    this.getUsers();
     this.getProjectById(this.projectId);
+
+    this.getUsers();
   }
 
   get f(){
     return this.form.controls;
   }
 
-  updateProjectData(){
+  submit(){
     this.submitted = true;
     if(this.form.invalid){
       return;
     }
-    this.dataService.updateProjectData(this.projectId, this.form.value).subscribe(res => {
+    this.dataService.addTask(this.form.value).subscribe(res => {
       this.data = res;
       if(this.data.status === 1){
-        this.toastr.success('Uspešno ste izmenili podatke projekta', '', {
+        this.toastr.success('Uspešno ste dodali zaduženje', '', {
           timeOut: 2000,
           progressBar: true
         });
       }else{
-        this.toastr.error("Greška pri izmeni podataka", JSON.stringify(this.data.code), {
+        this.toastr.error("Greška pri registraciji zaduženja", JSON.stringify(this.data.code), {
         timeOut: 2000,
         progressBar: true
       });
@@ -96,7 +89,10 @@ export class EditProjectComponent implements OnInit {
         
       }
       this.submitted = false;
-  
+      this.form.get('taskName').reset();
+      this.form.get('projectId').reset();
+      this.form.get('userId').reset();
+      this.form.get('description').reset();
     });
 
     
@@ -109,11 +105,8 @@ export class EditProjectComponent implements OnInit {
     });
   }
 
-  getClients(){
-    this.dataService.getCompanies().subscribe(res => {
-      this.companies = res;
-      this.companyData = this.companies;
-    });
+  projectDetails(projectId){
+    this.router.navigate(['/projectDetails'], {queryParams: {id:projectId}});
   }
 
   getProjectById($id){
