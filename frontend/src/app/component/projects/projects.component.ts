@@ -46,7 +46,6 @@ export class ProjectsComponent implements OnInit {
   getActiveProjects(){
     this.dataService.getActiveProjects().subscribe(res => {
       this.projects = res;
-      console.log(this.projects);
     });
   }
 

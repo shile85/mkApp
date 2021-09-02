@@ -45,7 +45,7 @@ export class EditTaskComponent implements OnInit {
       taskName: [null, Validators.required],
       description: [null],
       userId: [null, Validators.required],
-      projectId: this.task.projectId,
+      projectId: this.task.project_id,
     });
   }
 
@@ -107,7 +107,6 @@ export class EditTaskComponent implements OnInit {
     this.dataService.getTaskById($id).subscribe(res => {
       this.taskData = res;
       this.task = this.taskData;
-      console.log(this.task);
     });
   }
 
@@ -118,8 +117,8 @@ export class EditTaskComponent implements OnInit {
     });
   }
 
-  projectDetails(projectId){
-    this.router.navigate(['/projectDetails'], {queryParams: {id:projectId}});
+  projectDetails(id){
+    this.router.navigate(['/projectDetails'], {queryParams: {id:id}});
   }
 
 

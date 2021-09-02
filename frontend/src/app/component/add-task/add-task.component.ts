@@ -5,6 +5,7 @@ import {DataService} from '../../services/data.service';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
 import jwt_decode from 'jwt-decode';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Project } from 'src/app/models/project.model';
 
 @Component({
   selector: 'app-add-task',
@@ -30,7 +31,7 @@ export class AddTaskComponent implements OnInit {
   tasks:any;
   projectId:any;
   projectData: any;
-  project: any;
+  project = new Project;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -113,6 +114,7 @@ export class AddTaskComponent implements OnInit {
     this.dataService.getProjectById($id).subscribe(res => {
       this.projectData = res;
       this.project= this.projectData;
+      console.log(this.project);
     });
   }
 

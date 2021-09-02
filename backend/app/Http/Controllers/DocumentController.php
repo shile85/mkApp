@@ -70,7 +70,7 @@ class DocumentController extends Controller
             $path = 'documents/'. $compDoc; 
             $document = new Document;
             $document->document_path = $path;
-            $document->category = $request->category;
+            $document->category = $fileNameOnly;
             $document->user_id = $id;
             if($document->save()){
                 $response['status'] = 1;
@@ -145,7 +145,11 @@ class DocumentController extends Controller
             $file = 'public/'.$document->document_path;
             Storage::delete($file);
             $document->delete();
-            return response()->json(['message' => 'Dokument uspešno obrisan'], 200);
+            $response['status'] = 1;
+            $response['code'] = 200;
+            $response['message'] = 'Uspešno ste obrisali dokument';
+
+            return response()->json($response);
         }
         
     }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit} from '@angular/core';
 
 import jwt_decode from 'jwt-decode';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -75,8 +75,7 @@ export class EditUserProfileComponent implements OnInit {
 
   createFormDocument(){
     this.documentForm = this.formBuilder.group({
-      document : [null, Validators.required],
-      category : [null, Validators.required],
+      document : [null, Validators.required]
     })
   }
 
@@ -95,10 +94,17 @@ export class EditUserProfileComponent implements OnInit {
     if(this.route.snapshot.queryParamMap.get('id')){
       this.userProfileId = this.route.snapshot.queryParamMap.get('id');
     }
-
+    
     this.getData();
+    this.getUserDocuments();
 
   }
+
+  ngAfterViewInit(){
+    this.getUserDocuments();
+  }
+
+  
 
   get f(){
     return this.form.controls;
@@ -134,7 +140,9 @@ export class EditUserProfileComponent implements OnInit {
           timeOut: 2000,
           progressBar: true
         });
+        this.submitted = false;
       }
+      
       
     })
   }
@@ -158,15 +166,16 @@ export class EditUserProfileComponent implements OnInit {
           timeOut: 2000,
           progressBar: true
         });
+        this.submitted = false;
       }else{
         this.toastr.error('Došlo je do greške, molimo pokušajte ponovo', '', {
           timeOut: 2000,
           progressBar: true
         });
         this.submitted = false;
-        this.imageForm.get('image').reset();
       }
     })
+    
 
   }
 
@@ -189,25 +198,41 @@ export class EditUserProfileComponent implements OnInit {
           timeOut: 2000,
           progressBar: true
         });
+        this.submitted = false;
+        this.ngAfterViewInit()
+        
       }else{
         this.toastr.error('Došlo je do greške, molimo pokušajte ponovo', '', {
           timeOut: 2000,
           progressBar: true
         });
         this.submitted = false;
-        this.documentForm.get('document').reset();
       }
     })
+    
   }
 
   deleteUserDocument(id){
     this.dataService.deleteUserDocument(id).subscribe(res => {
-      this.ngOnInit();
+      this.userData = res;
+      if(this.userData.status === 1){
+        this.toastr.success('Uspešno ste obrisali dokument', '', {
+          timeOut: 2000,
+          progressBar: true
+        });
+      }
+    this.ngAfterViewInit()
     })
   }
 
   userProfile(userId){
     this.router.navigate(['/userProfile'], {queryParams: {id:userId}});
+  }
+
+  getUserDocuments(){
+    this.dataService.getUserDocuments(this.userProfileId).subscribe(res => {
+      this.userProfileDocuments = res;
+    });
   }
 
 }

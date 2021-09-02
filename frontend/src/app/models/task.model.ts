@@ -1,6 +1,6 @@
 export class Task {
     id:any;
-    projectId:any;
+    project_id:any;
     taskName:any;
     description:any;
     userId:any;

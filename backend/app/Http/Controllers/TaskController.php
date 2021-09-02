@@ -240,6 +240,7 @@ class TaskController extends Controller
         $task = Task::find($id);
         $task['projectName'] = ProjectController::getProjectName($task['project_id']);
         $task['userName'] = UserController::getUserName($task['user_id']);
+        $task['userPhoto'] = UserController::getUserPhoto($task['user_id']);
         
         return response()->json($task,200);
     }

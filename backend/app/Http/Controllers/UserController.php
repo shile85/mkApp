@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Models\Document;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTExceptions;
+use Storage;
 
 class UserController extends Controller
 {
@@ -195,6 +196,10 @@ class UserController extends Controller
             $upload = $request->file('image')->storeAs('public/profileImg', $compPic);
             $path = 'profileImg/'. $compPic; 
             $user = User::find($id);
+            if ($user->image) {
+                $image = 'public/'.$user->image;
+                Storage::delete($image);
+            }
             $user->image = $path;
             if($user->save()){
                 $response['status'] = 1;
@@ -224,6 +229,14 @@ class UserController extends Controller
 
             return response()->json($response);
         }else{
+            $image = 'public/'.$user->image;
+            Storage::delete($image);
+            $documents = Document::where('user_id', $id) -> get();
+            foreach ($documents as $key => $document) {
+                $file = 'public/'.$document->document_path;
+                Storage::delete($file);
+                $document->delete();
+            }
             $user->delete();
 
             $response['status'] = 1;

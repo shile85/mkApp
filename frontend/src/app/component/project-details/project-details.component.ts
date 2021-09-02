@@ -62,7 +62,7 @@ export class ProjectDetailsComponent implements OnInit {
   }
 
   taskDetails(id){
-
+    this.router.navigate(['/taskDetails'], {queryParams: {id:id}});
   }
 
   editTask(id){
