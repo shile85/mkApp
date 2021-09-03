@@ -35,6 +35,9 @@ import { ArchivedProjectsComponent } from './component/archived-projects/archive
 import { AddTaskComponent } from './component/add-task/add-task.component';
 import { EditTaskComponent } from './component/edit-task/edit-task.component';
 import { TaskDetailsComponent } from './component/task-details/task-details.component';
+import { AddCarComponent } from './component/add-car/add-car.component';
+import { CarsComponent } from './component/cars/cars.component';
+import { EditCarComponent } from './component/edit-car/edit-car.component';
 
 
 
@@ -131,6 +134,21 @@ export const routes:Routes =  [
     component:TaskDetailsComponent,
     canActivate: [AuthGuard],
   },
+  {
+    path: 'addCar',
+    component:AddCarComponent,
+    canActivate: [RoleGuard, AuthGuard],
+  },
+  {
+    path: 'cars',
+    component:CarsComponent,
+    canActivate: [RoleGuard, AuthGuard],
+  },
+  {
+    path: 'editCar',
+    component:EditCarComponent,
+    canActivate: [RoleGuard, AuthGuard],
+  },
   
 
 ];
@@ -160,6 +178,9 @@ export const routes:Routes =  [
     AddTaskComponent,
     EditTaskComponent,
     TaskDetailsComponent,
+    AddCarComponent,
+    CarsComponent,
+    EditCarComponent,
   ],
   imports: [
     BrowserModule,

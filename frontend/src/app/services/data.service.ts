@@ -166,6 +166,20 @@ export class DataService {
     return this.http.get(environment.apiUrl+'/api/getTaskById/'+id)
   }
 
+  //CARS
+
+  addCar(data){
+    return this.http.post(environment.apiUrl+'/api/addCar/',data)
+  }
+
+  getCars(){
+    return this.http.get(environment.apiUrl+'/api/getCars')
+  }
+
+  deleteCar(id){
+    return this.http.delete(environment.apiUrl+'/api/deleteCar/'+id)
+  }
+
 
 
   
