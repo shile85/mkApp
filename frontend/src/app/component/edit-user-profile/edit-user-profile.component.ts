@@ -122,7 +122,6 @@ export class EditUserProfileComponent implements OnInit {
    this.dataService.getUserById(this.userProfileId).subscribe(res => {
      this.userProfileData = res;
      this.user = this.userProfileData;
-     console.log(this.user);
    });
   }
 

@@ -241,7 +241,48 @@ class TaskController extends Controller
         $task['projectName'] = ProjectController::getProjectName($task['project_id']);
         $task['userName'] = UserController::getUserName($task['user_id']);
         $task['userPhoto'] = UserController::getUserPhoto($task['user_id']);
+        switch ($task['status']) {
+            case '1':
+                $task['status'] = 'Dodeljen';
+                $task['statusClass'] = 'primary';
+                break;
+            case '2':
+                $task['status'] = 'U toku';
+                $task['statusClass'] = 'warning';
+                break;
+            case '3':
+                $task['status'] = 'Završen';
+                $task['statusClass'] = 'success';
+                break;
+            default:
+                $task['status'] = 'Dodeljen';
+                $task['statusClass'] = 'primary';
+                break;
+        }
         
         return response()->json($task,200);
     }
+
+    public function changeTaskStatus($id){
+        $task = Task::find($id);
+        $taskStatus = $task['status'];
+        switch ($taskStatus) {
+            case '1':
+                $task['status'] = '2';
+                break;
+            case '2':
+                $task['status'] = '3';
+                break;
+            case '3':
+                $task['status'] = '2';
+                break;
+            default:
+            $task['status'] = '1';
+                break;
+        }
+
+        $task->update();
+    }
+
+
 }

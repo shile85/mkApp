@@ -25,6 +25,7 @@ export class ProjectsComponent implements OnInit {
   projects: any;
   tasks: any;
   projectData: any;
+  userId:any;
 
   constructor(
     private router:Router,
@@ -38,6 +39,9 @@ export class ProjectsComponent implements OnInit {
     this.tokenData = jwt_decode(this.token);
     this.username = this.tokenData.name;
     this.roleId = this.tokenData.roleId;
+    this.userId = this.tokenData.id;
+    console.log(this.userId);
+
 
     this.getActiveProjects();
 
@@ -46,6 +50,7 @@ export class ProjectsComponent implements OnInit {
   getActiveProjects(){
     this.dataService.getActiveProjects().subscribe(res => {
       this.projects = res;
+      console.log(this.projects);
     });
   }
 

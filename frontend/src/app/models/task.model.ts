@@ -3,7 +3,7 @@ export class Task {
     project_id:any;
     taskName:any;
     description:any;
-    userId:any;
+    user_id:any;
     userPhoto:any;
     userName: any;
     active:any;

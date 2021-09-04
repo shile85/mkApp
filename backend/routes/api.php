@@ -81,9 +81,13 @@ Route::get('getCarById/{id}', 'App\Http\Controllers\CarController@getCarById');
 
 Route::post('addCar', 'App\Http\Controllers\CarController@store');
 
-Route::post('editCar/{id}', 'App\Http\Controllers\CarController@update');
+Route::put('editCar/{id}', 'App\Http\Controllers\CarController@update');
 
 Route::delete('deleteCar/{id}', 'App\Http\Controllers\CarController@delete');
+
+Route::post('uploadCarImage/{id}', 'App\Http\Controllers\CarController@uploadCarImage');
+
+Route::post('uploadCarDocument/{id}', 'App\Http\Controllers\CarController@uploadCarDocument');
 
 // COMPANY
 
@@ -141,4 +145,6 @@ Route::delete('destroyTask/{id}', 'App\Http\Controllers\TaskController@destroy')
 Route::delete('deleteTask/{id}', 'App\Http\Controllers\TaskController@delete');
 
 Route::get('getTaskById/{id}', 'App\Http\Controllers\TaskController@getTaskById');
+
+Route::put('changeTaskStatus/{id}', 'App\Http\Controllers\TaskController@changeTaskStatus');
 

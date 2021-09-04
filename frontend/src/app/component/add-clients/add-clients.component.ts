@@ -11,6 +11,7 @@ import jwt_decode from 'jwt-decode';
   styleUrls: [
     './add-clients.component.css',
     '/../../../assets/plugins/icheck-bootstrap/icheck-bootstrap.css',
+    '/../../../assets/plugins/fontawesome-free/css/all.min.css',
     '/../../../assets/dist/css/adminlte.min.css',
   ]
 })

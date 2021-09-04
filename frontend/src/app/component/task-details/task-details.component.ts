@@ -54,7 +54,20 @@ export class TaskDetailsComponent implements OnInit {
     this.dataService.getTaskById(id).subscribe(res => {
       this.taskData = res;
       this.task= this.taskData;
-      console.log(this.task);
+    });
+  }
+
+  projectDetails(id){
+    this.router.navigate(['/projectDetails'], {queryParams: {id:id}});
+  }
+
+  userProfile(userId){
+    this.router.navigate(['/userProfile'], {queryParams: {id:userId}});
+  }
+
+  changeStatus(id){
+    this.dataService.changeTaskStatus(id).subscribe(res => {
+      this.ngOnInit();
     });
   }
 

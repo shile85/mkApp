@@ -116,12 +116,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     </i>
                                     Detalji
                                 </a>
-                                <a class="btn btn-info btn-sm" (click)="editProject(project.id)">
+                                <a *ngIf="roleId == '1' || userId == project.projectManagerId" class="btn btn-info btn-sm" (click)="editProject(project.id)">
                                     <i class="fas fa-pencil-alt">
                                     </i>
                                     Izmeni
                                 </a>
-                                <a class="btn btn-danger btn-sm" (click)="deleteProject(project.id)">
+                                <a *ngIf="roleId == '1'" class="btn btn-danger btn-sm" (click)="deleteProject(project.id)">
                                     <i class="fas fa-folder-open">
                                     </i>
                                     Arhiviraj

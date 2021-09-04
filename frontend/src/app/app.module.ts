@@ -117,7 +117,7 @@ export const routes:Routes =  [
   {
     path: 'editProject',
     component:EditProjectComponent,
-    canActivate: [AuthGuard],
+    canActivate: [RoleGuard, AuthGuard],
   },
   {
     path: 'addTask',
@@ -142,7 +142,7 @@ export const routes:Routes =  [
   {
     path: 'cars',
     component:CarsComponent,
-    canActivate: [RoleGuard, AuthGuard],
+    canActivate: [AuthGuard],
   },
   {
     path: 'editCar',

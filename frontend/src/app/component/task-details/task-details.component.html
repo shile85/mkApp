@@ -29,8 +29,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item">Početna</li>
-              <li class="breadcrumb-item"><a href="#">Moji projekti</a></li>
+              <li class="breadcrumb-item"><a href="/home">Početna</a></li>
+              <li class="breadcrumb-item"><a href="/projects">Projekti</a></li>
+              <li class="breadcrumb-item"><a (click)="projectDetails(task.project_id);">{{task.projectName}}</a></li>
               <li class="breadcrumb-item active">{{task.taskName}}</li>
             </ol>
           </div><!-- /.col -->
@@ -43,7 +44,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <div class="content">
       <div class="card">
         <div class="card-header">
-          <h3 class="card-title">Detalji zaduženja</h3>
+          <h3 class="card-title">Detalji zaduženja {{task.taskName}} </h3>
 
           <div class="card-tools">
             <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
@@ -69,10 +70,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <img  alt="Avatar" class="table-avatar" src="http://127.0.0.1:8000/storage/{{task.userPhoto}}" >
                     </div>
                     <div class="info">
-                        <a routerLink=''  class="d-block">{{task.userName}}</a>
+                        <a routerLink='' (click)="userProfile(task.user_id);"  class="d-block">{{task.userName}}</a>
                     </div>
-
                 </div>
+                <br>
+                <p class="text-sm">Status: 
+                  <span class="badge badge-{{task.statusClass}}">{{task.status}}</span>
+                </p>
+                <button (click)="changeStatus(task.id);" class="badge badge-info">Promeni status</button>
             </div>
           </div>
         </div>

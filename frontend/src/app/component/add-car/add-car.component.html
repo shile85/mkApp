@@ -31,6 +31,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="/home">Početna</a></li>
+              <li class="breadcrumb-item"><a href="/cars">Vozila</a></li>
               <li class="breadcrumb-item active">Dodaj vozilo</li>
             </ol>
           </div><!-- /.col -->
@@ -53,7 +54,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <input type="text" class="form-control" formControlName="model" placeholder="Model vozila" [ngClass]="{'is-invalid' : submitted  && f.model.errors}" required >
                     <div class="input-group-append">
                       <div class="input-group-text">
-                        <span class="fas fa-user"></span>
+                        <span class="fas fa-car"></span>
                       </div>
                     </div>
                     <div *ngIf="submitted && f.model.errors"  class="invalid-feedback">
@@ -66,7 +67,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <input type="text" class="form-control" formControlName="registration" placeholder="Registarska oznaka vozila" [ngClass]="{'is-invalid' : submitted  && f.registration.errors}" required >
                     <div class="input-group-append">
                       <div class="input-group-text">
-                        <span class="fas fa-user"></span>
+                        <span class="fas fa-car-side"></span>
                       </div>
                     </div>
                     <div *ngIf="submitted && f.registration.errors"  class="invalid-feedback">

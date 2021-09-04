@@ -163,7 +163,11 @@ export class DataService {
   }
 
   getTaskById(id){
-    return this.http.get(environment.apiUrl+'/api/getTaskById/'+id)
+    return this.http.get(environment.apiUrl+'/api/getTaskById/'+id);
+  }
+
+  changeTaskStatus(id){
+    return this.http.put(environment.apiUrl+'/api/changeTaskStatus/'+id, '');
   }
 
   //CARS
@@ -179,6 +183,24 @@ export class DataService {
   deleteCar(id){
     return this.http.delete(environment.apiUrl+'/api/deleteCar/'+id)
   }
+
+  getCarById(id){
+    return this.http.get(environment.apiUrl+'/api/getCarById/'+id)
+  }
+
+  updateCarData(id, data){
+    return this.http.put(environment.apiUrl+'/api/editCar/'+id, data);
+  }
+
+  uploadCarImage(id, data){
+    return this.http.post(environment.apiUrl+'/api/uploadCarImage/'+id, data)
+  }
+
+  uploadCarDocument(id, data){
+    return this.http.post(environment.apiUrl+'/api/uploadCarDocument/'+id, data)
+  }
+  
+
 
 
 

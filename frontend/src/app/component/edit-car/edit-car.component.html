@@ -1,1 +1,159 @@
-<p>edit-car works!</p>
+
+<body class="hold-transition sidebar-mini">
+    <div class="wrapper">
+    
+      <!-- Navbar -->
+
+  <div class="main-header">
+    <app-navbar></app-navbar>
+  </div>
+  <!-- /.navbar -->
+
+  <!-- Main Sidebar Container -->
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <app-sidebar></app-sidebar>
+  </aside>
+          <!-- /.sidebar -->
+  
+    
+      <!-- Content Wrapper. Contains page content -->
+      <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+          <div class="container-fluid">
+            <div class="row mb-2">
+              <div class="col-sm-6">
+                <h1 class="m-0">Izmena podataka</h1>
+              </div><!-- /.col -->
+              <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                  <li class="breadcrumb-item"><a href="/home">Početna</a></li>
+                  <li class="breadcrumb-item"><a href="/cars">Vozila</a></li>
+                  <li class="breadcrumb-item">Izmena podataka vozila</li>
+                  <li class="breadcrumb-item active">koje vozilo todo</li>
+                </ol>
+              </div><!-- /.col -->
+            </div><!-- /.row -->
+          </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.content-header -->
+    
+        <!-- Main content -->
+        <div class="content">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="card card-primary card-outline">
+                  <div class="card-body">
+                    <p class="login-box-msg">Izmena podataka vozila</p>
+              
+                    <form (ngSubmit)="updateCarData()"  [formGroup]="form" >
+                      <div class="input-group mb-3">
+                        <input type="text" class="form-control" formControlName="model" [(ngModel)]="car.model">
+                        <div class="input-group-append">
+                          <div class="input-group-text">
+                            <span class="fas fa-user"></span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="input-group mb-3">
+                        <input type="text" class="form-control" formControlName="registration" [(ngModel)]="car.registration">
+                        <div class="input-group-append">
+                          <div class="input-group-text">
+                            <span class="fas fa-user-circle"></span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="input-group mb-3"><label for="userId">Dodelite vozilo:</label></div>
+                    <div class="input-group mb-3">
+                        <select class="form-control" formControlName="user_id" name="user_id" id="user_id">
+                            <option *ngFor="let user of users" [ngValue]="user.id">{{user.first_name}} {{user.last_name}}</option>
+                        </select>
+                        <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-user-tag"></span>
+                        </div>
+                        </div>
+                    </div>
+                     
+                      <div class="row">
+                        <button type="submit" class="btn btn-primary btn-block">Izmeni</button>
+                      </div>
+                    </form>
+                  </div>
+                </div><!-- /.card -->
+              </div>
+              <!-- /.col-md-6 -->
+              <div class="col-lg-6">
+                <div class="card card-primary card-outline">
+                  <div class="card-header">
+                    <h5 class="m-0">Fotografija</h5>
+                  </div>
+                  <div class="card-body">
+                    <form (ngSubmit)="submitUploadImage()" [formGroup]="imageForm">
+                        <div class="input-group">
+                          <div class="custom-file">
+                            <input type="file" class="form-control custom-file-input" id="image" name="image" formControlName="image" (change)="uploadImage($event)" [ngClass]="{ 'is-invalid' : submitted && fImage.image.errors }" >
+                            <label class="custom-file-label" for="image">Izaberite fotografiju</label>
+                              <div *ngIf="submitted && fImage.image.errors" class="invalid-feedback"></div>
+                          </div>
+                          <div class="input-group-append">
+                            <button type="submit" class="input-group-text btn btn-primary btn-block">Izmeni</button>
+                          </div>
+                        </div>
+                    </form>
+                  </div>
+                </div>
+                
+                <!-- /.card -->
+              
+                <div class="card card-primary card-outline">
+                  <div class="card-header">
+                    <h5 class="m-0">Dodaj dokument</h5>
+                  </div>
+                  <div class="card-body">
+                    <form (ngSubmit)="submitUploadDocument()">
+                      <div [formGroup]="documentForm">
+                        <div class="input-group">
+                          <div class="custom-file">
+                            <input type="file" class="form-control custom-file-input" id="document" name="document" formControlName="document" (change)="uploadDocument($event)" [ngClass]="{ 'is-invalid' : submitted && fDocument.document.errors }" >
+                            <label class="custom-file-label" for="document">Izaberite dokument</label>
+                              <div *ngIf="submitted && fDocument.document.errors" class="invalid-feedback"></div>
+                          </div>
+                          <div class="input-group-append">
+                            <button type="submit" class="input-group-text btn btn-primary">Sačuvaj</button>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+              <!-- /.col-md-6 -->
+            </div>
+            <!-- /.row -->
+          </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.content -->
+      </div>
+      <!-- /.content-wrapper -->
+    
+      
+    
+      <!-- Main Footer -->
+      <footer class="main-footer">
+        <app-footer></app-footer>
+      </footer>
+    </div>
+    <!-- ./wrapper -->
+    
+    <!-- REQUIRED SCRIPTS -->
+    
+    <!-- jQuery -->
+    <script src="plugins/jquery/jquery.min.js"></script>
+    <!-- Bootstrap 4 -->
+    <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="dist/js/adminlte.min.js"></script>
+    </body>
+    
