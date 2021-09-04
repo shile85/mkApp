@@ -230,12 +230,18 @@ class UserController extends Controller
             return response()->json($response);
         }else{
             $image = 'public/'.$user->image;
-            Storage::delete($image);
+            if ($image) {
+                if ($image != 'public/profileImg/default.png') {
+                    Storage::delete($image);
+                }
+            }
             $documents = Document::where('user_id', $id) -> get();
-            foreach ($documents as $key => $document) {
-                $file = 'public/'.$document->document_path;
-                Storage::delete($file);
-                $document->delete();
+            if ($documents) {
+                foreach ($documents as $key => $document) {
+                    $file = 'public/'.$document->document_path;
+                    Storage::delete($file);
+                    $document->delete();
+                }
             }
             $user->delete();
 

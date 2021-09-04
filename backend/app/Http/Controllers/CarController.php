@@ -54,42 +54,40 @@ class CarController extends Controller
      */
     public function store(Request $request)
     {
-        if($request->hasfile('image')){
-            $imgCompleteFilename = $request->file('image')->getClientOriginalName();
-            $imgFileNameOnly = pathinfo($imgCompleteFilename, PATHINFO_FILENAME);
-            $imgExtension = $request->file('image')->getClientOriginalExtension();
-            if($imgExtension != "jpg"){
-                $response['status'] = 2;
-                $response['code'] = 404;
-                $response['message'] = 'Dokument mora biti u jpg, bmp ili png formatu';
+        // if($request->hasfile('image')){
+        //     $imgCompleteFilename = $request->file('image')->getClientOriginalName();
+        //     $imgFileNameOnly = pathinfo($imgCompleteFilename, PATHINFO_FILENAME);
+        //     $imgExtension = $request->file('image')->getClientOriginalExtension();
+        //     if($imgExtension != "jpg"){
+        //         $response['status'] = 2;
+        //         $response['code'] = 404;
+        //         $response['message'] = 'Dokument mora biti u jpg, bmp ili png formatu';
 
-                return response()->json($response);
-            }
-            $compPic = str_replace(' ', '_', $imgFileNameOnly).'-'.rand().'_'.time().'.'.$imgExtension;
-            $imgUpload = $request->file('image')->storeAs('public/carImg', $compPic);
-            $imgPath = 'carImg/'. $compPic; 
-        }
-        if($request->hasfile('document')){
-            $docCompleteFilename = $request->file('document')->getClientOriginalName();
-            $docFileNameOnly = pathinfo($docCompleteFilename, PATHINFO_FILENAME);
-            $docExtension = $request->file('document')->getClientOriginalExtension();
-            if($docExtension != 'pdf'){
-                $response['status'] = 2;
-                $response['code'] = 404;
-                $response['message'] = 'Dokument mora biti u pdf formatu';
+        //         return response()->json($response);
+        //     }
+        //     $compPic = str_replace(' ', '_', $imgFileNameOnly).'-'.rand().'_'.time().'.'.$imgExtension;
+        //     $imgUpload = $request->file('image')->storeAs('public/carImg', $compPic);
+        //     $imgPath = 'carImg/'. $compPic; 
+        // }
+        // if($request->hasfile('document')){
+        //     $docCompleteFilename = $request->file('document')->getClientOriginalName();
+        //     $docFileNameOnly = pathinfo($docCompleteFilename, PATHINFO_FILENAME);
+        //     $docExtension = $request->file('document')->getClientOriginalExtension();
+        //     if($docExtension != 'pdf'){
+        //         $response['status'] = 2;
+        //         $response['code'] = 404;
+        //         $response['message'] = 'Dokument mora biti u pdf formatu';
 
-                return response()->json($response);
-            }
-            $compDoc = str_replace(' ', '_', $docFileNameOnly).'-'.rand().'_'.time().'.'.$docExtension;
-            $docUpload = $request->file('document')->storeAs('public/carDocuments', $compDoc);
-            $docPath = 'carDocuments/'. $compDoc; 
-        }
+        //         return response()->json($response);
+        //     }
+        //     $compDoc = str_replace(' ', '_', $docFileNameOnly).'-'.rand().'_'.time().'.'.$docExtension;
+        //     $docUpload = $request->file('document')->storeAs('public/carDocuments', $compDoc);
+        //     $docPath = 'carDocuments/'. $compDoc; 
+        // }
         $car = new Car;
         $car->model=$request->model;
         $car->registration=$request->registration;
-        $car->user_id=$request->user_id;
-        $car->image_path=$imgPath;
-        $car->document_path=$docPath;
+        $car->image_path='carImg/car.jpg';
         if($car->save()){
             $response['status'] = 1;
             $response['code'] = 200;
@@ -221,9 +219,15 @@ class CarController extends Controller
         }else{
             $doc = 'public/'.$car->document_path;
             $img = 'public/'.$car->image_path;
-            Storage::delete($img);
-            Storage::delete($doc);
-            $car->delete();
+            if ($doc) {
+                Storage::delete($doc);
+            }
+            if ($img) {
+                if ($img != 'public/carImg/car.jpg') {
+                    Storage::delete($img);
+                } 
+            }
+             $car->delete();
 
             $response['status'] = 1;
             $response['code'] = 200;
