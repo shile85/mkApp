@@ -30,7 +30,7 @@
                   <li class="breadcrumb-item"><a href="/home">Početna</a></li>
                   <li class="breadcrumb-item"><a href="/cars">Vozila</a></li>
                   <li class="breadcrumb-item">Izmena podataka vozila</li>
-                  <li class="breadcrumb-item active">koje vozilo todo</li>
+                  <li class="breadcrumb-item active">{{car.model}} {{car.registration}}</li>
                 </ol>
               </div><!-- /.col -->
             </div><!-- /.row -->
@@ -45,7 +45,7 @@
               <div class="col-lg-6">
                 <div class="card card-primary card-outline">
                   <div class="card-body">
-                    <p class="login-box-msg">Izmena podataka vozila</p>
+                    <p class="login-box-msg"><img alt="Avatar" class="profile-user-img img-fluid img-circle" src="http://127.0.0.1:8000/storage/{{car.image_path}}" > {{car.model}} {{car.registration}}</p>
               
                     <form (ngSubmit)="updateCarData()"  [formGroup]="form" >
                       <div class="input-group mb-3">

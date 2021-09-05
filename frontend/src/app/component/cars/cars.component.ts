@@ -66,5 +66,9 @@ export class CarsComponent implements OnInit {
     })
   }
 
+  userProfile(userId){
+    this.router.navigate(['/userProfile'], {queryParams: {id:userId}});
+  }
+
 
 }

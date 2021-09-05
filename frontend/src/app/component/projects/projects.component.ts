@@ -39,8 +39,7 @@ export class ProjectsComponent implements OnInit {
     this.tokenData = jwt_decode(this.token);
     this.username = this.tokenData.name;
     this.roleId = this.tokenData.roleId;
-    this.userId = this.tokenData.id;
-    console.log(this.userId);
+    this.userId = this.tokenData.userId;
 
 
     this.getActiveProjects();
@@ -50,12 +49,15 @@ export class ProjectsComponent implements OnInit {
   getActiveProjects(){
     this.dataService.getActiveProjects().subscribe(res => {
       this.projects = res;
-      console.log(this.projects);
     });
   }
 
   userProfile(userId){
     this.router.navigate(['/userProfile'], {queryParams: {id:userId}});
+  }
+
+  taskDetails(id){
+    this.router.navigate(['/taskDetails'], {queryParams: {id:id}});
   }
 
   deleteProject(id, data){

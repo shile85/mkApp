@@ -117,7 +117,7 @@ export const routes:Routes =  [
   {
     path: 'editProject',
     component:EditProjectComponent,
-    canActivate: [RoleGuard, AuthGuard],
+    canActivate: [AuthGuard],
   },
   {
     path: 'addTask',

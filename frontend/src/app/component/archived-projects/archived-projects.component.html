@@ -25,12 +25,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Projekti</h1>
+            <h1 class="m-0">Arhivirani Projekti</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="/home">Početna</a></li>
-              <li class="breadcrumb-item">Projekti</li>
+              <li class="breadcrumb-item"><a href="/projects">Projekti</a></li>
+              <li class="breadcrumb-item">Arhivirani projekti</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -44,7 +45,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Projekti:</h3>
+                <h3 class="card-title">Arhivirani projekti:</h3>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -93,7 +94,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             <td>
                                 <ul class="list-inline">
                                     <li class="list-inline-item">
-                                        <img (click)="userProfile(project.projectManagerId);" alt="Avatar" class="table-avatar" src="http://127.0.0.1:8000/storage/{{project.projectManagerPhoto}}" >
                                         <img *ngFor="let task of project.tasks" (click)="userProfile(task.userId);" alt="Avatar" class="table-avatar" src="http://127.0.0.1:8000/storage/{{task.userPhoto}}">
                                     </li>
                                 </ul>

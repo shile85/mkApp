@@ -124,6 +124,10 @@ export class DataService {
     return this.http.get(environment.apiUrl+'/api/getArchivedProjects')
   }
 
+  getMyProjects(id){
+    return this.http.get(environment.apiUrl+'/api/getMyProjects/'+id)
+  }
+
   deleteProject(id, data){
     return this.http.delete(environment.apiUrl+'/api/deleteProject/'+id, data)
   }
@@ -148,6 +152,10 @@ export class DataService {
 
   getProjectTasks(id){
     return this.http.get(environment.apiUrl+'/api/getAllProjectTasks/'+id)
+  }
+
+  getAllUserTasks(id){
+    return this.http.get(environment.apiUrl+'/api/getAllUserTasks/'+id)
   }
 
   addTask(data){

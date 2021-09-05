@@ -35,8 +35,41 @@ class TaskController extends Controller
     }
 
     public function getAllUserTasks($id){
-        $task = Task::where('user_id', $id)->get();
-        return response()->json($task,200);
+        $tasks = Task::where('user_id', $id)->get();
+        $tasksMod = array();
+        foreach ($tasks as $key => $task) {
+            switch ($task['status']) {
+                case '1':
+                    $task['status'] = 'Dodeljeno';
+                    $task['statusClass'] = 'btn btn-primary';
+                    break;
+                case '2':
+                    $task['status'] = 'U toku';
+                    $task['statusClass'] = 'btn btn-warning';
+                    break;
+                case '3':
+                    $task['status'] = 'Završen';
+                    $task['statusClass'] = 'btn btn-success';
+                    break;
+                default:
+                    $task['status'] = 'Greška';
+                    $task['statusClass'] = 'btn btn-danger';
+                    break;
+            }
+            $tasksMod[] = array(
+                'id' => $task['id'],
+                'taskName' => $task['taskName'],
+                'description' => $task['description'],
+                'userId' => $task['user_id'],
+                'projectId' => $task['project_id'],
+                'userPhoto' => UserController::getUserPhoto($task['user_id']),
+                'userName' => UserController::getUserName($task['user_id']),
+                'status' => $task['status'],
+                'statusClass' => $task['statusClass'],
+                'projectManagerId' => ProjectController::getProjectManagerIdByProjectId($task['project_id']),
+            );
+         }   
+        return response()->json($tasksMod,200);
     }
     public static function getAllProjectTasks($id){
         $query = ['project_id' => $id];
@@ -71,6 +104,7 @@ class TaskController extends Controller
                 'userName' => UserController::getUserName($task['user_id']),
                 'status' => $task['status'],
                 'statusClass' => $task['statusClass'],
+                'projectManagerId' => ProjectController::getProjectManagerIdByProjectId($task['project_id']),
             );
          }   
         return $tasksMod;
@@ -241,6 +275,7 @@ class TaskController extends Controller
         $task['projectName'] = ProjectController::getProjectName($task['project_id']);
         $task['userName'] = UserController::getUserName($task['user_id']);
         $task['userPhoto'] = UserController::getUserPhoto($task['user_id']);
+        $task['projectManagerId'] = ProjectController::getProjectManagerIdByProjectId($task['project_id']);
         switch ($task['status']) {
             case '1':
                 $task['status'] = 'Dodeljen';
@@ -283,6 +318,27 @@ class TaskController extends Controller
 
         $task->update();
     }
+
+    public static function getProjectProgress($id){
+        $queryAll = ['project_id' => $id];
+        $tasksAll = Task::where($queryAll)->get();
+        $queryDone = ['project_id' => $id, 'status'=>'3'];
+        $tasksDone = Task::where($queryDone)->get();
+       
+        $tasksAllCount = count($tasksAll);
+        $tasksDoneCount = count($tasksDone);
+
+        if (!empty($tasksDoneCount)) {
+            $procent = ($tasksDoneCount*100)/$tasksAllCount;
+        }else{
+            $procent = 0;
+        }
+        
+
+        return $procent;
+    }
+
+
 
 
 }

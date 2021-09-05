@@ -71,11 +71,11 @@
                       <tbody>
                         <tr *ngFor="let user of users | listFilter: searchTerm | slice: (page-1) * pageSize : page * pageSize; index as i" >
                         
-                        <td (click)="userProfile(user.id);">{{user.first_name}}</td>
-                        <td (click)="userProfile(user.id);">{{user.last_name}}</td>
-                        <td (click)="userProfile(user.id);">{{user.name}}</td>
-                        <td (click)="userProfile(user.id);"> {{user.email}}</td>
-                        <td (click)="userProfile(user.id);">{{user.role}}</td>
+                        <td><a [routerLink]="['']" routerLinkActive="router-link-active"  (click)="userProfile(user.id);">{{user.first_name}}</a></td>
+                        <td><a [routerLink]="['']" routerLinkActive="router-link-active"  (click)="userProfile(user.id);">{{user.last_name}}</a></td>
+                        <td><a [routerLink]="['']" routerLinkActive="router-link-active"  (click)="userProfile(user.id);">{{user.name}}</a></td>
+                        <td> <a [routerLink]="['']" routerLinkActive="router-link-active"  (click)="userProfile(user.id);">{{user.email}}</a></td>
+                        <td>{{user.role}}</td>
                         <td *ngIf="roleId == '1' || roleId == '2'"><button type="button" class="btn-info rounded" (click)="editUserProfile(user.id);"><span class="fas fa-user-edit"></span></button>&nbsp;&nbsp;<b>/</b>&nbsp;&nbsp;<button type="button" class="btn-danger rounded" (click)="softDeleteUser(user.id)" ><span class="fas fa-user-slash"></span></button></td>
                         <td *ngIf="roleId == '1'"><button type="button" class="btn-danger rounded" (click)="deleteUser(user.id)"><span class="fas fa-user-slash"></span></button></td>
                       </tr>

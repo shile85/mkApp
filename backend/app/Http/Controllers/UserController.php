@@ -42,7 +42,7 @@ class UserController extends Controller
                 'telephone' => $request->telephone,
                 'businessPhone' => $request->businessPhone,
                 'birthDay' => $request->birthDay,
-                'image' => 'profileImg/default.png'
+                'image' => 'profileImg/test.jpeg'
                 
 
             ]);
@@ -197,8 +197,9 @@ class UserController extends Controller
             $path = 'profileImg/'. $compPic; 
             $user = User::find($id);
             if ($user->image) {
-                $image = 'public/'.$user->image;
-                Storage::delete($image);
+                if ($image != 'public/profileImg/test.jpeg') {
+                    Storage::delete($image);
+                }
             }
             $user->image = $path;
             if($user->save()){
@@ -231,7 +232,7 @@ class UserController extends Controller
         }else{
             $image = 'public/'.$user->image;
             if ($image) {
-                if ($image != 'public/profileImg/default.png') {
+                if ($image != 'public/profileImg/test.jpeg') {
                     Storage::delete($image);
                 }
             }

@@ -48,15 +48,17 @@ class ProjectController extends Controller
                 'start' => $project['start'],
                 'end' => $project['end'],
                 'tasks' => TaskController::getAllProjectTasks($project['id']),
+                'procentage' => TaskController::getProjectProgress($project['id']),
             );
         }
         
         return response()->json($projectsMod,200);
     }
 
-    public function getArchivedProjects(){
-        $projects = Project::where('active', '0') -> get();
-        $projectMod = array();
+    public function getMyProjects($id){
+        $projects = Project::where('projectManagerId', $id) -> get();
+        if ($projects) {
+            $projectMod = array();
         
         foreach ($projects as $key => $project) {
             $projectsMod[]= array(
@@ -71,10 +73,37 @@ class ProjectController extends Controller
                 'start' => $project['start'],
                 'end' => $project['end'],
                 'tasks' => TaskController::getAllProjectTasks($project['id']),
+                'procentage' => TaskController::getProjectProgress($project['id']),
             );
         }
-        
+        }
         return response()->json($projectsMod,200);
+    }
+
+    public function getArchivedProjects(){
+        $projects = Project::where('active', '0') -> get();
+        if (!$projects->isEmpty()) {
+            $projectMod = array();
+        
+            foreach ($projects as $key => $project) {
+                $projectsMod[]= array(
+                    'id' => $project['id'],
+                    'name' => $project['projectName'],
+                    'projectManagerId' => $project['projectManagerId'],
+                    'projectManager' => UserController::getUserName($project['projectManagerId']),
+                    'projectManagerPhoto' => UserController::getUserPhoto($project['projectManagerId']),
+                    'company' => CompanyController::getCompanyName($project['company_id']),
+                    'budget' => $project['budget'],
+                    'spent' => $project['spent'],
+                    'start' => $project['start'],
+                    'end' => $project['end'],
+                    'tasks' => TaskController::getAllProjectTasks($project['id']),
+                );
+            }
+        return response()->json($projectsMod,200);
+        }
+    
+        
     }
 
     /**
@@ -250,5 +279,11 @@ class ProjectController extends Controller
         $project = Project::findOrFail($id);
         $projectName = $project['projectName'];
         return $projectName;
+    }
+
+    public static function getProjectManagerIdByProjectId($id){
+        $project = Project::findOrFail($id);
+        $projectManagerId = $project['projectManagerId'];
+        return $projectManagerId;
     }
 }

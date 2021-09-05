@@ -4,7 +4,6 @@ import { ToastrModule, ToastrService } from 'ngx-toastr';
 import jwt_decode from 'jwt-decode';
 import {DataService} from '../../services/data.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Project } from 'src/app/models/project.model';
 import { Task } from 'src/app/models/task.model';
 
 @Component({
@@ -22,13 +21,11 @@ export class TaskDetailsComponent implements OnInit {
   tokenData:any;
   username:string;
   roleId:string;
-  project = new Project();
-  projectId: any;
-  projectData: any;
   tasks : any;
   taskData:any;
   task = new Task;
   taskId : any;
+  userId:any;
 
   constructor(
     private router:Router,
@@ -42,6 +39,7 @@ export class TaskDetailsComponent implements OnInit {
     this.tokenData = jwt_decode(this.token);
     this.username = this.tokenData.name;
     this.roleId = this.tokenData.roleId;
+    this.userId = this.tokenData.userId;
 
     if(this.route.snapshot.queryParamMap.get('id')){
       this.taskId = this.route.snapshot.queryParamMap.get('id');

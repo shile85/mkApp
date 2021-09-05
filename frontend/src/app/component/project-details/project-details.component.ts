@@ -28,6 +28,7 @@ export class ProjectDetailsComponent implements OnInit {
   projectData: any;
   tasks : any;
   taskData:any;
+  userId:any;
 
   constructor(
     private router:Router,
@@ -41,6 +42,7 @@ export class ProjectDetailsComponent implements OnInit {
     this.tokenData = jwt_decode(this.token);
     this.username = this.tokenData.name;
     this.roleId = this.tokenData.roleId;
+    this.userId = this.tokenData.userId;
 
     if(this.route.snapshot.queryParamMap.get('id')){
       this.projectId = this.route.snapshot.queryParamMap.get('id');

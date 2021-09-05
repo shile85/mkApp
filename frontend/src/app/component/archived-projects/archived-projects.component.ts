@@ -43,7 +43,6 @@ export class ArchivedProjectsComponent implements OnInit {
   getArchivedProjects(){
     this.dataService.getArchivedProjects().subscribe(res => {
       this.projects = res;
-      console.log(this.projects);
     });
   }
 

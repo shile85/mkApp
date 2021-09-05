@@ -130,6 +130,8 @@ Route::delete('destroyProject/{id}', 'App\Http\Controllers\ProjectController@des
 
 Route::put('activateProject/{id}', 'App\Http\Controllers\ProjectController@activateProject');
 
+Route::get('getMyProjects/{id}', 'App\Http\Controllers\ProjectController@getMyProjects');
+
 //TASK
 
 Route::get('getAllUserTasks/{id}', 'App\Http\Controllers\TaskController@getAllUserTasks');
@@ -147,4 +149,8 @@ Route::delete('deleteTask/{id}', 'App\Http\Controllers\TaskController@delete');
 Route::get('getTaskById/{id}', 'App\Http\Controllers\TaskController@getTaskById');
 
 Route::put('changeTaskStatus/{id}', 'App\Http\Controllers\TaskController@changeTaskStatus');
+
+
+// TEST
+Route::get('getProjectProgress/{id}', 'App\Http\Controllers\TaskController@getProjectProgress');
 

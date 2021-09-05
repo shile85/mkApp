@@ -22,7 +22,34 @@ class CarController extends Controller
      */
     public function index()
     {
-        return response()->json(Car::all(),200);
+        $cars = Car::all();
+
+        $carsMod = array();
+        
+        foreach ($cars as $key => $car) {
+            if ($car['user_id']) {
+                $carsMod[]= array(
+                    'id' => $car['id'],
+                    'model' => $car['model'],
+                    'registratison' => $car['registratison'],
+                    'user_id' => $car['user_id'],
+                    'image_path' => $car['image_path'],
+                    'document_path' => $car['document_path'],
+                    'owner' => UserController::getUserName($car['user_id']),
+                );
+            }else{
+                $carsMod[]= array(
+                    'id' => $car['id'],
+                    'model' => $car['model'],
+                    'registratison' => $car['registratison'],
+                    'user_id' => $car['user_id'],
+                    'image_path' => $car['image_path'],
+                    'document_path' => $car['document_path'],
+                    'owner' => 'Slobodan',
+                );
+            }
+        }
+        return response()->json($carsMod,200);
     }
 
     public function getUserCar($id)
@@ -54,36 +81,7 @@ class CarController extends Controller
      */
     public function store(Request $request)
     {
-        // if($request->hasfile('image')){
-        //     $imgCompleteFilename = $request->file('image')->getClientOriginalName();
-        //     $imgFileNameOnly = pathinfo($imgCompleteFilename, PATHINFO_FILENAME);
-        //     $imgExtension = $request->file('image')->getClientOriginalExtension();
-        //     if($imgExtension != "jpg"){
-        //         $response['status'] = 2;
-        //         $response['code'] = 404;
-        //         $response['message'] = 'Dokument mora biti u jpg, bmp ili png formatu';
-
-        //         return response()->json($response);
-        //     }
-        //     $compPic = str_replace(' ', '_', $imgFileNameOnly).'-'.rand().'_'.time().'.'.$imgExtension;
-        //     $imgUpload = $request->file('image')->storeAs('public/carImg', $compPic);
-        //     $imgPath = 'carImg/'. $compPic; 
-        // }
-        // if($request->hasfile('document')){
-        //     $docCompleteFilename = $request->file('document')->getClientOriginalName();
-        //     $docFileNameOnly = pathinfo($docCompleteFilename, PATHINFO_FILENAME);
-        //     $docExtension = $request->file('document')->getClientOriginalExtension();
-        //     if($docExtension != 'pdf'){
-        //         $response['status'] = 2;
-        //         $response['code'] = 404;
-        //         $response['message'] = 'Dokument mora biti u pdf formatu';
-
-        //         return response()->json($response);
-        //     }
-        //     $compDoc = str_replace(' ', '_', $docFileNameOnly).'-'.rand().'_'.time().'.'.$docExtension;
-        //     $docUpload = $request->file('document')->storeAs('public/carDocuments', $compDoc);
-        //     $docPath = 'carDocuments/'. $compDoc; 
-        // }
+        
         $car = new Car;
         $car->model=$request->model;
         $car->registration=$request->registration;

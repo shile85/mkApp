@@ -83,7 +83,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 {{car.registration}}
                             </td>
                             <td >
-                                <p *ngIf="car.user_id; else elseBlock">Dodeljen korisniku</p>
+                                <p *ngIf="car.owner != 'Slobodan'; else elseBlock">Dodeljen: <a [routerLink]="['']" routerLinkActive="router-link-active" (click)="userProfile(car.user_id);" >{{car.owner}}</a></p>
                                 <ng-template #elseBlock>Slobodan</ng-template>
                             </td>
                             <td *ngIf="roleId == '1' || roleId == '2'" class="project-actions text-right">

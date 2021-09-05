@@ -1,6 +1,6 @@
 export class Project {
     id:any;
-    userId:any;
+    projectManagerId:any;
     projectManagerName: any;
     projectName: any;
     companyId: any;
@@ -11,4 +11,6 @@ export class Project {
     start:any;
     end:any;
     active:any;
+    status: any;
+    procentage: any;
 }
