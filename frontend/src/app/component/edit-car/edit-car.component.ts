@@ -84,6 +84,10 @@ export class EditCarComponent implements OnInit {
     this.getUsers();
   }
 
+  ngAfterViewInit(){
+    this.getData();
+  }
+
   get f(){
     return this.form.controls;
   }
@@ -140,8 +144,9 @@ export class EditCarComponent implements OnInit {
           progressBar: true
         });
         this.submitted = false;
+        this.ngAfterViewInit();
       }else{
-        this.toastr.error('Došlo je do greške, molimo pokušajte ponovo', '', {
+        this.toastr.error('Dokument mora biti u jpg, bmp ili png formatu', '', {
           timeOut: 2000,
           progressBar: true
         });

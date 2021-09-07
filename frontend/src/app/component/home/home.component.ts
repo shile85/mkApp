@@ -85,4 +85,8 @@ export class HomeComponent implements OnInit {
     });
   }
 
+  editTask(id){
+    this.router.navigate(['/editTask'], {queryParams: {id:id}});
+  }
+
 }

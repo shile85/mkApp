@@ -198,7 +198,7 @@ export class EditUserProfileComponent implements OnInit {
           progressBar: true
         });
         this.submitted = false;
-        this.ngAfterViewInit()
+        this.ngAfterViewInit();
         
       }else{
         this.toastr.error('Došlo je do greške, molimo pokušajte ponovo', '', {

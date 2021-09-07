@@ -197,8 +197,8 @@ class UserController extends Controller
             $path = 'profileImg/'. $compPic; 
             $user = User::find($id);
             if ($user->image) {
-                if ($image != 'public/profileImg/test.jpeg') {
-                    Storage::delete($image);
+                if ($user->image != 'public/profileImg/test.jpeg') {
+                    Storage::delete($user->image);
                 }
             }
             $user->image = $path;
@@ -244,6 +244,8 @@ class UserController extends Controller
                     $document->delete();
                 }
             }
+
+            
             $user->delete();
 
             $response['status'] = 1;

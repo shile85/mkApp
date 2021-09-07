@@ -151,6 +151,4 @@ Route::get('getTaskById/{id}', 'App\Http\Controllers\TaskController@getTaskById'
 Route::put('changeTaskStatus/{id}', 'App\Http\Controllers\TaskController@changeTaskStatus');
 
 
-// TEST
-Route::get('getProjectProgress/{id}', 'App\Http\Controllers\TaskController@getProjectProgress');
 
