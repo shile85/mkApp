@@ -1,62 +1,59 @@
 <div class="hold-transition login-page">
-<div class="login-box">
-  <!-- /.login-logo -->
-  <div class="card card-outline card-primary">
-    <div class="card-header text-center">
-        <img class="img-fluid" src="assets/img/logo/logo.jpg" alt="Logo">
-    </div>
-    <div class="card-body">
-      <p class="login-box-msg">Prijava na mkApp</p>
-
-      <form (ngSubmit)="submit()" [formGroup]="form">
-        <div class="input-group mb-3">
-          <input type="email" placeholder="Email" autocomplete="email" formControlName="email" class="form-control" placeholder="Email" [ngClass]="{'is-invalid' : submitted  && f.email.errors}" required>
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-envelope"></span>
-            </div>
-          </div>
-          <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
-            <div *ngIf="f.email.errors.required">
-              Molim vas unesite email. Email je obavezno polje.
-            </div>
-            <div *ngIf="f.email.errors.email">
-              Email je u neispravnom formatu
-            </div>
-          </div>
+  <div class="login-box">
+     <!-- /.login-logo -->
+     <div class="card card-outline card-primary">
+        <div class="card-header text-center">
+           <img class="img-fluid" src="assets/img/logo/logo.jpg" alt="Logo">
         </div>
-        <div class="input-group mb-3">
-          <input type="password" placeholder="Lozinka" autocomplete="password" formControlName="password" class="form-control" placeholder="Lozinka" [ngClass]="{'is-invalid' : submitted  && f.password.errors}" required>
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-lock"></span>
-            </div>
-          </div>
-          <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-            <div *ngIf="f.password.errors.required">
-              Molim vas unesite šifru. Šifra je obavezno polje
-            </div>
-            <div *ngIf="f.password.errors.minlength">
-              Šifra mora sadržati minimum 6 karaktera
-            </div>
-          </div>
+        <div class="card-body">
+           <p class="login-box-msg">Prijava na mkApp</p>
+           <form (ngSubmit)="submit()" [formGroup]="form">
+           <div class="input-group mb-3">
+              <input type="email" placeholder="Email" autocomplete="email" formControlName="email" class="form-control" placeholder="Email" [ngClass]="{'is-invalid' : submitted  && f.email.errors}" required>
+              <div class="input-group-append">
+                 <div class="input-group-text">
+                    <span class="fas fa-envelope"></span>
+                 </div>
+              </div>
+              <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                 <div *ngIf="f.email.errors.required">
+                    Molim vas unesite email. Email je obavezno polje.
+                 </div>
+                 <div *ngIf="f.email.errors.email">
+                    Email je u neispravnom formatu
+                 </div>
+              </div>
+           </div>
+           <div class="input-group mb-3">
+              <input type="password" placeholder="Lozinka" autocomplete="password" formControlName="password" class="form-control" placeholder="Lozinka" [ngClass]="{'is-invalid' : submitted  && f.password.errors}" required>
+              <div class="input-group-append">
+                 <div class="input-group-text">
+                    <span class="fas fa-lock"></span>
+                 </div>
+              </div>
+              <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                 <div *ngIf="f.password.errors.required">
+                    Molim vas unesite šifru. Šifra je obavezno polje
+                 </div>
+                 <div *ngIf="f.password.errors.minlength">
+                    Šifra mora sadržati minimum 6 karaktera
+                 </div>
+              </div>
+           </div>
+           <div class="row">
+              <button type="submit" class="btn btn-primary btn-block">Prijavite se</button>
+           </div>
+           </form>
         </div>
-        <div class="row">
-            <button type="submit" class="btn btn-primary btn-block">Prijavite se</button>
-        </div>
-      </form>
-    </div>
-    <!-- /.card-body -->
+        <!-- /.card-body -->
+     </div>
+     <!-- /.card -->
   </div>
-  <!-- /.card -->
+  <!-- /.login-box -->
+  <!-- jQuery -->
+  <script src="../../plugins/jquery/jquery.min.js"></script>
+  <!-- Bootstrap 4 -->
+  <script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- AdminLTE App -->
+  <script src="../../dist/js/adminlte.min.js"></script>
 </div>
-<!-- /.login-box -->
-
-<!-- jQuery -->
-<script src="../../plugins/jquery/jquery.min.js"></script>
-<!-- Bootstrap 4 -->
-<script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- AdminLTE App -->
-<script src="../../dist/js/adminlte.min.js"></script>
-</div>
-

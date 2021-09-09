@@ -1,117 +1,103 @@
 <!DOCTYPE html>
-<!--
-This is a starter template page. Use this page to start your new project from
-scratch. This page gets rid of all links and provides the needed markup only.
--->
-
 <body class="hold-transition sidebar-mini">
-<div class="wrapper">
-
-  <!-- Navbar -->
-  <div class="main-header">
-    <app-navbar></app-navbar>
-  </div>
-  <!-- /.navbar -->
-
-  <!-- Main Sidebar Container -->
-  <aside class="main-sidebar sidebar-dark-primary elevation-4">
-    <app-sidebar></app-sidebar>
-  </aside>
-
-  <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <div class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1 class="m-0">Klijenti</h1>
-          </div><!-- /.col -->
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="/home">Početna</a></li>
-              <li class="breadcrumb-item">Klijenti</li>
-            </ol>
-          </div><!-- /.col -->
-        </div><!-- /.row -->
-      </div><!-- /.container-fluid -->
-    </div>
-    <!-- /.content-header -->
-
-    <!-- Main content -->
-    <div class="container-fluid">
-        <div class="row">
-          <div class="col-12">
-            <div class="card">
-              <div class="card-header">
-                <h3 class="card-title">Klijenti:</h3>
-              </div>
-              <!-- /.card-header -->
-              <div class="card-body">
-                <form>
-                  <div class="form-group form-inline">
-                    Pretraga: 
-                    <input class="form-control ml-2" type="text" name="searchTerm" [(ngModel)]="searchTerm"
-                            (input)="search($event.target.value)" />
-                  </div>
-                </form>
-                <table class="table table-hover table-sm">
-                  <thead>
-                  <tr>
-                    <th>Ime</th>
-                    <th>Arhiviraj</th>
-                  </tr>
-                  </thead>
-                  <tbody>
-                    <tr *ngFor="let company of companies | listFilter: searchTerm | slice: (page-1) * pageSize : page * pageSize; index as i" >
-                    
-                    <td>{{company.name}}</td>
-                    <td><button type="button" class="btn-danger rounded" (click)="deleteCompany(company.id)"><span class="fas fa-user-slash"></span></button></td>
-                  </tr>
-                  
-                  </tbody>
-                  
-                </table>
-                
-              </div>
-              <!-- /.card-body -->
-              <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [maxSize]="5" [boundaryLinks]="true"
-                [pageSize]="pageSize" class="d-flex justify-content-center"></ngb-pagination>
-            </div>
-            <!-- /.card -->
-          </div>
-          <!-- /.col -->
-        </div>
-        <!-- /.row -->
+   <div class="wrapper">
+      <!-- Navbar -->
+      <div class="main-header">
+         <app-navbar></app-navbar>
       </div>
-    <!-- /.content -->
-  </div>
-  <!-- /.content-wrapper -->
-
-  <!-- Control Sidebar -->
-  <aside class="control-sidebar control-sidebar-dark">
-    <!-- Control sidebar content goes here -->
-    <div class="p-3">
-      <h5>Title</h5>
-      <p>Sidebar content</p>
-    </div>
-  </aside>
-  <!-- /.control-sidebar -->
-
-  <!-- Main Footer -->
-  <footer class="main-footer">
-    <app-footer></app-footer>
-  </footer>
-</div>
-<!-- ./wrapper -->
-
-<!-- REQUIRED SCRIPTS -->
-
-<!-- jQuery -->
-<script src="plugins/jquery/jquery.min.js"></script>
-<!-- Bootstrap 4 -->
-<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- AdminLTE App -->
-<script src="dist/js/adminlte.min.js"></script>
+      <!-- /.navbar -->
+      <!-- Main Sidebar Container -->
+      <aside class="main-sidebar sidebar-dark-primary elevation-4">
+         <app-sidebar></app-sidebar>
+      </aside>
+      <!-- Content Wrapper. Contains page content -->
+      <div class="content-wrapper">
+         <!-- Content Header (Page header) -->
+         <div class="content-header">
+            <div class="container-fluid">
+               <div class="row mb-2">
+                  <div class="col-sm-6">
+                     <h1 class="m-0">Klijenti</h1>
+                  </div>
+                  <!-- /.col -->
+                  <div class="col-sm-6">
+                     <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="/home">Početna</a></li>
+                        <li class="breadcrumb-item">Klijenti</li>
+                     </ol>
+                  </div>
+                  <!-- /.col -->
+               </div>
+               <!-- /.row -->
+            </div>
+            <!-- /.container-fluid -->
+         </div>
+         <!-- /.content-header -->
+         <!-- Main content -->
+         <div class="container-fluid">
+            <div class="row">
+               <div class="col-12">
+                  <div class="card">
+                     <div class="card-header">
+                        <h3 class="card-title">Klijenti:</h3>
+                     </div>
+                     <!-- /.card-header -->
+                     <div class="card-body">
+                        <form>
+                           <div class="form-group form-inline">
+                              Pretraga: 
+                              <input class="form-control ml-2" type="text" name="searchTerm" [(ngModel)]="searchTerm"
+                              (input)="search($event.target.value)" />
+                           </div>
+                        </form>
+                        <table class="table table-hover table-sm">
+                           <thead>
+                              <tr>
+                                 <th>Ime</th>
+                                 <th>Arhiviraj</th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <tr *ngFor="let company of companies | listFilter: searchTerm | slice: (page-1) * pageSize : page * pageSize; index as i" >
+                                 <td>{{company.name}}</td>
+                                 <td><button type="button" class="btn-danger rounded" (click)="deleteCompany(company.id)"><span class="fas fa-user-slash"></span></button></td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                     <!-- /.card-body -->
+                     <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [maxSize]="5" [boundaryLinks]="true"
+                     [pageSize]="pageSize" class="d-flex justify-content-center"></ngb-pagination>
+                  </div>
+                  <!-- /.card -->
+               </div>
+               <!-- /.col -->
+            </div>
+            <!-- /.row -->
+         </div>
+         <!-- /.content -->
+      </div>
+      <!-- /.content-wrapper -->
+      <!-- Control Sidebar -->
+      <aside class="control-sidebar control-sidebar-dark">
+         <!-- Control sidebar content goes here -->
+         <div class="p-3">
+            <h5>Title</h5>
+            <p>Sidebar content</p>
+         </div>
+      </aside>
+      <!-- /.control-sidebar -->
+      <!-- Main Footer -->
+      <footer class="main-footer">
+         <app-footer></app-footer>
+      </footer>
+   </div>
+   <!-- ./wrapper -->
+   <!-- REQUIRED SCRIPTS -->
+   <!-- jQuery -->
+   <script src="plugins/jquery/jquery.min.js"></script>
+   <!-- Bootstrap 4 -->
+   <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+   <!-- AdminLTE App -->
+   <script src="dist/js/adminlte.min.js"></script>
 </body>
-

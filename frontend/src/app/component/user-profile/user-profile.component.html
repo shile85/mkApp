@@ -1,309 +1,280 @@
-
 <body class="hold-transition sidebar-mini">
-<div class="wrapper">
-
-  <!-- Navbar -->
-  <div class="main-header">
-    <app-navbar></app-navbar>
-  </div>
-  <!-- /.navbar -->
-
-  <!-- Main Sidebar Container -->
-  <aside class="main-sidebar sidebar-dark-primary elevation-4">
-    <app-sidebar></app-sidebar>
-  </aside>
-      <!-- /.sidebar -->
-
-
-  <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1>Profil korisnika</h1>
-          </div>
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="home">Početna</a></li>
-              <li class="breadcrumb-item"><a href="users">Korisnici</a></li>
-              <li class="breadcrumb-item active">{{user.first_name}} {{user.last_name}}</li>
-            </ol>
-          </div>
+  <div class="wrapper">
+     <!-- Navbar -->
+     <div class="main-header">
+        <app-navbar></app-navbar>
+     </div>
+     <!-- /.navbar -->
+     <!-- Main Sidebar Container -->
+     <aside class="main-sidebar sidebar-dark-primary elevation-4">
+        <app-sidebar></app-sidebar>
+     </aside>
+     <!-- /.sidebar -->
+     <!-- Content Wrapper. Contains page content -->
+     <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+           <div class="container-fluid">
+              <div class="row mb-2">
+                 <div class="col-sm-6">
+                    <h1>Profil korisnika</h1>
+                 </div>
+                 <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                       <li class="breadcrumb-item"><a href="home">Početna</a></li>
+                       <li class="breadcrumb-item"><a href="users">Korisnici</a></li>
+                       <li class="breadcrumb-item active">{{user.first_name}} {{user.last_name}}</li>
+                    </ol>
+                 </div>
+              </div>
+           </div>
+           <!-- /.container-fluid -->
+        </section>
+        <!-- Main content -->
+        <section class="content">
+           <div class="container-fluid">
+              <div class="row">
+                 <div class="col-md-3">
+                    <!-- Profile Image -->
+                    <div class="card card-primary card-outline">
+                       <div class="card-body box-profile">
+                          <div class="text-center">
+                             <img class="profile-user-img img-fluid img-circle"
+                                src="http://127.0.0.1:8000/storage/{{user.image}}"
+                                alt="User profile picture">
+                          </div>
+                          <h3 class="profile-username text-center">{{user.first_name}} {{user.last_name}}</h3>
+                          <p class="text-muted text-center">{{user.position}}</p>
+                          <hr>
+                          <strong><i class="fas fa-envelope mr-1"></i> Email</strong>
+                          <p class="text-muted">
+                             {{user.email}}
+                          </p>
+                          <hr>
+                          <strong><i class="fas fa-map-marker-alt mr-1"></i> Adresa</strong>
+                          <p class="text-muted">{{user.address}}</p>
+                          <hr>
+                          <strong><i class="fas fa-city mr-1"></i> Grad</strong>
+                          <p class="text-muted">{{user.city}}</p>
+                          <hr>
+                          <strong><i class="fas fa-phone mr-1"></i> Službeni telefon</strong>
+                          <p class="text-muted">{{user.businessPhone}}</p>
+                       </div>
+                       <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                    <div class="card">
+                       <div class="card-header">
+                          <h3 class="card-title">Dokumenta korisnika</h3>
+                       </div>
+                       <!-- /.card-header -->
+                       <div class="card-body p-0">
+                          <table class="table table-sm">
+                             <thead>
+                                <tr>
+                                   <th>Naziv dokumenta</th>
+                                </tr>
+                             </thead>
+                             <tbody>
+                                <tr *ngFor="let userDocument of userProfileDocuments">
+                                   <td><a href="http://127.0.0.1:8000/storage/{{userDocument.documentPath}}" target="_blank">{{userDocument.category}}</a></td>
+                                </tr>
+                             </tbody>
+                          </table>
+                       </div>
+                       <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                 </div>
+                 <!-- /.col -->
+                 <div class="col-md-9">
+                    <div *ngIf="projectsLength > 0" class="col-12">
+                       <div class="card">
+                          <div class="card-header">
+                             <h3 class="card-title">Projekti:</h3>
+                          </div>
+                          <!-- /.card-header -->
+                          <div class="card-body">
+                             <table class="table table-striped projects">
+                                <thead>
+                                   <tr>
+                                      <th style="width: 1%">
+                                         Id
+                                      </th>
+                                      <th style="width: 15%">
+                                         Naziv projekta
+                                      </th>
+                                      <th style="width: 15%">
+                                         Menadžer projekta
+                                      </th>
+                                      <th style="width: 15%">
+                                         Tim
+                                      </th>
+                                      <th style="width: 20%">
+                                         Napredak projekta
+                                      </th>
+                                      <th style="width: 5%" class="text-center">
+                                         Status
+                                      </th>
+                                      <th style="width: 20%">
+                                      </th>
+                                   </tr>
+                                </thead>
+                                <tbody>
+                                   <tr *ngFor="let project of projects">
+                                      <td (click)="projectDetails(project.id);">
+                                         {{project.id}}
+                                      </td>
+                                      <td (click)="projectDetails(project.id);">
+                                         <a>
+                                         {{project.name}}
+                                         </a>
+                                         <br/>
+                                         <small>
+                                         Početak {{project.start}}
+                                         </small>
+                                      </td>
+                                      <td>
+                                         {{project.projectManager}}
+                                      </td>
+                                      <td>
+                                         <ul class="list-inline">
+                                            <li class="list-inline-item">
+                                               <img *ngFor="let task of project.tasks" (click)="taskDetails(task.id);" alt="Avatar" class="table-avatar" src="http://127.0.0.1:8000/storage/{{task.userPhoto}}">
+                                            </li>
+                                         </ul>
+                                      </td>
+                                      <td class="project_progress" >
+                                         <div class="progress progress-sm">
+                                            <div class="progress-bar bg-green" role="progressbar" aria-valuenow="{{project.procentage}}" aria-valuemin="0" aria-valuemax="100" style="width: {{project.procentage}}%">
+                                            </div>
+                                         </div>
+                                         <small>
+                                         {{project.procentage}}% Završen
+                                         </small>
+                                      </td>
+                                      <td class="project-state" >
+                                         <span *ngIf="project.procentage == 100; else elseBlock" class="badge badge-success">Zaršen</span>
+                                         <ng-template #elseBlock>
+                                            <span class="badge badge-warning">U toku</span>
+                                         </ng-template>
+                                      </td>
+                                      <td class="project-actions text-right">
+                                         <a class="btn btn-primary btn-sm" (click)="projectDetails(project.id)">
+                                         <i class="fas fa-folder">
+                                         </i>
+                                         Detalji
+                                         </a>
+                                         <a *ngIf="roleId == '1' || userId == project.projectManagerId" class="btn btn-info btn-sm" (click)="editProject(project.id)">
+                                         <i class="fas fa-pencil-alt">
+                                         </i>
+                                         Izmeni
+                                         </a>
+                                         <a *ngIf="roleId == '1' || userId == project.projectManagerId" class="btn btn-danger btn-sm" (click)="deleteProject(project.id)">
+                                         <i class="fas fa-folder-open">
+                                         </i>
+                                         Arhiviraj
+                                         </a>
+                                      </td>
+                                   </tr>
+                                </tbody>
+                             </table>
+                          </div>
+                          <!-- /.card-body -->
+                       </div>
+                       <!-- /.card -->
+                    </div>
+                    <!-- /.col -->
+                    <div *ngIf="tasksLength > 0" class="col-12">
+                       <div class="card">
+                          <div class="card-header">
+                             <h3 class="card-title">Zaduženja:</h3>
+                          </div>
+                          <!-- /.card-header -->
+                          <div class="card-body">
+                             <table class="table table-striped projects">
+                                <thead>
+                                   <tr>
+                                      <th style="width: 20%">
+                                         Zaposleni
+                                      </th>
+                                      <th style="width: 30%">
+                                         Zaduženje
+                                      </th>
+                                      <th style="width: 10%">
+                                         Status
+                                      </th>
+                                      <th style="width: 20%">
+                                      </th>
+                                   </tr>
+                                </thead>
+                                <tbody>
+                                   <tr *ngFor="let task of tasks">
+                                      <td>
+                                         <p>{{task.userName}}</p>
+                                      </td>
+                                      <td>
+                                         <p>{{task.taskName}}</p>
+                                      </td>
+                                      <td>
+                                         <p class="{{task.statusClass}}">{{task.status}}</p>
+                                      </td>
+                                      <td  class="project-actions text-right">
+                                         <a class="btn btn-primary btn-sm" (click)="taskDetails(task.id)">
+                                         <i class="fas fa-folder">
+                                         </i>
+                                         Detalji
+                                         </a>
+                                         <a *ngIf="roleId == '1' || userId == task.projectManagerId" class="btn btn-info btn-sm" (click)="editTask(task.id)">
+                                         <i class="fas fa-pencil-alt">
+                                         </i>
+                                         Izmeni
+                                         </a>
+                                         <a *ngIf="roleId == '1' || userId == task.projectManagerId" class="btn btn-danger btn-sm" (click)="destroyTask(task.id)">
+                                         <i class="fas fa-folder-open">
+                                         </i>
+                                         Ukloni
+                                         </a>
+                                      </td>
+                                   </tr>
+                                </tbody>
+                             </table>
+                          </div>
+                          <!-- /.card-body -->
+                       </div>
+                       <!-- /.card -->
+                    </div>
+                    <!-- /.col -->
+                 </div>
+                 <!-- /.col -->
+              </div>
+              <!-- /.row -->
+           </div>
+           <!-- /.container-fluid -->
+        </section>
+        <!-- /.content -->
+     </div>
+     <!-- /.content-wrapper -->
+     <!-- Control Sidebar -->
+     <aside class="control-sidebar control-sidebar-dark">
+        <!-- Control sidebar content goes here -->
+        <div class="p-3">
+           <h5>Title</h5>
+           <p>Sidebar content</p>
         </div>
-      </div><!-- /.container-fluid -->
-    </section>
-
-    <!-- Main content -->
-    <section class="content">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-md-3">
-
-            <!-- Profile Image -->
-            <div class="card card-primary card-outline">
-              <div class="card-body box-profile">
-                <div class="text-center">
-                  <img class="profile-user-img img-fluid img-circle"
-                       src="http://127.0.0.1:8000/storage/{{user.image}}"
-                       alt="User profile picture">
-                </div>
-
-                <h3 class="profile-username text-center">{{user.first_name}} {{user.last_name}}</h3>
-
-                <p class="text-muted text-center">{{user.position}}</p>
-                <hr>
-                <strong><i class="fas fa-envelope mr-1"></i> Email</strong>
-
-                <p class="text-muted">
-                  {{user.email}}
-                </p>
-
-                <hr>
-
-                <strong><i class="fas fa-map-marker-alt mr-1"></i> Adresa</strong>
-
-                <p class="text-muted">{{user.address}}</p>
-                <hr>
-
-                <strong><i class="fas fa-city mr-1"></i> Grad</strong>
-
-                <p class="text-muted">{{user.city}}</p>
-                <hr>
-
-                <strong><i class="fas fa-phone mr-1"></i> Službeni telefon</strong>
-
-                <p class="text-muted">{{user.businessPhone}}</p>
-              </div>
-              <!-- /.card-body -->
-            </div>
-            <!-- /.card -->
-            <div class="card">
-              <div class="card-header">
-                <h3 class="card-title">Dokumenta korisnika</h3>
-              </div>
-              <!-- /.card-header -->
-              <div class="card-body p-0">
-                <table class="table table-sm">
-                  <thead>
-                    <tr>
-                      <th>Naziv dokumenta</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr *ngFor="let userDocument of userProfileDocuments">
-                      <td><a href="http://127.0.0.1:8000/storage/{{userDocument.documentPath}}" target="_blank">{{userDocument.category}}</a></td>
-                      
-                    </tr>
-                    
-                  </tbody>
-                </table>
-              </div>
-              <!-- /.card-body -->
-            </div>
-            <!-- /.card -->
-          </div>
-          <!-- /.col -->
-          <div class="col-md-9">
-            <div *ngIf="projectsLength > 0" class="col-12">
-              <div class="card">
-                <div class="card-header">
-                  <h3 class="card-title">Projekti:</h3>
-                </div>
-                <!-- /.card-header -->
-                <div class="card-body">
-                  <table class="table table-striped projects">
-                      <thead>
-                          <tr>
-                              <th style="width: 1%">
-                                  Id
-                              </th>
-                              <th style="width: 15%">
-                                  Naziv projekta
-                              </th>
-                              <th style="width: 15%">
-                                  Menadžer projekta
-                              </th>
-                              <th style="width: 15%">
-                                  Tim
-                              </th>
-                              <th style="width: 20%">
-                                Napredak projekta
-                              </th>
-                              <th style="width: 5%" class="text-center">
-                                  Status
-                              </th>
-                              <th style="width: 20%">
-                              </th>
-                          </tr>
-                      </thead>
-                      <tbody>
-                          <tr *ngFor="let project of projects">
-                              <td (click)="projectDetails(project.id);">
-                                  {{project.id}}
-                              </td>
-                              <td (click)="projectDetails(project.id);">
-                                  <a>
-                                      {{project.name}}
-                                  </a>
-                                  <br/>
-                                  <small>
-                                      Početak {{project.start}}
-                                  </small>
-                              </td>
-                              <td>
-                                  {{project.projectManager}}
-                              </td>
-                              <td>
-                                  <ul class="list-inline">
-                                      <li class="list-inline-item">
-                                          <img *ngFor="let task of project.tasks" (click)="taskDetails(task.id);" alt="Avatar" class="table-avatar" src="http://127.0.0.1:8000/storage/{{task.userPhoto}}">
-                                      </li>
-                                  </ul>
-                              </td>
-                              <td class="project_progress" >
-                                  <div class="progress progress-sm">
-                                      <div class="progress-bar bg-green" role="progressbar" aria-valuenow="{{project.procentage}}" aria-valuemin="0" aria-valuemax="100" style="width: {{project.procentage}}%">
-                                      </div>
-                                  </div>
-                                  <small>
-                                    {{project.procentage}}% Završen
-                                  </small>
-                              </td> 
-                              <td class="project-state" >
-                                  <span *ngIf="project.procentage == 100; else elseBlock" class="badge badge-success">Zaršen</span>
-                                  <ng-template #elseBlock>
-                                    <span class="badge badge-warning">U toku</span>
-                                  </ng-template>
-                              </td> 
-                              <td class="project-actions text-right">
-                                  <a class="btn btn-primary btn-sm" (click)="projectDetails(project.id)">
-                                      <i class="fas fa-folder">
-                                      </i>
-                                      Detalji
-                                  </a>
-                                  <a *ngIf="roleId == '1' || userId == project.projectManagerId" class="btn btn-info btn-sm" (click)="editProject(project.id)">
-                                      <i class="fas fa-pencil-alt">
-                                      </i>
-                                      Izmeni
-                                  </a>
-                                  <a *ngIf="roleId == '1' || userId == project.projectManagerId" class="btn btn-danger btn-sm" (click)="deleteProject(project.id)">
-                                      <i class="fas fa-folder-open">
-                                      </i>
-                                      Arhiviraj
-                                  </a>
-                              </td>
-                          </tr>
-                          
-                      </tbody>
-                  </table>
-                  
-                </div>
-                <!-- /.card-body -->
-              </div>
-              <!-- /.card -->
-            </div>
-            <!-- /.col -->
-            <div *ngIf="tasksLength > 0" class="col-12">
-              <div class="card">
-                <div class="card-header">
-                  <h3 class="card-title">Zaduženja:</h3>
-                </div>
-                <!-- /.card-header -->
-                <div class="card-body">
-                  <table class="table table-striped projects">
-                    <thead>
-                        <tr>
-                          <th style="width: 20%">
-                            Zaposleni
-                          </th>
-                            <th style="width: 30%">
-                                Zaduženje
-                            </th>
-                            <th style="width: 10%">
-                              Status
-                          </th>
-                            <th style="width: 20%">
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let task of tasks">
-                            <td>
-                                <p>{{task.userName}}</p>
-                            </td>
-
-                            <td>
-                                <p>{{task.taskName}}</p>
-                            </td>
-
-                            <td>
-                              <p class="{{task.statusClass}}">{{task.status}}</p>
-                          </td>
-
-                            <td  class="project-actions text-right">
-                                <a class="btn btn-primary btn-sm" (click)="taskDetails(task.id)">
-                                    <i class="fas fa-folder">
-                                    </i>
-                                    Detalji
-                                </a>
-                                <a *ngIf="roleId == '1' || userId == task.projectManagerId" class="btn btn-info btn-sm" (click)="editTask(task.id)">
-                                    <i class="fas fa-pencil-alt">
-                                    </i>
-                                    Izmeni
-                                </a>
-                                <a *ngIf="roleId == '1' || userId == task.projectManagerId" class="btn btn-danger btn-sm" (click)="destroyTask(task.id)">
-                                    <i class="fas fa-folder-open">
-                                    </i>
-                                    Ukloni
-                                </a>
-                            </td>
-                        </tr>
-                        
-                    </tbody>
-                </table>
-                  
-                </div>
-                <!-- /.card-body -->
-              </div>
-              <!-- /.card -->
-            </div>
-            <!-- /.col -->
-          </div>
-          <!-- /.col -->
-
-        </div>
-        <!-- /.row -->
-      </div><!-- /.container-fluid -->
-    </section>
-    <!-- /.content -->
+     </aside>
+     <!-- /.control-sidebar -->
+     <!-- Main Footer -->
+     <footer class="main-footer">
+        <app-footer></app-footer>
+     </footer>
   </div>
-  <!-- /.content-wrapper -->
-
-  <!-- Control Sidebar -->
-  <aside class="control-sidebar control-sidebar-dark">
-    <!-- Control sidebar content goes here -->
-    <div class="p-3">
-      <h5>Title</h5>
-      <p>Sidebar content</p>
-    </div>
-  </aside>
-  <!-- /.control-sidebar -->
-
-  <!-- Main Footer -->
-  <footer class="main-footer">
-    <app-footer></app-footer>
-  </footer>
-</div>
-<!-- ./wrapper -->
-
-<!-- REQUIRED SCRIPTS -->
-
-<!-- jQuery -->
-<script src="plugins/jquery/jquery.min.js"></script>
-<!-- Bootstrap 4 -->
-<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- AdminLTE App -->
-<script src="dist/js/adminlte.min.js"></script>
+  <!-- ./wrapper -->
+  <!-- REQUIRED SCRIPTS -->
+  <!-- jQuery -->
+  <script src="plugins/jquery/jquery.min.js"></script>
+  <!-- Bootstrap 4 -->
+  <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- AdminLTE App -->
+  <script src="dist/js/adminlte.min.js"></script>
 </body>

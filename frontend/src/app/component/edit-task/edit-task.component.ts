@@ -121,7 +121,4 @@ export class EditTaskComponent implements OnInit {
     this.router.navigate(['/projectDetails'], {queryParams: {id:id}});
   }
 
-
-  
-
 }

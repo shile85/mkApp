@@ -1,120 +1,102 @@
 <body class="hold-transition sidebar-mini">
-    <div class="wrapper">
-    
-      <!-- Navbar -->
-
-      <div class="main-header">
-          <app-navbar></app-navbar>
-      </div>
-        
-      
-
-      <!-- /.navbar -->
-    
-
-      <!-- Main Sidebar Container -->
-      <aside class="main-sidebar sidebar-dark-primary elevation-4">
+  <div class="wrapper">
+     <!-- Navbar -->
+     <div class="main-header">
+        <app-navbar></app-navbar>
+     </div>
+     <!-- /.navbar -->
+     <!-- Main Sidebar Container -->
+     <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <app-sidebar></app-sidebar>
-      </aside>
-
-  <!-- /.Main sidebar -->
-
-      
-      <!-- Content Wrapper. Contains page content -->
-      <div class="content-wrapper">
+     </aside>
+     <!-- /.Main sidebar -->
+     <!-- Content Wrapper. Contains page content -->
+     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <div class="content-header">
-          <div class="container-fluid">
-            <div class="row mb-2">
-              <div class="col-sm-6">
-                <h1 class="m-0">Lista arhiviranih korisnika</h1>
-              </div><!-- /.col -->
-              <div class="col-sm-6">
-                <ol class="breadcrumb float-sm-right">
-                  <li class="breadcrumb-item"><a href="/home">Home</a></li>
-                </ol>
-              </div><!-- /.col -->
-            </div><!-- /.row -->
-          </div><!-- /.container-fluid -->
+           <div class="container-fluid">
+              <div class="row mb-2">
+                 <div class="col-sm-6">
+                    <h1 class="m-0">Lista arhiviranih korisnika</h1>
+                 </div>
+                 <!-- /.col -->
+                 <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                       <li class="breadcrumb-item"><a href="/home">Home</a></li>
+                    </ol>
+                 </div>
+                 <!-- /.col -->
+              </div>
+              <!-- /.row -->
+           </div>
+           <!-- /.container-fluid -->
         </div>
         <!-- /.content-header -->
-
         <!-- Main content -->
         <div class="container-fluid">
-            <div class="row">
+           <div class="row">
               <div class="col-12">
-                <div class="card">
-                  <div class="card-header">
-                    <h3 class="card-title">Zaposleni:</h3>
-                  </div>
-                  <!-- /.card-header -->
-                  <div class="card-body">
-                    <form>
-                      <div class="form-group form-inline">
-                        Pretraga: 
-                        <input class="form-control ml-2" type="text" name="searchTerm" [(ngModel)]="searchTerm"
-                                (input)="search($event.target.value)" />
-                      </div>
-                    </form>
-                    <table class="table table-hover table-sm">
-                      <thead>
-                      <tr>
-                        <th>Ime</th>
-                        <th>Prezime</th>
-                        <th>Korisničko ime</th>
-                        <th>Email</th>
-                        <th>Uloga</th>
-                        <th *ngIf="roleId == '1'">Aktiviraj/Obriši</th>
-                      </tr>
-                      </thead>
-                      <tbody>
-                        <tr *ngFor="let user of users | listFilter: searchTerm | slice: (page-1) * pageSize : page * pageSize; index as i" >
-                        
-                        <td (click)="userProfile(user.id);">{{user.first_name}}</td>
-                        <td (click)="userProfile(user.id);">{{user.last_name}}</td>
-                        <td (click)="userProfile(user.id);">{{user.name}}</td>
-                        <td (click)="userProfile(user.id);"> {{user.email}}</td>
-                        <td (click)="userProfile(user.id);">{{user.role}}</td>
-                        <td *ngIf="roleId == '1'"><button type="button" class="btn-success rounded" (click)="activateUser(user.id)"><span class="fas fa-user-plus"></span></button> / <button type="button" class="btn-danger rounded" (click)="deleteUser(user.id)"><span class="fas fa-user-minus"></span></button></td>
-                      </tr>
-                      
-                      </tbody>
-                      
-                    </table>
-                    
-                  </div>
-                  <!-- /.card-body -->
-                  <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [maxSize]="5" [boundaryLinks]="true"
+                 <div class="card">
+                    <div class="card-header">
+                       <h3 class="card-title">Zaposleni:</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                       <form>
+                          <div class="form-group form-inline">
+                             Pretraga: 
+                             <input class="form-control ml-2" type="text" name="searchTerm" [(ngModel)]="searchTerm"
+                             (input)="search($event.target.value)" />
+                          </div>
+                       </form>
+                       <table class="table table-hover table-sm">
+                          <thead>
+                             <tr>
+                                <th>Ime</th>
+                                <th>Prezime</th>
+                                <th>Korisničko ime</th>
+                                <th>Email</th>
+                                <th>Uloga</th>
+                                <th *ngIf="roleId == '1'">Aktiviraj/Obriši</th>
+                             </tr>
+                          </thead>
+                          <tbody>
+                             <tr *ngFor="let user of users | listFilter: searchTerm | slice: (page-1) * pageSize : page * pageSize; index as i" >
+                                <td (click)="userProfile(user.id);">{{user.first_name}}</td>
+                                <td (click)="userProfile(user.id);">{{user.last_name}}</td>
+                                <td (click)="userProfile(user.id);">{{user.name}}</td>
+                                <td (click)="userProfile(user.id);"> {{user.email}}</td>
+                                <td (click)="userProfile(user.id);">{{user.role}}</td>
+                                <td *ngIf="roleId == '1'"><button type="button" class="btn-success rounded" (click)="activateUser(user.id)"><span class="fas fa-user-plus"></span></button> / <button type="button" class="btn-danger rounded" (click)="deleteUser(user.id)"><span class="fas fa-user-minus"></span></button></td>
+                             </tr>
+                          </tbody>
+                       </table>
+                    </div>
+                    <!-- /.card-body -->
+                    <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [maxSize]="5" [boundaryLinks]="true"
                     [pageSize]="pageSize" class="d-flex justify-content-center"></ngb-pagination>
-                </div>
-                <!-- /.card -->
+                 </div>
+                 <!-- /.card -->
               </div>
               <!-- /.col -->
-            </div>
-            <!-- /.row -->
-          </div>
-          <!-- /.container-fluid -->
+           </div>
+           <!-- /.row -->
+        </div>
+        <!-- /.container-fluid -->
         <!-- /.content -->
-      </div>
-      
-      <!-- /.content-wrapper -->
-
-      <!-- Main Footer -->
-      <footer class="main-footer">
+     </div>
+     <!-- /.content-wrapper -->
+     <!-- Main Footer -->
+     <footer class="main-footer">
         <app-footer></app-footer>
-      </footer>
-    </div>
-    <!-- ./wrapper -->
-    
-    <!-- REQUIRED SCRIPTS -->
-    
-    <!-- jQuery -->
-    <script src="/../../assets/plugins/jquery/jquery.js"></script>
-    <!-- Bootstrap 4 -->
-    <script src="/../../assets/plugins/bootstrap/js/bootstrap.bundle.js"></script>
-   
-    <!-- AdminLTE App -->
-    <script src="/../../assets/dist/js/adminlte.js"></script>
-    
+     </footer>
+  </div>
+  <!-- ./wrapper -->
+  <!-- REQUIRED SCRIPTS -->
+  <!-- jQuery -->
+  <script src="/../../assets/plugins/jquery/jquery.js"></script>
+  <!-- Bootstrap 4 -->
+  <script src="/../../assets/plugins/bootstrap/js/bootstrap.bundle.js"></script>
+  <!-- AdminLTE App -->
+  <script src="/../../assets/dist/js/adminlte.js"></script>
 </body>
-

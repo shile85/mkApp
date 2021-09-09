@@ -330,6 +330,7 @@ class TaskController extends Controller
 
         if (!empty($tasksDoneCount)) {
             $procent = ($tasksDoneCount*100)/$tasksAllCount;
+            $procent = round($procent);
         }else{
             $procent = 0;
         }

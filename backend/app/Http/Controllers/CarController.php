@@ -31,7 +31,7 @@ class CarController extends Controller
                 $carsMod[]= array(
                     'id' => $car['id'],
                     'model' => $car['model'],
-                    'registratison' => $car['registratison'],
+                    'registration' => $car['registration'],
                     'user_id' => $car['user_id'],
                     'image_path' => $car['image_path'],
                     'document_path' => $car['document_path'],
@@ -41,7 +41,7 @@ class CarController extends Controller
                 $carsMod[]= array(
                     'id' => $car['id'],
                     'model' => $car['model'],
-                    'registratison' => $car['registratison'],
+                    'registration' => $car['registration'],
                     'user_id' => $car['user_id'],
                     'image_path' => $car['image_path'],
                     'document_path' => $car['document_path'],

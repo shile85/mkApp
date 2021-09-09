@@ -1,157 +1,155 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
-    <!-- Brand Logo -->
-    <a href="home" class="brand-link">
-      <img src="assets/img/logo/nekedLogo.jpg" alt="MK Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">Mikro Kontrol </span>
-    </a>
-
-    <!-- Sidebar -->
-    <div class="sidebar">
-      <!-- Sidebar user panel (optional) -->
-      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+  <!-- Brand Logo -->
+  <a href="home" class="brand-link">
+  <img src="assets/img/logo/nekedLogo.jpg" alt="MK Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+  <span class="brand-text font-weight-light">Mikro Kontrol </span>
+  </a>
+  <!-- Sidebar -->
+  <div class="sidebar">
+     <!-- Sidebar user panel (optional) -->
+     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="http://127.0.0.1:8000/storage/{{image}}" class="img-circle elevation-2" alt="User Image">
+           <img src="http://127.0.0.1:8000/storage/{{image}}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a routerLink='' (click)="userProfile();" class="d-block">{{firstName}} {{lastName}}</a>
+           <a routerLink='' (click)="userProfile();" class="d-block">{{firstName}} {{lastName}}</a>
         </div>
-      </div>
-
-      <!-- Sidebar Menu -->
-      <nav class="mt-2">
+     </div>
+     <!-- Sidebar Menu -->
+     <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
-          <!-- KORISNICI -->
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-users"></i>
-              <p>
-                Korisnici
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>  
-            <ul class="nav nav-treeview">
-              <li *ngIf="roleId == '1' || roleId == '2'" class="nav-item">
-                <a href="/register" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Dodaj korisnika</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="/users" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Lista korisnika</p>
-                </a>
-              </li>
-              <li *ngIf="roleId == '1'" class="nav-item">
-                <a href="/archivedUsers" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Arhivirani korisnici</p>
-                </a>
-              </li>
-            </ul>   
-          </li>
-          <!-- END KORISNICI -->
-          <!-- KLIJENTI -->
-          <li *ngIf="roleId == '1'" class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-folder-open"></i>
-              <p>
-                Klijenti
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>  
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="/addClient" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Dodaj klijenta</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="/clients" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Lista Klijenata</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="/archivedClients" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Arhivirani klijenti</p>
-                </a>
-              </li>
-            </ul>   
-          </li>
-          <!-- END KLIJENTI -->
-          <!-- PROJEKTI -->
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-project-diagram"></i>
-              <p>
-                Projekti
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>  
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="projects" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Aktivni projekti</p>
-                </a>
-              </li>
-              <li *ngIf="roleId == '1'" class="nav-item">
-                <a href="archivedProjects" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Arhivirani projekti</p>
-                </a>
-              </li>
-              <li *ngIf="roleId == '1' || roleId == '2'"  class="nav-item">
-                <a href="addProject" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Dodaj projekat</p>
-                </a>
-              </li>
-            </ul>   
-          </li>
-          <!-- END PROJEKTI -->
-          <!-- AUTOMOBILI -->
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-car"></i>
-              <p>
-                Vozila
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>  
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="cars" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Lista vozila</p>
-                </a>
-              </li>
-              <li *ngIf="roleId == '1'" class="nav-item">
-                <a href="addCar" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Dodaj Vozilo</p>
-                </a>
-            </ul>   
-          </li>
-          <!-- END AUTOMOBILI -->
-          <!-- LOG OUT -->
-          <li class="nav-item">
-            <a href="#" class="nav-link" (click)='logout()'>
-              <i class="nav-icon fas fa-sign-out-alt"></i>
-              <p>
-                Logout
-              </p>
-            </a>
-          </li>
-          <!-- END LOG OUT -->       
+           <!-- Add icons to the links using the .nav-icon class
+              with font-awesome or any other icon font library -->
+           <!-- KORISNICI -->
+           <li class="nav-item">
+              <a href="#" class="nav-link">
+                 <i class="nav-icon fas fa-users"></i>
+                 <p>
+                    Korisnici
+                    <i class="right fas fa-angle-left"></i>
+                 </p>
+              </a>
+              <ul class="nav nav-treeview">
+                 <li *ngIf="roleId == '1' || roleId == '2'" class="nav-item">
+                    <a href="/register" class="nav-link">
+                       <i class="far fa-circle nav-icon"></i>
+                       <p>Dodaj korisnika</p>
+                    </a>
+                 </li>
+                 <li class="nav-item">
+                    <a href="/users" class="nav-link">
+                       <i class="far fa-circle nav-icon"></i>
+                       <p>Lista korisnika</p>
+                    </a>
+                 </li>
+                 <li *ngIf="roleId == '1'" class="nav-item">
+                    <a href="/archivedUsers" class="nav-link">
+                       <i class="far fa-circle nav-icon"></i>
+                       <p>Arhivirani korisnici</p>
+                    </a>
+                 </li>
+              </ul>
+           </li>
+           <!-- END KORISNICI -->
+           <!-- KLIJENTI -->
+           <li *ngIf="roleId == '1'" class="nav-item">
+              <a href="#" class="nav-link">
+                 <i class="nav-icon fas fa-folder-open"></i>
+                 <p>
+                    Klijenti
+                    <i class="right fas fa-angle-left"></i>
+                 </p>
+              </a>
+              <ul class="nav nav-treeview">
+                 <li class="nav-item">
+                    <a href="/addClient" class="nav-link">
+                       <i class="far fa-circle nav-icon"></i>
+                       <p>Dodaj klijenta</p>
+                    </a>
+                 </li>
+                 <li class="nav-item">
+                    <a href="/clients" class="nav-link">
+                       <i class="far fa-circle nav-icon"></i>
+                       <p>Lista Klijenata</p>
+                    </a>
+                 </li>
+                 <li class="nav-item">
+                    <a href="/archivedClients" class="nav-link">
+                       <i class="far fa-circle nav-icon"></i>
+                       <p>Arhivirani klijenti</p>
+                    </a>
+                 </li>
+              </ul>
+           </li>
+           <!-- END KLIJENTI -->
+           <!-- PROJEKTI -->
+           <li class="nav-item">
+              <a href="#" class="nav-link">
+                 <i class="nav-icon fas fa-project-diagram"></i>
+                 <p>
+                    Projekti
+                    <i class="right fas fa-angle-left"></i>
+                 </p>
+              </a>
+              <ul class="nav nav-treeview">
+                 <li class="nav-item">
+                    <a href="projects" class="nav-link">
+                       <i class="far fa-circle nav-icon"></i>
+                       <p>Aktivni projekti</p>
+                    </a>
+                 </li>
+                 <li *ngIf="roleId == '1'" class="nav-item">
+                    <a href="archivedProjects" class="nav-link">
+                       <i class="far fa-circle nav-icon"></i>
+                       <p>Arhivirani projekti</p>
+                    </a>
+                 </li>
+                 <li *ngIf="roleId == '1' || roleId == '2'"  class="nav-item">
+                    <a href="addProject" class="nav-link">
+                       <i class="far fa-circle nav-icon"></i>
+                       <p>Dodaj projekat</p>
+                    </a>
+                 </li>
+              </ul>
+           </li>
+           <!-- END PROJEKTI -->
+           <!-- AUTOMOBILI -->
+           <li class="nav-item">
+              <a href="#" class="nav-link">
+                 <i class="nav-icon fas fa-car"></i>
+                 <p>
+                    Vozila
+                    <i class="right fas fa-angle-left"></i>
+                 </p>
+              </a>
+              <ul class="nav nav-treeview">
+                 <li class="nav-item">
+                    <a href="cars" class="nav-link">
+                       <i class="far fa-circle nav-icon"></i>
+                       <p>Lista vozila</p>
+                    </a>
+                 </li>
+                 <li *ngIf="roleId == '1'" class="nav-item">
+                    <a href="addCar" class="nav-link">
+                       <i class="far fa-circle nav-icon"></i>
+                       <p>Dodaj Vozilo</p>
+                    </a>
+              </ul>
+           </li>
+           <!-- END AUTOMOBILI -->
+           <!-- LOG OUT -->
+           <li class="nav-item">
+              <a href="#" class="nav-link" (click)='logout()'>
+                 <i class="nav-icon fas fa-sign-out-alt"></i>
+                 <p>
+                    Logout
+                 </p>
+              </a>
+           </li>
+           <!-- END LOG OUT -->       
         </ul>
-      </nav>
-      <!-- /.sidebar-menu -->
-    </div>
-    <!-- /.sidebar -->
-  </aside>
+     </nav>
+     <!-- /.sidebar-menu -->
+  </div>
+  <!-- /.sidebar -->
+</aside>

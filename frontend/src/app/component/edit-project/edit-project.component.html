@@ -1,143 +1,131 @@
 <!DOCTYPE html>
-<!--
-This is a starter template page. Use this page to start your new project from
-scratch. This page gets rid of all links and provides the needed markup only.
--->
-
 <body class="hold-transition sidebar-mini">
-<div class="wrapper">
-
-  <!-- Navbar -->
-  <div class="main-header">
-    <app-navbar></app-navbar>
-  </div>
-  <!-- /.navbar -->
-
-  <!-- Main Sidebar Container -->
-  <aside class="main-sidebar sidebar-dark-primary elevation-4">
-    <app-sidebar></app-sidebar>
-  </aside>
-
-  <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <div class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1 class="m-0">Izmena projekta</h1>
-          </div><!-- /.col -->
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="/home">Početna</a></li>
-              <li class="breadcrumb-item"><a href="/projects">Projekti</a></li>
-              <li class="breadcrumb-item active">Izmena podataka projekta</li>
-            </ol>
-          </div><!-- /.col -->
-        </div><!-- /.row -->
-      </div><!-- /.container-fluid -->
-    </div>
-    <!-- /.content-header -->
-
-    <!-- Main content -->
-    <div class="content">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-lg-6">
-            
-
-            <div class="card card-primary card-outline">
-              <div class="card-body">
-                <form (ngSubmit)="updateProjectData()" [formGroup]="form" >
-                    <div class="input-group mb-3">
-                        <div class="input-group mb-3"><label for="userId">Menadžer projekta:</label></div>
-                        <input type="text" class="form-control" formControlName="userId" [(ngModel)]="project.projectManagerName" readonly  >
-                        <div class="input-group-append">
-                          <div class="input-group-text">
-                            <span class="fas fa-user"></span>
-                          </div>
+   <div class="wrapper">
+      <!-- Navbar -->
+      <div class="main-header">
+         <app-navbar></app-navbar>
+      </div>
+      <!-- /.navbar -->
+      <!-- Main Sidebar Container -->
+      <aside class="main-sidebar sidebar-dark-primary elevation-4">
+         <app-sidebar></app-sidebar>
+      </aside>
+      <!-- Content Wrapper. Contains page content -->
+      <div class="content-wrapper">
+         <!-- Content Header (Page header) -->
+         <div class="content-header">
+            <div class="container-fluid">
+               <div class="row mb-2">
+                  <div class="col-sm-6">
+                     <h1 class="m-0">Izmena projekta</h1>
+                  </div>
+                  <!-- /.col -->
+                  <div class="col-sm-6">
+                     <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="/home">Početna</a></li>
+                        <li class="breadcrumb-item"><a href="/projects">Projekti</a></li>
+                        <li class="breadcrumb-item active">Izmena podataka projekta</li>
+                     </ol>
+                  </div>
+                  <!-- /.col -->
+               </div>
+               <!-- /.row -->
+            </div>
+            <!-- /.container-fluid -->
+         </div>
+         <!-- /.content-header -->
+         <!-- Main content -->
+         <div class="content">
+            <div class="container-fluid">
+               <div class="row">
+                  <div class="col-lg-6">
+                     <div class="card card-primary card-outline">
+                        <div class="card-body">
+                           <form (ngSubmit)="updateProjectData()" [formGroup]="form" >
+                           <div class="input-group mb-3">
+                              <div class="input-group mb-3"><label for="userId">Menadžer projekta:</label></div>
+                              <input type="text" class="form-control" formControlName="userId" [(ngModel)]="project.projectManagerName" readonly  >
+                              <div class="input-group-append">
+                                 <div class="input-group-text">
+                                    <span class="fas fa-user"></span>
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="input-group mb-3">
+                              <input type="text" class="form-control" formControlName="projectName" [(ngModel)]="project.projectName" [ngClass]="{'is-invalid' : submitted  && f.projectName.errors}" name="projectName" id="projectName" required >
+                              <div class="input-group-append">
+                                 <div class="input-group-text">
+                                    <span class="fas fa-user"></span>
+                                 </div>
+                              </div>
+                              <div *ngIf="submitted && f.projectName.errors"  class="invalid-feedback">
+                                 <div *ngIf="f.projectName.errors.required">
+                                    Molim vas unesite naziv projekta.
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="input-group mb-3">
+                              <div class="input-group mb-3"><label for="userId">Klijent:</label></div>
+                              <input type="text" class="form-control" formControlName="companyId" [(ngModel)]="project.companyName" readonly  >
+                              <div class="input-group-append">
+                                 <div class="input-group-text">
+                                    <span class="fas fa-user"></span>
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="input-group mb-3">
+                              <textarea type="text" class="form-control" formControlName="desc" [(ngModel)]="project.desc"  name="desc" id="desc" required ></textarea>
+                              <div class="input-group-append">
+                                 <div class="input-group-text">
+                                    <span class="fas fa-user"></span>
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="input-group mb-3">
+                              <input type="text" class="form-control" formControlName="budget" [(ngModel)]="project.budget" name="budget" id="budget" required >
+                              <div class="input-group-append">
+                                 <div class="input-group-text">
+                                    <span class="fas fa-user"></span>
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="input-group mb-3"><label for="start">Početak projekta:</label></div>
+                           <div class="input-group mb-3">
+                              <input type="date" formControlName="start" [(ngModel)]="project.start" class="form-control">
+                           </div>
+                           <div class="input-group mb-3"><label for="end">Kraj projekta:</label></div>
+                           <div class="input-group mb-3">
+                              <input type="date"  formControlName="end" [(ngModel)]="project.end" class="form-control">
+                           </div>
+                           <div class="row">
+                              <button type="submit" class="btn btn-primary btn-block">Izmeni</button>
+                           </div>
+                           </form>
                         </div>
-                      </div>
-                  <div class="input-group mb-3">
-                    <input type="text" class="form-control" formControlName="projectName" [(ngModel)]="project.projectName" [ngClass]="{'is-invalid' : submitted  && f.projectName.errors}" name="projectName" id="projectName" required >
-                    <div class="input-group-append">
-                      <div class="input-group-text">
-                        <span class="fas fa-user"></span>
-                      </div>
-                    </div>
-                    <div *ngIf="submitted && f.projectName.errors"  class="invalid-feedback">
-                      <div *ngIf="f.projectName.errors.required">
-                        Molim vas unesite naziv projekta.
-                      </div>
-                    </div>
+                     </div>
+                     <!-- /.card -->
                   </div>
-                  <div class="input-group mb-3">
-                    <div class="input-group mb-3"><label for="userId">Klijent:</label></div>
-                    <input type="text" class="form-control" formControlName="companyId" [(ngModel)]="project.companyName" readonly  >
-                    <div class="input-group-append">
-                      <div class="input-group-text">
-                        <span class="fas fa-user"></span>
-                      </div>
-                    </div>
-                  </div>
-                <div class="input-group mb-3">
-                    <textarea type="text" class="form-control" formControlName="desc" [(ngModel)]="project.desc"  name="desc" id="desc" required ></textarea>
-                    <div class="input-group-append">
-                      <div class="input-group-text">
-                        <span class="fas fa-user"></span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="input-group mb-3">
-                    <input type="text" class="form-control" formControlName="budget" [(ngModel)]="project.budget" name="budget" id="budget" required >
-                    <div class="input-group-append">
-                      <div class="input-group-text">
-                        <span class="fas fa-user"></span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="input-group mb-3"><label for="start">Početak projekta:</label></div>
-                  <div class="input-group mb-3">
-                    <input type="date" formControlName="start" [(ngModel)]="project.start" class="form-control">
-                  </div>
-                  <div class="input-group mb-3"><label for="end">Kraj projekta:</label></div>
-                  <div class="input-group mb-3">
-                    <input type="date"  formControlName="end" [(ngModel)]="project.end" class="form-control">
-                  </div>
-                  <div class="row">
-                    <button type="submit" class="btn btn-primary btn-block">Izmeni</button>
-                  </div>
-                </form>
-              </div>
-            </div><!-- /.card -->
-          </div>
-          <!-- /.col-md-6 -->
-          
-          <!-- /.col-md-6 -->
-        </div>
-        <!-- /.row -->
-      </div><!-- /.container-fluid -->
-    </div>
-    <!-- /.content -->
-  </div>
-  <!-- /.content-wrapper -->
-
-
-  <!-- Main Footer -->
-  <footer class="main-footer">
-    <app-footer></app-footer>
-  </footer>
-</div>
-<!-- ./wrapper -->
-
-<!-- REQUIRED SCRIPTS -->
-
-<!-- jQuery -->
-<script src="plugins/jquery/jquery.min.js"></script>
-<!-- Bootstrap 4 -->
-<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- AdminLTE App -->
-<script src="dist/js/adminlte.min.js"></script>
-
+                  <!-- /.col-md-6 -->
+                  <!-- /.col-md-6 -->
+               </div>
+               <!-- /.row -->
+            </div>
+            <!-- /.container-fluid -->
+         </div>
+         <!-- /.content -->
+      </div>
+      <!-- /.content-wrapper -->
+      <!-- Main Footer -->
+      <footer class="main-footer">
+         <app-footer></app-footer>
+      </footer>
+   </div>
+   <!-- ./wrapper -->
+   <!-- REQUIRED SCRIPTS -->
+   <!-- jQuery -->
+   <script src="plugins/jquery/jquery.min.js"></script>
+   <!-- Bootstrap 4 -->
+   <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+   <!-- AdminLTE App -->
+   <script src="dist/js/adminlte.min.js"></script>
 </body>
-
